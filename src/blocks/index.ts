@@ -8,6 +8,7 @@ import { mobile } from './mobile';
 import { immobilier } from './immobilier';
 import { ecoles } from './ecoles';
 import { sante } from './sante';
+import { commerces } from './commerces';
 
 // Sheet order, as in the plan.
-export const BLOCKS: Block[] = [risques, eau, air, bruit, internet, mobile, immobilier, ecoles, sante];
+export const BLOCKS: Block[] = [risques, eau, air, bruit, internet, mobile, immobilier, ecoles, sante, commerces];
