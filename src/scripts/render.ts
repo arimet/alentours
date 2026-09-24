@@ -24,7 +24,7 @@ const view = (v: BlockView) => {
     return el('div', { className: `fact${f.level ? ` level-${f.level}` : ''}` },
       el('dt', {}, f.label),
       el('dd', {},
-        el('span', { className: `fact-value${f.value.length > 40 ? ' is-long' : ''}` },
+        el('span', { className: 'fact-value' },
           ...(level ? [el('span', { className: 'level-icon', ariaHidden: 'true' }, level.icon), el('span', { className: 'sr-only' }, `${level.text} : `)] : []),
           f.value),
         ...(f.detail ? [el('span', { className: 'detail' }, f.detail)] : [])));
@@ -74,7 +74,8 @@ export const mountBlocks = (container: HTMLElement, blocks: Block[], ctx: Contex
     const members = g.ids.map((id) => blocks.find((b) => b.id === id)).filter((b): b is Block => !!b);
     const tocList = el('ul');
     toc?.append(el('li', {}, el('span', { className: 'toc-group' }, g.title), tocList));
-    container.append(el('h2', { className: 'group-title' }, g.title));
+    const group = el('section', { className: 'group' }, el('h2', { className: 'group-title' }, g.title));
+    container.append(group);
     for (const b of members) {
       const tocLink = el('a', { href: `#bloc-${b.id}`, onclick: (e: Event) => { e.preventDefault(); section.scrollIntoView({ behavior: 'smooth' }); } }, b.title);
       tocList.append(el('li', {}, tocLink));
@@ -84,19 +85,18 @@ export const mountBlocks = (container: HTMLElement, blocks: Block[], ctx: Contex
       if (onMap?.ids.includes(b.id)) head.append(el('button', { type: 'button', className: 'to-map', onclick: () => onMap.show(b.id) }, 'Voir sur la carte ↑'));
       const section = el('section', { className: 'block', id: `bloc-${b.id}` }, head, body);
       section.setAttribute('aria-busy', 'true');
-      container.append(section);
+      group.append(section);
       // Each block loads on its own: a slow or failing source never blocks the others.
       b.load(ctx)
         .then((v) => {
           body.replaceChildren(view(v));
           head.after(provenance(v));
           const chip = statusChip(v);
-          if (chip) { title.append(chip); tocLink.append(chip.cloneNode(true)); }
+          if (chip) title.append(chip);
           onDone?.(b, v);
         })
         .catch((e) => {
           body.replaceChildren(el('p', { className: 'error' }, `Donnée indisponible pour l’instant : ${e instanceof Error ? e.message : 'erreur inconnue'}.`));
-          tocLink.append(el('span', { className: 'toc-na' }, ' (indisponible)'));
           onDone?.(b, null);
         })
         .finally(() => section.removeAttribute('aria-busy'));
