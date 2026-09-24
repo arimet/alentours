@@ -1,0 +1,48 @@
+{
+ "data": [
+  {
+   "rs": "CH LES ESCARTONS A BRIANCON",
+   "adresse_num_voie": "24",
+   "adresse_type_voie": "AV",
+   "adresse_nom_voie": "ADRIEN DAURELLE",
+   "adresse_lib_routage": "BRIANCON CEDEX",
+   "san_med": true,
+   "geoloc_4326_lat": 44.906366,
+   "geoloc_4326_long": 6.632952,
+   "date_extract_finess": "2026-05-04"
+  },
+  {
+   "rs": "CENTRE HOSPITALIER D'EMBRUN",
+   "adresse_num_voie": "8",
+   "adresse_type_voie": "R",
+   "adresse_nom_voie": "PIERRE ET MARIE CURIE",
+   "adresse_lib_routage": "EMBRUN",
+   "san_med": true,
+   "geoloc_4326_lat": 44.561335,
+   "geoloc_4326_long": 6.492721,
+   "date_extract_finess": "2026-05-04"
+  },
+  {
+   "rs": "ANTENNE SMUR MODANE",
+   "adresse_num_voie": "540",
+   "adresse_type_voie": "AV",
+   "adresse_nom_voie": "EMILE CHARVOZ",
+   "adresse_lib_routage": "MODANE",
+   "san_med": false,
+   "geoloc_4326_lat": 45.201001,
+   "geoloc_4326_long": 6.666362,
+   "date_extract_finess": "2026-05-04"
+  }
+ ],
+ "links": {
+  "profile": "https://tabular-api.data.gouv.fr/api/resources/796dfff7-cf54-493a-a0a7-ba3c2024c6f3/profile/",
+  "swagger": "https://tabular-api.data.gouv.fr/api/resources/796dfff7-cf54-493a-a0a7-ba3c2024c6f3/swagger/",
+  "next": null,
+  "prev": null
+ },
+ "meta": {
+  "page": 1,
+  "page_size": 200,
+  "total": 3
+ }
+}

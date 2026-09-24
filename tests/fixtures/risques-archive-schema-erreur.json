@@ -1,0 +1,1 @@
+{"_note": "Error payload shape from the archived v1 spec (paginated models carry response_code and message on 400/500). Values illustrative.", "results": 0, "page": 0, "total_pages": 0, "data": [], "response_code": 400, "message": "Paramètres fournis manquants ou incorrectement valorisés", "next": null, "previous": null}

@@ -30,7 +30,7 @@ const view = (v: BlockView) => {
   for (const n of v.notes ?? []) frag.append(el('p', { className: 'note' }, n));
   frag.append(el('p', { className: 'provenance' },
     `Précision : ${v.precision}. `,
-    el('a', { href: v.source.url, rel: 'noopener' }, `Voir la source (${v.source.name})`),
+    'Source : ', el('a', { href: v.source.url, rel: 'noopener' }, v.source.name),
     v.source.updated ? `, données du ${v.source.updated}.` : '.'));
   return frag;
 };

@@ -1,0 +1,131 @@
+{
+ "results": 135294,
+ "page": 1,
+ "total_pages": 13530,
+ "data": [
+  {
+   "raisonSociale": "PITCH IMMO SNC : HEXAHUB : hangars logistiques (ex PITCH PROMOTION)",
+   "codeInsee": null,
+   "commune": "Gauriaguet",
+   "longitude": null,
+   "latitude": null,
+   "statutSeveso": "Non Seveso",
+   "etatActivite": "En exploitation avec titre",
+   "codeAIOT": "0000000002",
+   "regime": "Autorisation",
+   "date_maj": "2025-10-06/17-17-27"
+  },
+  {
+   "raisonSociale": "SOCIETE FERROLAC",
+   "codeInsee": "18207",
+   "commune": "SAINT-FLORENT-SUR-CHER",
+   "longitude": 2.262753,
+   "latitude": 47.00774,
+   "statutSeveso": "Non Seveso",
+   "etatActivite": "En exploitation avec titre",
+   "codeAIOT": "0000000004",
+   "regime": "Autorisation",
+   "date_maj": "2025-04-28/11-27-31"
+  },
+  {
+   "raisonSociale": "ORLEANS METROPOLE - Parc de Loire",
+   "codeInsee": "45274",
+   "commune": "Orléans",
+   "longitude": 1.952506,
+   "latitude": 47.89442,
+   "statutSeveso": "Non Seveso",
+   "etatActivite": "En exploitation avec titre",
+   "codeAIOT": "0000000005",
+   "regime": "Autorisation",
+   "date_maj": "2025-09-09/11-10-32"
+  },
+  {
+   "raisonSociale": "GRANUPLAST FRANCE",
+   "codeInsee": "01194",
+   "commune": "Jassans-Riottier",
+   "longitude": 4.766409,
+   "latitude": 45.979537,
+   "statutSeveso": null,
+   "etatActivite": null,
+   "codeAIOT": "0000000010",
+   "regime": "Non ICPE",
+   "date_maj": "2025-08-07/10-35-31"
+  },
+  {
+   "raisonSociale": "EOLIEN - TOTAL QUADRAN CE La Luçoise",
+   "codeInsee": "48086",
+   "commune": "Luc",
+   "longitude": 3.864623,
+   "latitude": 44.592475,
+   "statutSeveso": "Non Seveso",
+   "etatActivite": "En exploitation avec titre",
+   "codeAIOT": "0000000034",
+   "regime": "Autorisation",
+   "date_maj": "2025-06-25/15-02-05"
+  },
+  {
+   "raisonSociale": "COLLECTES VALORISATION ENERGIE DECHETS - COVED",
+   "codeInsee": "26169",
+   "commune": "Malataverne",
+   "longitude": 4.753067,
+   "latitude": 44.45424,
+   "statutSeveso": "Non Seveso",
+   "etatActivite": "En exploitation avec titre",
+   "codeAIOT": "0000000039",
+   "regime": "Autorisation",
+   "date_maj": "2025-11-26/14-57-02"
+  },
+  {
+   "raisonSociale": "NOVAWOOD",
+   "codeInsee": "54300",
+   "commune": "Laneuveville-devant-Nancy",
+   "longitude": 6.265591,
+   "latitude": 48.639358,
+   "statutSeveso": "Non Seveso",
+   "etatActivite": "En exploitation avec titre",
+   "codeAIOT": "0003012003",
+   "regime": "Autorisation",
+   "date_maj": "2025-10-13/15-29-10"
+  },
+  {
+   "raisonSociale": "PROMOCASH",
+   "codeInsee": "51454",
+   "commune": "Reims",
+   "longitude": 4.045327,
+   "latitude": 49.248037,
+   "statutSeveso": null,
+   "etatActivite": null,
+   "codeAIOT": "0003012004",
+   "regime": "Non ICPE",
+   "date_maj": "2025-01-15/14-37-07"
+  },
+  {
+   "raisonSociale": "GAEC AGREE DE LA PETITE SEILLE",
+   "codeInsee": "54024",
+   "commune": "Arraye-et-Han",
+   "longitude": 6.291866,
+   "latitude": 48.8345,
+   "statutSeveso": null,
+   "etatActivite": null,
+   "codeAIOT": "0003012005",
+   "regime": "Autres régimes",
+   "date_maj": "2025-05-09/09-45-23"
+  },
+  {
+   "raisonSociale": "Futures Energies du Mont Heudelan 2",
+   "codeInsee": "51487",
+   "commune": "Saint-Hilaire-le-Petit",
+   "longitude": 4.408544,
+   "latitude": 49.285898,
+   "statutSeveso": "Non Seveso",
+   "etatActivite": "En exploitation avec titre",
+   "codeAIOT": "0003012006",
+   "regime": "Autorisation",
+   "date_maj": "2025-01-04/03-31-09"
+  }
+ ],
+ "response_code": 200,
+ "message": null,
+ "next": "http://api-georisques.bike-prod.brgm.fr/api/v1/installations_classees?page_size=10&page=2",
+ "previous": null
+}

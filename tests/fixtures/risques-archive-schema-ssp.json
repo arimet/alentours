@@ -1,0 +1,15 @@
+{
+ "_note": "Built by hand from the SspModelV1 schema of the archived v1 spec (Wayback 2026-07-17). Field names are real, values are illustrative: no real ssp answer could be captured (API in 503 on 2026-09-24).",
+ "casias": {"results": 2, "page": 1, "total_pages": 1, "response_code": 200, "message": null, "next": null, "previous": null, "data": [
+  {"identifiant_ssp": "SSP-EX-1", "identifiant_casias": "IDF7500001", "nom_etablissement": "Garage (exemple)", "activite_principale": "Garages, ateliers, mécanique", "adresse": "1 rue Exemple", "code_insee": "75107", "nom_commune": "Paris 7e Arrondissement", "statut": "Ne sais pas", "fiche_risque": "https://fiches-risques.brgm.fr/georisques/casias/SSP-EX-1", "date_maj": "2024-01-01",
+   "geom": {"type": "Point", "coordinates": [2.3100, 48.8510]}},
+  {"identifiant_ssp": "SSP-EX-2", "identifiant_casias": "IDF7500002", "nom_etablissement": null, "activite_principale": "Dépôt de liquides inflammables", "adresse": "2 rue Exemple", "code_insee": "75107", "nom_commune": "Paris 7e Arrondissement", "statut": "En arrêt", "fiche_risque": null, "date_maj": "2024-01-01",
+   "geom": {"type": "Point", "coordinates": [2.3200, 48.8550]}}
+ ]},
+ "instructions": {"results": 1, "page": 1, "total_pages": 1, "response_code": 200, "message": null, "next": null, "previous": null, "data": [
+  {"identifiant_ssp": "SSP-EX-3", "nom_etablissement": "Ancienne usine (exemple)", "adresse": "3 rue Exemple", "code_insee": "75107", "nom_commune": "Paris 7e Arrondissement", "statut": "Site traité avec restrictions", "fiche_risque": "https://fiches-risques.brgm.fr/georisques/instruction/SSP-EX-3", "date_maj": "2024-01-01",
+   "geom": {"type": "Polygon", "coordinates": [[[2.3050, 48.8480], [2.3060, 48.8480], [2.3060, 48.8490], [2.3050, 48.8480]]]}}
+ ]},
+ "conclusions_sis": {"results": 0, "page": 1, "total_pages": 0, "response_code": 200, "message": null, "next": null, "previous": null, "data": []},
+ "conclusions_sup": {"results": 0, "page": 1, "total_pages": 0, "response_code": 200, "message": null, "next": null, "previous": null, "data": []}
+}

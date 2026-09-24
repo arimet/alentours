@@ -45,7 +45,7 @@ export const LEVELS: Record<Level, { icon: string; text: string }> = {
   ok: { icon: '✓', text: 'Rien à signaler' },
   info: { icon: 'i', text: 'À savoir' },
   warn: { icon: '!', text: 'Vigilance' },
-  alert: { icon: '!!', text: 'Risque important' },
+  alert: { icon: '!!', text: 'Attention' },
   unknown: { icon: '?', text: 'Donnée indisponible' },
 };
 

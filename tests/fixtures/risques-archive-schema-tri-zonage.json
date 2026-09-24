@@ -1,0 +1,10 @@
+{
+ "_note": "Built by hand from the NoPaginatedResponseTriZonageModel schema of the archived v1 spec (Wayback 2026-07-17). Field names are real, values are illustrative: no real tri_zonage answer could be captured (API in 503 on 2026-09-24).",
+ "results": 2,
+ "response_code": 200,
+ "message": null,
+ "data": [
+  {"code_national_tri": "FRF_TRI_EX", "identifiant_tri": "TRI-EX", "libelle_tri": "Exemple", "cours_deau": "La Seine", "typeInondation": {"code": "01", "libelle": "Débordement de cours d'eau"}, "scenario": {"code": "02", "libelle": "Moyenne probabilité"}, "code_insee": "75107", "libelle_commune": "Paris 7e Arrondissement"},
+  {"code_national_tri": "FRF_TRI_EX", "identifiant_tri": "TRI-EX", "libelle_tri": "Exemple", "cours_deau": "La Seine", "typeInondation": {"code": "01", "libelle": "Débordement de cours d'eau"}, "scenario": {"code": "03", "libelle": "Faible probabilité"}, "code_insee": "75107", "libelle_commune": "Paris 7e Arrondissement"}
+ ]
+}

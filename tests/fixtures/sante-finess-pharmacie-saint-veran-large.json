@@ -1,0 +1,37 @@
+{
+ "data": [
+  {
+   "rs": "PHARMACIE DE VARS",
+   "adresse_num_voie": "87",
+   "adresse_type_voie": "CRS",
+   "adresse_nom_voie": "Fontanarosa",
+   "adresse_lib_routage": "VARS",
+   "san_med": false,
+   "geoloc_4326_lat": 44.572954,
+   "geoloc_4326_long": 6.680801,
+   "date_extract_finess": "2026-05-04"
+  },
+  {
+   "rs": "SELAS PHARMACIE D'AIGUILLES",
+   "adresse_num_voie": "764",
+   "adresse_type_voie": "R",
+   "adresse_nom_voie": "du Bourg",
+   "adresse_lib_routage": "AIGUILLES",
+   "san_med": false,
+   "geoloc_4326_lat": 44.781927,
+   "geoloc_4326_long": 6.868643,
+   "date_extract_finess": "2026-05-04"
+  }
+ ],
+ "links": {
+  "profile": "https://tabular-api.data.gouv.fr/api/resources/796dfff7-cf54-493a-a0a7-ba3c2024c6f3/profile/",
+  "swagger": "https://tabular-api.data.gouv.fr/api/resources/796dfff7-cf54-493a-a0a7-ba3c2024c6f3/swagger/",
+  "next": null,
+  "prev": null
+ },
+ "meta": {
+  "page": 1,
+  "page_size": 200,
+  "total": 2
+ }
+}
