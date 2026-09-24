@@ -1,0 +1,60 @@
+{
+ "municipality": {
+  "type": "FeatureCollection",
+  "features": [
+   {
+    "type": "Feature",
+    "properties": {
+     "gid": 13337554,
+     "insee": "23003",
+     "name": "ALLEYRAT",
+     "is_rnu": true,
+     "is_deleted": false,
+     "is_coastline": false
+    }
+   }
+  ]
+ },
+ "document": {
+  "type": "FeatureCollection",
+  "features": []
+ },
+ "zone-urba": {
+  "type": "FeatureCollection",
+  "features": []
+ },
+ "secteur-cc": {
+  "type": "FeatureCollection",
+  "features": []
+ },
+ "assiette-sup-s": {
+  "type": "FeatureCollection",
+  "features": []
+ },
+ "prescription-surf": {
+  "type": "FeatureCollection",
+  "features": []
+ },
+ "cadastre": {
+  "type": "FeatureCollection",
+  "features": [
+   {
+    "type": "Feature",
+    "properties": {
+     "gid": 84927381,
+     "numero": "0079",
+     "feuille": 1,
+     "section": "AT",
+     "code_dep": "23",
+     "nom_com": "Alleyrat",
+     "code_com": "003",
+     "com_abs": "000",
+     "code_arr": "000",
+     "idu": "23003000AT0079",
+     "contenance": 1205,
+     "code_insee": "23003"
+    }
+   }
+  ]
+ }
+}

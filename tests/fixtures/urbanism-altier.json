@@ -1,0 +1,50 @@
+{
+ "document": {
+  "type": "FeatureCollection",
+  "features": [
+   {
+    "type": "Feature",
+    "properties": {
+     "gid": 26224,
+     "id": "cd8226f5297d3cc1488b8495a229df51",
+     "grid_name": "48004",
+     "grid_title": "ALTIER",
+     "name": "48004_CC_20260427",
+     "gpu_doc_id": "cd8226f5297d3cc1488b8495a229df51",
+     "gpu_status": "production",
+     "gpu_timestamp": "2026-06-01T07:29:25.736Z",
+     "partition": "DU_48004",
+     "du_type": "CC"
+    }
+   }
+  ]
+ },
+ "secteur-cc": {
+  "type": "FeatureCollection",
+  "features": [
+   {
+    "type": "Feature",
+    "properties": {
+     "gid": 38710,
+     "gpu_doc_id": "cd8226f5297d3cc1488b8495a229df51",
+     "gpu_status": "production",
+     "gpu_timestamp": "2026-06-01T07:29:25.736Z",
+     "partition": "DU_48004",
+     "libelle": "ZC",
+     "libelong": "ZC : zone constructible",
+     "typesect": "01",
+     "fermreco": "",
+     "destdomi": null,
+     "nomfic": "",
+     "urlfic": "",
+     "insee": null,
+     "datappro": null,
+     "datvalid": "",
+     "idurba": "48004_CC_20260427",
+     "lib_idzone": "48004_CC_20260427_ZO12",
+     "symbole": ""
+    }
+   }
+  ]
+ }
+}
