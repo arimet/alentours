@@ -187,7 +187,9 @@ const renderPlaces = (fit = true) => {
     { lat: here.lat, lon: here.lon, label: here.label, kind: 'main' as const },
   ]);
   sheetMap.setRoute(items[selected]?.walk?.line);
-  $('strip-label').textContent = items.length ? `${title}, du plus proche au plus loin` : '';
+  // The active theme is already named in the menu (and in the tabs on mobile).
+  $('strip-label').textContent = items.length ? 'Du plus proche au plus loin' : '';
+  $('strip').setAttribute('aria-label', `${title}, du plus proche au plus loin`);
   $('strip').replaceChildren(...items.map((it, i) => {
     const card = make('button', { type: 'button', className: `card${i === selected ? ' is-selected' : ''}` },
       make('span', { className: 'badge' }, two(i)),

@@ -269,13 +269,6 @@ const fontCss = [
   .notes { margin-top: 0.5rem; }
   .note { margin: 0.6rem 0 0; font-size: 0.88rem; color: var(--muted); padding-left: 0.75rem; border-left: 2px solid var(--orange); max-width: 70ch; }
   .error { margin: 0; color: var(--muted); }
-  @media (max-width: 56rem) {
-    .details { grid-template-columns: 1fr; gap: 0; margin-top: 2rem; }
-    .toc { display: none; }
-    .block-title h3 { font-size: 1.5rem; }
-    .fact { grid-template-columns: 1fr; }
-    .item-dist { grid-row: auto; grid-column: 1; text-align: left; }
-  }
   .level-icon { display: inline-grid; place-items: center; min-width: 1.5rem; height: 1.5rem; padding: 0 0.35rem; margin-right: 0.45rem; border-radius: 999px; font-size: 0.78rem; font-weight: 800; vertical-align: 0.1em; }
   /* Colour doubles the icon and the hidden word, it never carries the meaning alone. */
   .level-ok .level-icon { background: #dcfce7; color: #14532d; }
@@ -298,37 +291,83 @@ const fontCss = [
   main.prose h1 { font: 600 clamp(2rem, 4vw, 3rem)/1.05 var(--serif); }
   main.prose h2 { font: 600 1.8rem/1.1 var(--serif); }
 
-  /* Narrow screens: no overlays. Address and map themes, then the map (never taller than half the
-     screen), then the places strip right under it so it shows without scrolling. */
+  /* Narrow screens: no overlays, one column. Home: map band then the search. Sheet: address,
+     map themes as tabs, the map (never taller than a third of the screen), then the places. */
   @media (max-width: 56rem) {
-    .stage { height: auto; min-height: 0; max-height: none; display: flex; flex-direction: column; }
-    .stage::before { display: none; }
-    .stage-side { display: contents; }
-    .stage-head, .themes, .keys, #search .stage-side > * { padding: 0 1.1rem; }
     :root { --header-h: 3.25rem; }
     header.site { padding: 0 1rem; }
-    .brand { font-size: 1.25rem; }
-    header.site a:not(.brand) { font-size: 0.9rem; text-align: right; }
-    .stage-head { order: 1; padding-top: 0.9rem; }
-    .stage-head .kicker { margin-bottom: 0.3rem; }
-    .address { font-size: 1.55rem; }
+    .brand { font-size: 1.3rem; }
+    header.site a:not(.brand) { font-size: 0.9rem; }
+    main { padding: 0 0.75rem 3rem; }
+    main:has(> #search:not([hidden])) { padding-bottom: 0.75rem; }
+
+    .stage { height: auto; min-height: 0; max-height: none; display: flex; flex-direction: column; border-radius: 12px; }
+    .stage::before { display: none; }
+    .stage-map { position: relative; order: 3; height: min(34dvh, 17rem); }
+    .stage-side { display: contents; }
+    .map-controls { top: 0.6rem; right: 0.6rem; bottom: auto; transform: none; gap: 0.35rem; }
+    .map-controls button { width: 36px; height: 36px; font-size: 1.15rem; border-radius: 7px; }
+    .map-controls .map-recenter { margin-bottom: 0.25rem; font-size: 1.2rem; }
+    .map-credit { left: 0.5rem; right: auto; background: rgb(255 255 255 / 0.85); padding: 0 0.3rem; border-radius: 4px; }
+
+    /* Home */
+    #search .stage-map { order: -1; height: min(32dvh, 15rem); }
+    #search .stage-side { display: block; position: static; width: 100%; padding: 1.25rem 1.1rem 1.5rem; }
+    #search .display { font-size: 2rem; }
+    #search .lede { font-size: 1rem; margin-bottom: 1.25rem; }
+    #search .example { margin-top: 1rem; }
+
+    /* Sheet head */
+    .stage-head { order: 1; padding: 1rem 1.1rem 0.25rem; }
+    .stage-head .kicker { margin-bottom: 0.35rem; font-size: 0.9rem; }
+    .address { font-size: 1.5rem; }
     .meta { font-size: 0.82rem; }
-    .themes-map { order: 2; margin: 0.5rem 0; }
+
+    /* Map themes as a row of tabs */
+    .themes-map { order: 2; padding: 0.6rem 1.1rem 0.75rem; }
     .themes-map .kicker { display: none; }
-    .theme { font-size: 1.15rem; }
-    .stage-map { order: 3; position: relative; height: min(36dvh, 22rem); }
-    .stage-strip { order: 4; position: static; padding: 0.75rem 1.1rem 0; }
-    .keys { order: 5; margin: 1rem 0 0; border-top: 0; }
-    .key { grid-template-columns: 1fr 1fr; align-items: baseline; gap: 0.75rem; border-bottom: 1px solid var(--line); padding-bottom: 0.5rem; }
-    .key-value { order: 2; text-align: right; }
-    .themes-more { order: 6; margin: 1rem 0 1.25rem; }
-    #search .stage-side { display: block; width: 100%; padding: 1.25rem 0; }
-    #search .stage-map { order: -1; }
-    .themes-map ul { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 1rem; border-left: 0; padding: 0; }
-    .theme.is-active { font-size: 1.6rem; }
+    .themes-map ul { display: flex; flex-wrap: wrap; gap: 0.4rem; border-left: 0; padding: 0; }
+    .themes-map li { flex: none; }
+    .themes-map .theme, .themes-map .theme.is-active {
+      font: 600 0.92rem/1 var(--sans); padding: 0.55rem 0.85rem; border-radius: 999px; border: 1.5px solid var(--line); color: var(--ink); background: #fff; white-space: nowrap;
+    }
+    .themes-map .theme.is-active { background: var(--ink); border-color: var(--ink); color: #fff; }
+    .themes-map .theme.is-active sup { color: #ffd2b5; }
+    .themes-map .theme sup { font-size: 0.75em; vertical-align: 0.15em; }
     .theme.is-active::before { display: none; }
-    .map-controls { top: auto; bottom: 1rem; transform: none; }
-    .map-controls .map-recenter { margin-bottom: 0; }
-    .map-controls { grid-auto-flow: column; }
+
+    /* Places under the map */
+    .stage-strip { order: 4; position: static; padding: 0.75rem 1.1rem 0; }
+    .strip-head { align-items: center; }
+    .strip-label { box-shadow: none; padding: 0; background: none; font-size: 0.9rem; margin: 0; }
+    .strip-nav { margin-bottom: 0; }
+    .strip-nav button { width: 32px; height: 32px; font-size: 1.2rem; }
+    .card { padding: 0.7rem 0.8rem; gap: 0.65rem; }
+    .card-body strong { font-size: 1.05rem; }
+    .badge { width: 26px; height: 26px; font-size: 0.66rem; }
+
+    .keys { order: 5; margin: 1rem 1.1rem 0; padding-top: 0.5rem; }
+    .key { grid-template-columns: 1fr 1fr; align-items: baseline; gap: 0.75rem; border-bottom: 1px solid var(--line); padding-bottom: 0.45rem; }
+    .key-value { order: 2; text-align: right; font-size: 1.2rem; }
+    .themes-more { order: 6; padding: 0.9rem 1.1rem 1.1rem; }
+
+    /* Detail */
+    .details { grid-template-columns: 1fr; gap: 0; margin-top: 1.25rem; }
+    .toc { display: none; }
+    .blocks { gap: 1rem; }
+    .group { padding: 1.1rem 1rem 1.25rem; border-radius: 12px; }
+    .group-title { font-size: 1.6rem; }
+    .block { padding-top: 1.25rem; margin-top: 1.25rem; }
+    .group-title + .block { margin-top: 0.75rem; }
+    .block-title h3 { font-size: 1.4rem; }
+    .to-map { padding: 0.45rem 0.7rem; font-size: 0.82rem; }
+    .provenance { font-size: 0.78rem; gap: 0.15rem 1rem; margin-bottom: 0.9rem; }
+    .fact { grid-template-columns: 1fr; padding: 0.7rem 0; gap: 0.15rem; }
+    .fact dt { font-size: 0.82rem; }
+    .fact-value { font-size: 0.98rem; }
+    .fact .detail { font-size: 0.82rem; }
+    .explanation { font-size: 0.88rem; }
+    .items li { padding: 0.5rem 0; }
+    .item-dist { grid-row: auto; grid-column: 1; text-align: left; font-size: 0.82rem; }
   }
 </style>
