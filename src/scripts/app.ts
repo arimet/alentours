@@ -125,6 +125,7 @@ const mapItems = (id: string) => (views.get(id)?.items ?? []).filter((i) => i.at
 // Key figures: the first fact of a few blocks, in large type.
 const KEYS = ['air', 'internet', 'immobilier'];
 const renderKeys = () => {
+  $('keys').hidden = false;
   $('keys').replaceChildren(...KEYS.map((id) => {
     const b = BLOCKS.find((x) => x.id === id)!, v = views.get(id), f = v?.facts[0];
     return make('a', { className: 'key', href: `#bloc-${id}`, onclick: (e: Event) => { e.preventDefault(); $(`bloc-${id}`).scrollIntoView({ behavior: 'smooth' }); } },
@@ -133,19 +134,31 @@ const renderKeys = () => {
   }));
 };
 
+// Themes drawn on the map come first; the others only scroll to their block below the map.
+const MAP_THEMES = ['ecoles', 'sante', 'commerces'];
 const renderThemes = () => {
-  $('themes').replaceChildren(make('ul', {}, ...BLOCKS.map((b) => {
-    const count = mapItems(b.id).length, active = b.id === activeTheme;
-    const btn = make('button', { type: 'button', className: `theme${active ? ' is-active' : ''}` }, b.title);
-    if (count) btn.append(make('sup', {}, `(${count})`));
+  $('themes-map-list').replaceChildren(...MAP_THEMES.map((id) => {
+    const b = BLOCKS.find((x) => x.id === id)!, count = mapItems(id).length, active = id === activeTheme;
+    const btn = make('button', { type: 'button', className: `theme${active ? ' is-active' : ''}` }, b.title,
+      make('sup', {}, views.has(id) ? `(${count})` : '(…)'));
     if (active) btn.setAttribute('aria-current', 'true');
-    btn.addEventListener('click', () => {
-      if (count) { activeTheme = b.id; picked = true; selected = 0; renderThemes(); renderPlaces(); }
-      else $(`bloc-${b.id}`).scrollIntoView({ behavior: 'smooth' });
-    });
+    btn.disabled = views.has(id) && !count;
+    btn.addEventListener('click', () => { activeTheme = id; picked = true; selected = 0; renderThemes(); renderPlaces(); });
     return make('li', {}, btn);
-  })));
-  $('themes').hidden = false;
+  }));
+  $('themes-more-list').replaceChildren(...BLOCKS.filter((b) => !MAP_THEMES.includes(b.id)).map((b) =>
+    make('li', {}, make('a', { href: `#bloc-${b.id}`, className: 'theme-link', onclick: (e: Event) => { e.preventDefault(); $(`bloc-${b.id}`).scrollIntoView({ behavior: 'smooth' }); } }, b.title))));
+  $('themes-map').hidden = $('themes-more').hidden = false;
+};
+
+// Parts of the map covered by the panels drawn over it (none on narrow screens, where they flow below).
+const coveredMargins = () => {
+  const wide = innerWidth > 896;
+  return {
+    top: 40, right: wide ? 90 : 70,
+    bottom: wide ? $('stage-strip').offsetHeight + 20 : 30,
+    left: wide ? $('sheet-map').closest('.stage')!.querySelector<HTMLElement>('.stage-side')!.offsetWidth : 30,
+  };
 };
 
 // Places of the active theme: numbered markers, a strip of cards, the walking route to the selected one.
@@ -158,7 +171,6 @@ const renderPlaces = (fit = true) => {
     { lat: here.lat, lon: here.lon, label: here.label, kind: 'main' as const },
   ]);
   sheetMap.setRoute(items[selected]?.walk?.line);
-  if (fit && items.length) sheetMap.fit([here, ...items.slice(0, 6).map((i) => i.at!)]);
   $('strip-label').textContent = items.length ? `${title}, du plus proche au plus loin` : '';
   $('strip').replaceChildren(...items.map((it, i) => {
     const card = make('button', { type: 'button', className: `card${i === selected ? ' is-selected' : ''}` },
@@ -171,8 +183,10 @@ const renderPlaces = (fit = true) => {
     card.addEventListener('click', () => pick(i));
     return make('li', {}, card);
   }));
-  $('stage-bottom').hidden = false;
+  $('stage-strip').hidden = false;
   if (fit) $('strip').scrollLeft = 0;
+  // Frame all the places, once the strip is laid out (its height is part of the covered margins).
+  if (fit && items.length) sheetMap.fit([here, ...items.map((i) => i.at!)], coveredMargins());
 };
 
 const onBlock = (b: Block, v: BlockView | null) => {
@@ -202,7 +216,7 @@ const showSheet = async (point: Point) => {
   title.textContent = 'Recherche de l’adresse…';
   meta.textContent = sheetStatus.textContent = '';
   $('blocks').replaceChildren();
-  $('themes').hidden = $('stage-bottom').hidden = true;
+  $('themes-map').hidden = $('themes-more').hidden = $('stage-strip').hidden = $('keys').hidden = true;
   views = new Map();
   activeTheme = 'ecoles';
   selected = 0;

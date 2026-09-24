@@ -31,19 +31,26 @@ import Base from '../layouts/Base.astro';
         <div class="stage-map" id="sheet-map"></div>
 
         <div class="stage-side">
-          <p class="kicker"><a href="#" id="back">← Nouvelle recherche</a></p>
-          <h1 id="sheet-title" class="address" tabindex="-1"></h1>
-          <p id="sheet-meta" class="meta"></p>
-          <p id="sheet-status" class="status" aria-live="polite"></p>
-          <nav id="themes" class="themes" aria-label="Thèmes" hidden></nav>
+          <div class="stage-head">
+            <p class="kicker"><a href="#" id="back">← Nouvelle recherche</a></p>
+            <h1 id="sheet-title" class="address" tabindex="-1"></h1>
+            <p id="sheet-meta" class="meta"></p>
+            <p id="sheet-status" class="status" aria-live="polite"></p>
+          </div>
+          <nav id="themes-map" class="themes themes-map" aria-labelledby="themes-map-label" hidden>
+            <p id="themes-map-label" class="kicker">Sur la carte</p>
+            <ul id="themes-map-list"></ul>
+          </nav>
+          <nav id="themes-more" class="themes themes-more" aria-labelledby="themes-more-label" hidden>
+            <p id="themes-more-label" class="kicker">Dans la fiche</p>
+            <ul id="themes-more-list"></ul>
+          </nav>
+          <div id="keys" class="keys" hidden></div>
         </div>
 
-        <div class="stage-bottom" id="stage-bottom" hidden>
-          <div id="keys" class="keys"></div>
-          <div class="strip-wrap">
-            <p id="strip-label" class="strip-label"></p>
-            <ul id="strip" class="strip" aria-labelledby="strip-label"></ul>
-          </div>
+        <div class="stage-strip" id="stage-strip" hidden>
+          <p id="strip-label" class="strip-label"></p>
+          <ul id="strip" class="strip" aria-labelledby="strip-label"></ul>
         </div>
       </div>
 

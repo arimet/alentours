@@ -23,6 +23,8 @@ export const createMap = (root: HTMLElement, opts: { zoom: number; minZoom?: num
   const focusX = opts.focusX ?? (() => 0.5);
   const { minZoom = 5, maxZoom = 18 } = opts;
   let zoom = opts.zoom, center: Pt = { lat: 46.6, lon: 2.4 }, home: Pt = center;
+  // Where `center` is drawn, as fractions of the width and height (fit() moves it into the free area).
+  let anchor: { x: number; y: number } | null = null;
   let markers: Marker[] = [], route: [number, number][] = [];
   root.classList.add('map');
   root.replaceChildren();
@@ -43,7 +45,7 @@ export const createMap = (root: HTMLElement, opts: { zoom: number; minZoom?: num
   };
   const zoomBy = (dz: number) => { zoom = Math.min(maxZoom, Math.max(minZoom, zoom + dz)); render(); };
   controls.append(
-    button('⌖', 'Recentrer sur l’adresse', 'map-recenter', () => { center = home; render(); }),
+    button('⌖', 'Recentrer sur l’adresse', 'map-recenter', () => { center = home; anchor = null; render(); }),
     button('+', 'Zoomer', 'map-zoom-btn', () => zoomBy(1)),
     button('−', 'Dézoomer', 'map-zoom-btn', () => zoomBy(-1)),
   );
@@ -54,7 +56,7 @@ export const createMap = (root: HTMLElement, opts: { zoom: number; minZoom?: num
     const w = root.clientWidth, h = root.clientHeight;
     if (!w || !h) return;
     const c = project(center, zoom), n = 2 ** zoom;
-    const left = c.x - w * focusX(), top = c.y - h / 2;
+    const left = c.x - w * (anchor?.x ?? focusX()), top = c.y - h * (anchor?.y ?? 0.5);
     const at = (p: Pt) => { const q = project(p, zoom); return [Math.round(q.x - left), Math.round(q.y - top)]; };
     const imgs: HTMLImageElement[] = [];
     for (let ty = Math.floor(top / 256); ty <= Math.floor((top + h) / 256); ty++) {
@@ -87,20 +89,29 @@ export const createMap = (root: HTMLElement, opts: { zoom: number; minZoom?: num
   new ResizeObserver(render).observe(root);
 
   return {
-    setView(c: Pt, z = zoom) { center = home = c; zoom = z; render(); },
+    setView(c: Pt, z = zoom) { center = home = c; zoom = z; anchor = null; render(); },
     setMarkers(ms: Marker[]) { markers = ms; render(); },
     setRoute(line: [number, number][] | undefined) { route = line ?? []; render(); },
-    /** Largest zoom showing every point, the address staying in the middle. */
-    fit(points: Pt[], pad = 90) {
-      // Room on each side of the centre, which may sit off the middle (focusX).
-      const W = root.clientWidth, h = root.clientHeight / 2 - pad;
-      const leftRoom = W * focusX() - pad, rightRoom = W * (1 - focusX()) - pad;
-      let z = maxZoom;
-      for (; z > minZoom; z--) {
-        const c = project(center, z);
-        if (points.every((p) => { const q = project(p, z), dx = q.x - c.x; return (dx < 0 ? -dx <= leftRoom : dx <= rightRoom) && Math.abs(q.y - c.y) <= h; })) break;
+    /**
+     * Frames every point (largest zoom that fits) inside the part of the map left free by the
+     * panels drawn over it: `pad` gives the covered margins in px.
+     */
+    fit(points: Pt[], pad: { top: number; right: number; bottom: number; left: number }) {
+      const W = root.clientWidth, H = root.clientHeight;
+      const freeW = W - pad.left - pad.right, freeH = H - pad.top - pad.bottom;
+      if (!points.length || freeW < 50 || freeH < 50) return;
+      let z = maxZoom, box = { x0: 0, x1: 0, y0: 0, y1: 0 };
+      for (; z >= minZoom; z--) {
+        const ps = points.map((p) => project(p, z));
+        box = { x0: Math.min(...ps.map((p) => p.x)), x1: Math.max(...ps.map((p) => p.x)), y0: Math.min(...ps.map((p) => p.y)), y1: Math.max(...ps.map((p) => p.y)) };
+        if (box.x1 - box.x0 <= freeW && box.y1 - box.y0 <= freeH) break;
       }
-      zoom = z;
+      zoom = Math.max(z, minZoom);
+      // Centre of the box, drawn at the centre of the free area.
+      const n = 2 ** zoom * 256, cx = (box.x0 + box.x1) / 2, cy = (box.y0 + box.y1) / 2;
+      const lon = (cx / n) * 360 - 180, lat = (Math.atan(Math.sinh(Math.PI * (1 - (2 * cy) / n))) * 180) / Math.PI;
+      center = { lat, lon };
+      anchor = { x: (pad.left + freeW / 2) / W, y: (pad.top + freeH / 2) / H };
       render();
     },
   };

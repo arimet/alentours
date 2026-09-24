@@ -98,15 +98,20 @@ const fontCss = [
   .display { font: 600 clamp(2.2rem, 4.4vw, 3.6rem)/1.02 var(--serif); letter-spacing: -0.01em; margin: 0 0 1rem; }
   .lede { color: var(--muted); font-size: 1.1rem; margin: 0 0 1.75rem; max-width: 42ch; }
 
-  /* Stage: the map fills a rounded frame; side, bottom and controls float over white veils. */
-  .stage { position: relative; min-height: min(86vh, 860px); border-radius: 14px; overflow: hidden; background: var(--paper); box-shadow: 0 24px 60px -30px rgb(31 35 36 / 0.45); }
+  /* Stage: the map fills a frame as tall as the screen; the side column and the strip of places
+     float over it on white veils, so everything is visible without scrolling. */
+  .stage { position: relative; height: calc(100dvh - 4.75rem); min-height: 32rem; max-height: 62rem; border-radius: 14px; overflow: hidden; background: var(--paper); box-shadow: 0 24px 60px -30px rgb(31 35 36 / 0.45); }
   .stage-map { position: absolute; inset: 0; }
   .stage::before, .stage::after { content: ''; position: absolute; pointer-events: none; z-index: 1; }
-  .stage::before { inset: 0 auto 0 0; width: min(38rem, 60%); background: linear-gradient(90deg, rgb(255 255 255 / 0.97) 55%, rgb(255 255 255 / 0)); }
-  .stage::after { inset: auto 0 0 0; height: 15rem; background: linear-gradient(0deg, rgb(255 255 255 / 0.97) 45%, rgb(255 255 255 / 0)); }
-  .stage-side { position: relative; z-index: 2; width: min(30rem, 100%); padding: clamp(1.5rem, 3.5vw, 3.25rem); padding-bottom: 16rem; }
-  .stage-bottom { position: absolute; z-index: 2; inset: auto 0 0 0; display: grid; grid-template-columns: auto 1fr; gap: 2rem; align-items: end; padding: 0 clamp(1rem, 3vw, 2.5rem) 1.5rem; }
-
+  .stage::before { inset: 0 auto 0 0; width: min(40rem, 62%); background: linear-gradient(90deg, rgb(255 255 255 / 0.97) 58%, rgb(255 255 255 / 0)); }
+  .stage::after { inset: auto 0 0 0; height: 11rem; background: linear-gradient(0deg, rgb(255 255 255 / 0.95) 40%, rgb(255 255 255 / 0)); }
+  .stage-side {
+    position: absolute; z-index: 2; inset: 0 auto 0 0; width: min(28rem, 42%);
+    padding: clamp(1.25rem, 3vh, 2.5rem) clamp(1.25rem, 3vw, 2.75rem); display: flex; flex-direction: column; gap: clamp(0.75rem, 2.2vh, 1.5rem);
+    overflow-y: auto; scrollbar-width: thin;
+  }
+  #search .stage-side { width: min(32rem, 48%); justify-content: center; }
+  .stage-strip { position: absolute; z-index: 2; left: min(28rem, 42%); right: 5.5rem; bottom: 1rem; }
   /* Map */
   .map { overflow: hidden; background: #e9ebe8; }
   .map-tiles, .map-pins { position: absolute; inset: 0; }
@@ -147,24 +152,29 @@ const fontCss = [
   .address { font: 600 clamp(1.8rem, 3vw, 2.5rem)/1.05 var(--serif); margin: 0 0 0.4rem; }
   .address:focus { outline: none; }
   .meta { color: var(--muted); margin: 0; font-size: 0.92rem; }
-  .themes ul { list-style: none; margin: 2rem 0 0; padding: 0 0 0 1rem; border-left: 1px solid var(--line); display: grid; gap: 0.15rem; }
-  .theme { font: 500 1.2rem/1.3 var(--serif); color: var(--muted); background: none; border: 0; padding: 0.3rem 0; cursor: pointer; text-align: left; }
-  .theme:hover { color: var(--ink); }
-  .theme sup { font-size: 0.75em; margin-left: 0.2em; }
-  .theme.is-active { font-size: clamp(2.2rem, 3.6vw, 3rem); font-weight: 600; color: var(--ink); line-height: 1.05; padding: 0.35rem 0; position: relative; }
-  .theme.is-active::before { content: ''; position: absolute; left: calc(-1rem - 4px); top: 50%; width: 7px; height: 7px; margin-top: -3px; border-radius: 50%; background: var(--orange); }
+  .themes .kicker { margin-bottom: 0.3rem; }
+  .themes ul { list-style: none; margin: 0; padding: 0; }
+  .themes-map ul { padding-left: 1rem; border-left: 2px solid var(--orange); display: grid; }
+  .theme { font: 600 1.45rem/1.2 var(--serif); color: var(--muted); background: none; border: 0; padding: 0.2rem 0; cursor: pointer; text-align: left; }
+  .theme:hover:not(:disabled) { color: var(--ink); }
+  .theme:disabled { cursor: default; opacity: 0.55; }
+  .theme sup { font: 600 0.8rem/1 var(--sans); margin-left: 0.3em; color: var(--orange-ink); }
+  .theme.is-active { font-size: clamp(2rem, 4.2vh, 2.8rem); color: var(--ink); line-height: 1.05; position: relative; }
+  .theme.is-active::before { content: ''; position: absolute; left: calc(-1rem - 5px); top: 50%; width: 8px; height: 8px; margin-top: -4px; border-radius: 50%; background: var(--orange); }
+  .themes-more ul { display: flex; flex-wrap: wrap; gap: 0.2rem 0.9rem; }
+  .theme-link { font-size: 0.92rem; color: var(--muted); }
+  .theme-link:hover { color: var(--ink); }
 
   /* Bottom: key figures and the strip of places */
-  .keys { display: grid; gap: 0.9rem; min-width: 13rem; }
+  .keys { display: grid; gap: 0.55rem; margin-top: auto; padding-top: 0.75rem; border-top: 1px solid var(--line); }
   .key { display: grid; text-decoration: none; }
-  .key-value { font: 600 1.7rem/1.05 var(--serif); }
+  .key-value { font: 600 1.4rem/1.05 var(--serif); }
   .key-label { font-size: 0.8rem; color: var(--muted); }
   .key:hover .key-value { text-decoration: underline; }
-  .strip-wrap { min-width: 0; }
   .strip-label { font-variant: small-caps; letter-spacing: 0.08em; color: var(--muted); font-weight: 600; margin: 0 0 0.5rem; }
-  .strip { list-style: none; margin: 0; padding: 0.25rem 0.25rem 0.6rem; display: flex; gap: 0.9rem; overflow-x: auto; scroll-snap-type: x proximity; }
+  .strip { list-style: none; margin: 0; padding: 0.25rem 0.25rem 0.6rem; display: flex; align-items: flex-start; gap: 0.9rem; overflow-x: auto; scroll-snap-type: x proximity; }
   .strip li { flex: 0 0 min(19rem, 80vw); scroll-snap-align: start; }
-  .card { width: 100%; height: 100%; display: flex; gap: 0.8rem; align-items: flex-start; text-align: left; padding: 0.85rem 1rem; border: 1px solid var(--line); border-radius: 10px; background: #fff; color: var(--ink); font: inherit; cursor: pointer; box-shadow: 0 8px 22px -14px rgb(31 35 36 / 0.4); }
+  .card { width: 100%; display: flex; gap: 0.8rem; align-items: flex-start; text-align: left; padding: 0.85rem 1rem; border: 1px solid var(--line); border-radius: 10px; background: #fff; color: var(--ink); font: inherit; cursor: pointer; box-shadow: 0 8px 22px -14px rgb(31 35 36 / 0.4); }
   .card:hover { border-color: #b9c0bf; }
   .card.is-selected { border-color: var(--orange); box-shadow: 0 0 0 2px var(--orange), 0 10px 26px -14px rgb(31 35 36 / 0.5); }
   .badge { flex: none; display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: var(--teal); color: #fff; font: 700 0.72rem/1 var(--sans); }
@@ -211,21 +221,38 @@ const fontCss = [
   main.prose h1 { font: 600 clamp(2rem, 4vw, 3rem)/1.05 var(--serif); }
   main.prose h2 { font: 600 1.8rem/1.1 var(--serif); }
 
-  /* Narrow screens: the map becomes a band, the side and bottom flow under it. */
+  /* Narrow screens: no overlays. Address and map themes, then the map (never taller than half the
+     screen), then the places strip right under it so it shows without scrolling. */
   @media (max-width: 56rem) {
-    .stage { min-height: 0; display: flex; flex-direction: column; }
+    .stage { height: auto; min-height: 0; max-height: none; display: flex; flex-direction: column; }
     .stage::before, .stage::after { display: none; }
-    .stage-map { position: relative; height: 52vh; min-height: 300px; order: -1; }
-    .stage-side { width: 100%; padding: 1.25rem; }
-    .stage-bottom { position: static; grid-template-columns: 1fr; gap: 1.25rem; padding: 0 1.25rem 1.25rem; }
-    .keys { min-width: 0; gap: 0.6rem; }
+    .stage-side { display: contents; }
+    .stage-head, .themes, .keys, #search .stage-side > * { padding: 0 1.1rem; }
+    header.site { padding: 0.7rem 1rem; flex-wrap: nowrap; }
+    .brand { font-size: 1.25rem; }
+    header.site a:not(.brand) { font-size: 0.9rem; text-align: right; }
+    .stage-head { order: 1; padding-top: 0.9rem; }
+    .stage-head .kicker { margin-bottom: 0.3rem; }
+    .address { font-size: 1.55rem; }
+    .meta { font-size: 0.82rem; }
+    .themes-map { order: 2; margin: 0.5rem 0; }
+    .themes-map .kicker { display: none; }
+    .theme { font-size: 1.15rem; }
+    .stage-map { order: 3; position: relative; height: min(36dvh, 22rem); }
+    .stage-strip { order: 4; position: static; padding: 0.75rem 1.1rem 0; }
+    .keys { order: 5; margin: 1rem 0 0; border-top: 0; }
     .key { grid-template-columns: 1fr 1fr; align-items: baseline; gap: 0.75rem; border-bottom: 1px solid var(--line); padding-bottom: 0.5rem; }
-    .key-value { font-size: 1.35rem; order: 2; text-align: right; }
+    .key-value { order: 2; text-align: right; }
     .strip { align-items: flex-start; }
     .card { height: auto; }
-    .themes ul { display: flex; gap: 0.4rem 1.1rem; flex-wrap: wrap; align-items: baseline; border-left: 0; padding: 0; margin-top: 1.25rem; }
-    .theme.is-active { font-size: 1.9rem; }
+    .themes-more { order: 6; margin: 1rem 0 1.25rem; }
+    #search .stage-side { display: block; width: 100%; padding: 1.25rem 0; }
+    #search .stage-map { order: -1; }
+    .themes-map ul { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 1rem; border-left: 0; padding: 0; }
+    .theme.is-active { font-size: 1.6rem; }
     .theme.is-active::before { display: none; }
     .map-controls { top: auto; bottom: 1rem; transform: none; }
+    .map-controls .map-recenter { margin-bottom: 0; }
+    .map-controls { grid-auto-flow: column; }
   }
 </style>
