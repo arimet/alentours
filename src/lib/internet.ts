@@ -11,7 +11,7 @@ export type Entry = {
   d?: [number, number];
   cu?: { s: 'p' | 'f' | 'n'; d?: string };
 };
-export type File = Record<string, Entry> & { _meta?: { sources: { name: string; url: string; date: string }[]; generated: string } };
+export type File = Record<string, Entry> & { _meta?: { sources: { name: string; url: string; date: string }[]} };
 
 type Tech = 'fo' | 'coax' | 'cu' | 'thdr' | '4gf' | 'hdr' | 'sat';
 const TECHS: Record<Tech, string> = {

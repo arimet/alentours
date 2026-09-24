@@ -92,7 +92,6 @@ if (import.meta.main) {
       { name: 'Base GASPAR (ministère de la Transition écologique, Géorisques)', url: 'https://www.data.gouv.fr/datasets/base-nationale-de-gestion-assistee-des-procedures-administratives-relatives-aux-risques-gaspar', date: gasparDate },
       { name: 'Potentiel radon des communes (ASN, ex-IRSN)', url: 'https://www.data.gouv.fr/datasets/connaitre-le-potentiel-radon-de-ma-commune', date: '2019-05-06' },
     ],
-    generated: new Date().toISOString().slice(0, 10),
   };
   const byDep = {};
   for (const code of Object.keys(data).sort()) if (/^\d[\dAB]\d{3}$/.test(code)) (byDep[departmentOf(code)] ??= {})[code] = data[code];

@@ -129,7 +129,6 @@ const main = async () => {
       { name: `Arcep, Ma connexion internet, données au ${mciDate.split('-').reverse().join('/')}`, url: 'https://www.data.gouv.fr/datasets/ma-connexion-internet', date: mciDate },
       { name: 'Fermeture du réseau cuivre (ministère de l’Économie, d’après Orange)', url: 'https://www.data.gouv.fr/datasets/fermeture-du-reseau-cuivre', date: cuivreMeta.metas.default.modified.slice(0, 10) },
     ],
-    generated: new Date().toISOString().slice(0, 10),
   };
 
   rmSync(outDir, { recursive: true, force: true });

@@ -19,7 +19,6 @@ const file = {
       { name: 'Arcep, Ma connexion internet, données au 30/06/2026', url: 'https://www.data.gouv.fr/datasets/ma-connexion-internet', date: '2026-06-30' },
       { name: 'Fermeture du réseau cuivre (ministère de l’Économie, d’après Orange)', url: 'https://www.data.gouv.fr/datasets/fermeture-du-reseau-cuivre', date: '2025-10-20' },
     ],
-    generated: '2026-09-24',
   },
 };
 const ctx = (citycode, commune = citycode) => ({ citycode, commune, lat: 48.850699, lon: 2.308628, label: '', city: '' });

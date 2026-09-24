@@ -120,14 +120,13 @@ const main = async () => {
   const deps = process.argv.slice(2).length ? process.argv.slice(2)
     : (await listing(`${BASE}${years.at(-1)}/departements/`)).filter((f) => f.endsWith('.csv.gz')).map((f) => f.replace('.csv.gz', ''));
   await mkdir(OUT, { recursive: true });
-  const generated = new Date().toISOString().slice(0, 10);
   for (const dep of deps) {
     const t = Date.now();
     const perYear = await Promise.all(years.map(async (year) => ({ year: Number(year), ...(await yearFile(year, dep)) })));
     const period = [perYear.map((y) => y.from).filter(Boolean).sort()[0], perYear.map((y) => y.to).filter(Boolean).sort().at(-1)];
     const json = JSON.stringify({
       ...buildDepartment(perYear),
-      _meta: { source: 'DVF géolocalisées (DGFiP, Etalab), https://files.data.gouv.fr/geo-dvf/latest/csv/', method: 'Statistiques DVF de data.gouv.fr', generated, years: years.map(Number), period, minSales: MIN_SALES },
+      _meta: { source: 'DVF géolocalisées (DGFiP, Etalab), https://files.data.gouv.fr/geo-dvf/latest/csv/', method: 'Statistiques DVF de data.gouv.fr', years: years.map(Number), period, minSales: MIN_SALES },
     });
     await writeFile(new URL(`${dep}.json`, OUT), json);
     console.log(`${dep}: ${(json.length / 1024).toFixed(0)} KB in ${((Date.now() - t) / 1000).toFixed(1)} s`);

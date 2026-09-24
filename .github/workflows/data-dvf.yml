@@ -1,7 +1,6 @@
 name: Data DVF
 # Rebuilds public/data/dvf/ from the latest geo-dvf release and proposes it as a pull request.
-# DVF is published twice a year; a monthly run catches a release within a month, and opens no PR when nothing changed
-# (only _meta.generated would differ, so the script output is compared without it first).
+# DVF is published twice a year; a monthly run catches a release within a month, and opens no PR when nothing changed.
 on:
   schedule:
     - cron: '0 4 3 * *'
@@ -21,11 +20,6 @@ jobs:
         with:
           node-version: 24
       - run: node scripts/dvf.mjs
-      - name: Ignore a change of the generation date alone
-        run: |
-          for f in $(git diff --name-only -- public/data/dvf); do
-            if diff <(git show "HEAD:$f" | sed 's/"generated":"[^"]*"//') <(sed 's/"generated":"[^"]*"//' "$f") > /dev/null; then git checkout -- "$f"; fi
-          done
       - uses: peter-evans/create-pull-request@v8
         with:
           branch: data/dvf
