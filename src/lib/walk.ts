@@ -36,16 +36,23 @@ let generation = 0, pauseUntil = 0, pumping = false;
 type Job = { priority: number; order: number; go: () => void };
 const queue: Job[] = [];
 let order = 0;
+// Each wake-up serves every slot elapsed since the last one (at most BURST): browsers slow down
+// chained timers in background tabs (to 1 s or more), and a one-job-per-tick pump would crawl there.
+const BURST = 8; // 8 per 1 s tick in a throttled tab: still under the ~10/s limit
+let lastServed = 0;
 const pump = () => {
   if (pumping) return;
   pumping = true;
+  lastServed = Math.max(lastServed, Date.now() - GAP_MS); // an idle queue restarts with one job, not a burst
   const tick = () => {
     if (!queue.length) { pumping = false; return; }
-    setTimeout(() => {
-      queue.sort((x, y) => x.priority - y.priority || x.order - y.order);
-      queue.shift()?.go();
-      setTimeout(tick, GAP_MS);
-    }, Math.max(0, pauseUntil - Date.now()));
+    const now = Date.now();
+    if (now < pauseUntil) { setTimeout(tick, pauseUntil - now); return; }
+    const n = Math.max(1, Math.min(BURST, Math.floor((now - lastServed) / GAP_MS)));
+    queue.sort((x, y) => x.priority - y.priority || x.order - y.order);
+    for (const job of queue.splice(0, n)) job.go();
+    lastServed = now;
+    setTimeout(tick, GAP_MS);
   };
   tick();
 };
