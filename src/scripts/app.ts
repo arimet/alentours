@@ -181,9 +181,20 @@ new ResizeObserver(syncArrows).observe(strip);
 const renderPlaces = (fit = true) => {
   if (!here) return;
   const items = mapItems(activeTheme), title = BLOCKS.find((b) => b.id === activeTheme)!.title;
-  const pick = (i: number) => { selected = i; renderPlaces(false); };
+  const pick = (i: number, fromMap = false) => {
+    selected = i;
+    renderPlaces(false);
+    if (!fromMap) return;
+    // A marker click brings its card into view and gives it the focus (keyboard and screen readers follow).
+    const card = strip.children[i]?.querySelector<HTMLButtonElement>('.card');
+    if (!card) return;
+    const behavior = matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
+    card.parentElement!.scrollIntoView({ behavior, block: 'nearest', inline: 'nearest' });
+    card.focus({ preventScroll: true });
+    setTimeout(syncArrows, 450);
+  };
   sheetMap.setMarkers([
-    ...items.map((it, i) => ({ ...it.at!, text: two(i), label: it.name, selected: i === selected, onClick: () => pick(i) })),
+    ...items.map((it, i) => ({ ...it.at!, text: two(i), label: it.name, selected: i === selected, onClick: () => pick(i, true) })),
     { lat: here.lat, lon: here.lon, label: here.label, kind: 'main' as const },
   ]);
   sheetMap.setRoute(items[selected]?.walk?.line);

@@ -311,7 +311,9 @@ const fontCss = [
     .map-credit { left: 0.5rem; right: auto; background: rgb(255 255 255 / 0.85); padding: 0 0.3rem; border-radius: 4px; }
 
     /* Home */
-    #search .stage-map { order: -1; height: min(32dvh, 15rem); }
+    /* The home fills the screen exactly: the map takes whatever height the text leaves. */
+    #search.stage { min-height: calc(100dvh - var(--header-h) - 0.75rem); }
+    #search .stage-map { order: -1; flex: 1 1 auto; height: auto; min-height: 12rem; }
     #search .stage-side { display: block; position: static; width: 100%; padding: 1.25rem 1.1rem 1.5rem; }
     #search .display { font-size: 2rem; }
     #search .lede { font-size: 1rem; margin-bottom: 1.25rem; }
