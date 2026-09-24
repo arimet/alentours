@@ -51,9 +51,9 @@ export const LEVELS: Record<Level, { icon: string; text: string }> = {
   unknown: { icon: '?', text: 'Donnée indisponible' },
 };
 
-/** "à 350 m", "à 1,2 km", "à 17 km". */
+/** "à moins de 10 m", "à 350 m", "à 1,2 km", "à 17 km". */
 export const formatDistance = (m: number) =>
-  m < 1000 ? `à ${Math.round(m / 10) * 10} m` : `à ${(m / 1000).toLocaleString('fr-FR', { maximumFractionDigits: m < 10000 ? 1 : 0 })} km`;
+  m < 10 ? 'à moins de 10 m' : m < 1000 ? `à ${Math.round(m / 10) * 10} m` : `à ${(m / 1000).toLocaleString('fr-FR', { maximumFractionDigits: m < 10000 ? 1 : 0 })} km`;
 
 /** Great-circle distance in metres (haversine). */
 export const distance = (a: { lat: number; lon: number }, b: { lat: number; lon: number }) => {

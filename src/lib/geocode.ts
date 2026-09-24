@@ -15,7 +15,8 @@ export type Place = {
 
 export const parsePlaces = (json: any): Place[] =>
   (json?.features ?? []).map(({ geometry, properties: p }: any) => ({
-    label: p.label,
+    // In Lyon the geocoder appends the district after a comma ("… 69002 Lyon,Lyon 2e Arrondissement").
+    label: p.label.split(',')[0],
     lat: geometry.coordinates[1],
     lon: geometry.coordinates[0],
     citycode: p.citycode,

@@ -118,7 +118,10 @@ export const measureFact = (label: string, rows: Row[]): Fact => {
   const pick = samples.reduce((w, s) => ((s.rows[0].resultat_numerique ?? 0) > (w.rows[0].resultat_numerique ?? 0) ? s : w));
   const r = pick.rows[0];
   // Below the detection limit, resultat_numerique is 0: show "<0,029", never "0".
-  const value = [r.resultat_alphanumerique, r.libelle_unite].filter(Boolean).join(' ');
+  // Some labs send "<SEUIL" without the threshold itself.
+  const value = r.resultat_alphanumerique === '<SEUIL'
+    ? 'Sous le seuil de détection du laboratoire'
+    : [r.resultat_alphanumerique, r.libelle_unite].filter(Boolean).join(' ');
   const limit = limitOf(r.limite_qualite_parametre);
   const when = on(pick, samples.length > 1);
   if (limit === undefined) return { label, value, level: 'info', detail: `${when}. Pas de limite réglementaire indiquée.` };

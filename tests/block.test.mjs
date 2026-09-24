@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import { formatDistance, distance } from '../src/lib/block.ts';
 
 test('formats distances in French', () => {
+  assert.equal(formatDistance(0), 'à moins de 10 m');
   assert.equal(formatDistance(227), 'à 230 m');
   assert.equal(formatDistance(1234), 'à 1,2 km');
   assert.equal(formatDistance(17420), 'à 17 km');

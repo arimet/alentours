@@ -45,3 +45,8 @@ test('precision follows the result type', () => {
   assert.equal(precisionOf('street'), 'rue');
   assert.equal(precisionOf('locality'), 'lieu-dit');
 });
+
+test('drops the district the geocoder appends after a comma', () => {
+  const [p] = parsePlaces({ features: [{ geometry: { coordinates: [4.835391, 45.761307] }, properties: { label: 'Rue de la République 69002 Lyon,Lyon 2e Arrondissement', citycode: '69382', city: 'Lyon', postcode: '69002', type: 'street' } }] });
+  assert.equal(p.label, 'Rue de la République 69002 Lyon');
+});

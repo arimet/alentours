@@ -134,3 +134,8 @@ test('without flags, the ARS conclusion text decides', () => {
   assert.equal(f.level, 'warn');
   assert.match(f.detail, /non-conforme/);
 });
+
+test('a result sent as "<SEUIL" says it is below the lab threshold, not "<SEUIL µg/L"', () => {
+  const row = { code_prelevement: 'x', date_prelevement: '2026-03-11T08:40:00Z', resultat_alphanumerique: '<SEUIL', resultat_numerique: 0, libelle_unite: 'µg/L', limite_qualite_parametre: '<=0,1 µg/L', reseaux: [{ code: 'r', nom: 'R' }] };
+  assert.equal(measureFact('PFAS', [row]).value, 'Sous le seuil de détection du laboratoire');
+});
