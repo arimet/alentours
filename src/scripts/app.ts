@@ -1,7 +1,9 @@
 import { parseFragment, toFragment, type Point } from '../lib/fragment';
-import { parsePlaces, precisionOf, searchUrl, reverseUrl, type Place } from '../lib/geocode';
+import { parsePlaces, precisionOf, communeCode, searchUrl, reverseUrl, type Place } from '../lib/geocode';
 import { getJson } from '../lib/http';
 import { EXAMPLES } from '../lib/examples';
+import { BLOCKS } from '../blocks';
+import { mountBlocks } from './render';
 
 const $ = <T extends HTMLElement>(id: string) => document.getElementById(id) as T;
 const search = $('search'), sheet = $('sheet');
@@ -106,6 +108,7 @@ const showSheet = async (point: Point) => {
   const title = $('sheet-title'), meta = $('sheet-meta'), sheetStatus = $('sheet-status');
   title.textContent = 'Recherche de l’adresse…';
   meta.textContent = sheetStatus.textContent = '';
+  $('blocks').replaceChildren();
   try {
     const place = await placeFor(point);
     if (!place) {
@@ -116,6 +119,10 @@ const showSheet = async (point: Point) => {
     title.textContent = place.label;
     document.title = `${place.label} · Mon adresse en données`;
     meta.textContent = `Commune : ${place.city} (INSEE ${place.citycode}). Précision de la localisation : ${precisionOf(place.type)}.`;
+    mountBlocks($('blocks'), BLOCKS, {
+      lat: place.lat, lon: place.lon, label: place.label,
+      citycode: place.citycode, commune: communeCode(place.citycode), city: place.city,
+    });
   } catch {
     title.textContent = 'Adresse indisponible';
     sheetStatus.textContent = 'Le service d’adresses ne répond pas. Rechargez la page dans un instant.';
