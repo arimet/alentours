@@ -1,12 +1,12 @@
 {
-  "name": "mon-adresse-en-donnees",
+  "name": "le-releve",
   "description": "Type a French address, get a clear and sourced sheet about the place: risks, tap water, air, noise, fibre and mobile coverage, property prices, schools and health services.",
   "license": "MIT",
   "author": "Anthony Rimet (https://github.com/arimet)",
-  "homepage": "https://arimet.github.io/mon-adresse-en-donnees/",
+  "homepage": "https://arimet.github.io/le-releve/",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/arimet/mon-adresse-en-donnees.git"
+    "url": "git+https://github.com/arimet/le-releve.git"
   },
   "type": "module",
   "private": true,

@@ -1,7 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 
-const REPO = 'https://github.com/arimet/mon-adresse-en-donnees';
+const REPO = 'https://github.com/arimet/le-releve';
 
 type Source = { theme: string; name: string; producer: string; licence: string; freshness: string; precision: string; limits: string; url: string };
 
@@ -27,7 +27,7 @@ const SOURCES: Source[] = [
   { theme: 'Commerces et services', name: 'Base permanente des équipements (BPE) 2025', producer: 'INSEE', licence: 'Licence Ouverte', freshness: 'annuelle (situation au 1er janvier 2025)', precision: 'équipement géolocalisé (seuls les points bien placés sont gardés)', limits: 'Une ouverture ou une fermeture récente peut manquer. Les noms des commerces ne sont pas repris. Pas de données exploitables à Mayotte.', url: 'https://www.insee.fr/fr/statistiques/8217525?sommaire=8217537' },
 ];
 ---
-<Base title="Sources et méthodologie" description="D’où viennent les données de Mon adresse en données, leur précision, leurs limites, et ce que le site fait de votre adresse.">
+<Base title="Sources et méthodologie" description="D’où viennent les données du Relevé, leur précision, leurs limites, et ce que le site fait de votre adresse.">
   <main class="prose">
     <h1>Sources et méthodologie</h1>
     <p class="lede">Chaque chiffre de la fiche vient d’une source publique, citée sur la fiche avec sa date et sa précision. Cette page les rassemble.</p>

@@ -265,7 +265,7 @@ const showSheet = async (point: Point) => {
     sheetMap.setRoute(undefined);
     sheetMap.setMarkers([{ ...place, label: place.label, kind: 'main' }]);
     revealTimer = setTimeout(reveal, STAGE_TIMEOUT_MS);
-    document.title = `${place.label} · Mon adresse en données`;
+    document.title = `${place.label} · Le Relevé`;
     meta.textContent = `Commune : ${place.city} (INSEE ${place.citycode}). Précision de la localisation : ${precisionOf(place.type)}.`;
     mountBlocks($('blocks'), BLOCKS, {
       lat: place.lat, lon: place.lon, label: place.label,
@@ -293,7 +293,7 @@ const route = () => {
   if (point) return showSheet(point);
   sheet.hidden = true;
   search.hidden = false;
-  document.title = 'Mon adresse en données';
+  document.title = 'Le Relevé';
   if (location.hash.length > 1) status.textContent = 'Ce lien ne contient pas de coordonnées valides.';
 };
 addEventListener('hashchange', route);

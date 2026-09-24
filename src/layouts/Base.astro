@@ -5,7 +5,7 @@ interface Props {
   title?: string;
   description?: string;
 }
-const SITE_NAME = 'Mon adresse en données';
+const SITE_NAME = 'Le Relevé';
 const {
   title,
   description = 'Tapez une adresse en France : risques, eau du robinet, air, bruit, fibre, réseau mobile, prix de l’immobilier, écoles et santé, avec la source de chaque chiffre.',
@@ -46,7 +46,7 @@ const fontCss = [
     <meta property="og:image" content={image} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Mon adresse en données : les données publiques sur votre adresse, avec leurs sources." />
+    <meta property="og:image:alt" content="Le Relevé : ce que les données publiques disent de votre adresse, avec leurs sources." />
     <meta name="twitter:card" content="summary_large_image" />
     <link rel="preload" href={font('cormorant-garamond-normal-400-latin.woff2')} as="font" type="font/woff2" crossorigin />
     <style set:html={fontCss}></style>
@@ -55,7 +55,7 @@ const fontCss = [
   </head>
   <body>
     <header class="site">
-      <a href={url('/')} class="brand">Mon adresse en données</a>
+      <a href={url('/')} class="brand">Le Relevé</a>
       <a href={url('/sources/')}>Sources et méthodologie</a>
     </header>
     <slot />
