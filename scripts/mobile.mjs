@@ -11,6 +11,7 @@
 // around its communes' bounding box. Files are processed one at a time and deleted after use:
 // the metropolitan GeoPackages weigh several gigabytes each once decompressed.
 
+import { fetchRetry } from './retry.mjs';
 import { execFileSync } from 'node:child_process';
 import { createWriteStream, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
@@ -45,7 +46,7 @@ const TERRITORIES = {
 };
 
 const hrefs = async (url) => {
-  const res = await fetch(url);
+  const res = await fetchRetry(url);
   if (!res.ok) throw new Error(`${url}: HTTP ${res.status}`);
   return [...(await res.text()).matchAll(/href="([^"]+)"/g)].map((m) => m[1]);
 };
@@ -73,7 +74,7 @@ const sevenZip = ['7z', '7zz'].find((c) => { try { run(c, ['i']); return true; }
 
 /** Department → [minX, minY, maxX, maxY] in the territory's projection, from its communes (+2 km). */
 const departmentBoxes = async () => {
-  const communes = await (await fetch('https://geo.api.gouv.fr/communes?fields=codeDepartement,bbox')).json();
+  const communes = await (await fetchRetry('https://geo.api.gouv.fr/communes?fields=codeDepartement,bbox')).json();
   const boxes = {};
   for (const c of communes) {
     const dep = c.codeDepartement;
@@ -94,10 +95,16 @@ const departmentBoxes = async () => {
   return boxes;
 };
 
-const download = async (url, file) => {
-  const res = await fetch(url);
-  if (!res.ok) throw new Error(`${url}: HTTP ${res.status}`);
-  await pipeline(Readable.fromWeb(res.body), createWriteStream(file));
+// The archives weigh up to ~1 GB: a connection dropped mid-body restarts the whole file.
+const download = async (url, file, tries = 3) => {
+  for (let attempt = 1; ; attempt++) {
+    const res = await fetchRetry(url);
+    if (!res.ok) throw new Error(`${url}: HTTP ${res.status}`);
+    try { return await pipeline(Readable.fromWeb(res.body), createWriteStream(file)); } catch (e) {
+      if (attempt === tries) throw e;
+      console.warn(`${url}: download cut (${e.cause?.code ?? e.message}), restart ${attempt}/${tries - 1}`);
+    }
+  }
 };
 
 /** One layer rasterized on the territory grid: one byte per cell, 0..3. */
