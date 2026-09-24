@@ -1,0 +1,86 @@
+{
+ "document": {
+  "type": "FeatureCollection",
+  "features": [
+   {
+    "type": "Feature",
+    "id": "document.26886",
+    "geometry": {
+     "type": "MultiPolygon",
+     "_note": "coordonnées omises (échantillon)"
+    },
+    "geometry_name": "the_geom",
+    "properties": {
+     "gid": 26886,
+     "id": "4bafe85e873958d9ddad93f941bb817e",
+     "grid_name": "245400676",
+     "grid_title": "PLUI DU GRAND NANCY",
+     "name": "245400676_PLUi_20260709",
+     "gpu_doc_id": "4bafe85e873958d9ddad93f941bb817e",
+     "gpu_status": "production",
+     "gpu_timestamp": "2026-07-22T17:40:55.395Z",
+     "partition": "DU_245400676",
+     "du_type": "PLUi"
+    }
+   }
+  ],
+  "totalFeatures": 1,
+  "numberMatched": 1,
+  "numberReturned": 1,
+  "timeStamp": "2026-09-24T15:54:17.764Z",
+  "crs": {
+   "type": "name",
+   "properties": {
+    "name": "urn:ogc:def:crs:EPSG::4326"
+   }
+  }
+ },
+ "zone-urba": {
+  "type": "FeatureCollection",
+  "features": [
+   {
+    "type": "Feature",
+    "id": "zone_urba.4583810",
+    "geometry": {
+     "type": "MultiPolygon",
+     "_note": "coordonnées omises (échantillon)"
+    },
+    "geometry_name": "the_geom",
+    "properties": {
+     "gid": 4583810,
+     "gpu_doc_id": "4bafe85e873958d9ddad93f941bb817e",
+     "gpu_status": "production",
+     "gpu_timestamp": "2026-07-22T17:40:55.395Z",
+     "partition": "DU_245400676",
+     "libelle": "PSMV",
+     "libelong": "Plan de Sauvegarde et de Mise en Valeur",
+     "typezone": "U",
+     "destdomi": null,
+     "nomfic": "245400676_reglement_20221122.pdf",
+     "urlfic": "https://geo.grandnancy.eu/DOC_SIG/DOC_URBA/GPU/245400676/Pieces_ecrites/3_Reglement/245400676_reglement_20221122.pdf",
+     "insee": null,
+     "datappro": null,
+     "datvalid": "20221122",
+     "idurba": "245400676_PLUI_20260709",
+     "idzone": null,
+     "lib_idzone": "245400676_PLUi_20260709_ZO138",
+     "formdomi": "",
+     "destoui": "",
+     "destcdt": "",
+     "destnon": "",
+     "symbole": ""
+    }
+   }
+  ],
+  "totalFeatures": 1,
+  "numberMatched": 1,
+  "numberReturned": 1,
+  "timeStamp": "2026-09-24T15:54:18.112Z",
+  "crs": {
+   "type": "name",
+   "properties": {
+    "name": "urn:ogc:def:crs:EPSG::4326"
+   }
+  }
+ }
+}

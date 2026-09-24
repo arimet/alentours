@@ -1,0 +1,70 @@
+{
+ "municipality": {
+  "type": "FeatureCollection",
+  "features": [
+   {
+    "type": "Feature",
+    "id": "municipality.13337554",
+    "geometry": {
+     "type": "MultiPolygon",
+     "_note": "coordonnées omises (échantillon)"
+    },
+    "geometry_name": "the_geom",
+    "properties": {
+     "gid": 13337554,
+     "insee": "23003",
+     "name": "ALLEYRAT",
+     "is_rnu": true,
+     "is_deleted": false,
+     "is_coastline": false
+    }
+   }
+  ],
+  "totalFeatures": 1,
+  "numberMatched": 1,
+  "numberReturned": 1,
+  "timeStamp": "2026-09-24T15:53:09.762Z",
+  "crs": {
+   "type": "name",
+   "properties": {
+    "name": "urn:ogc:def:crs:EPSG::4326"
+   }
+  }
+ },
+ "document": {
+  "type": "FeatureCollection",
+  "features": [],
+  "totalFeatures": 0,
+  "numberMatched": 0,
+  "numberReturned": 0,
+  "timeStamp": "2026-09-24T15:53:10.276Z",
+  "crs": null
+ },
+ "zone-urba": {
+  "type": "FeatureCollection",
+  "features": [],
+  "totalFeatures": 0,
+  "numberMatched": 0,
+  "numberReturned": 0,
+  "timeStamp": "2026-09-24T15:53:10.763Z",
+  "crs": null
+ },
+ "secteur-cc": {
+  "type": "FeatureCollection",
+  "features": [],
+  "totalFeatures": 0,
+  "numberMatched": 0,
+  "numberReturned": 0,
+  "timeStamp": "2026-09-24T15:53:11.013Z",
+  "crs": null
+ },
+ "assiette-sup-s": {
+  "type": "FeatureCollection",
+  "features": [],
+  "totalFeatures": 0,
+  "numberMatched": 0,
+  "numberReturned": 0,
+  "timeStamp": "2026-09-24T15:53:11.669Z",
+  "crs": null
+ }
+}

@@ -1,0 +1,15 @@
+Source : Cerema, "Cartes de bruit stratégiques des réseaux routiers et ferroviaires non concédés" (data.gouv 67ed4eea6f9ca69ddb4ed961)
+Fichier : cbs2022-departement-054.zip (8 235 767 o, Access-Control-Allow-Origin: *), shapefiles Lambert 93
+Point : 35 rue Joseph Mougin 54000 Nancy (48.703193, 6.16209), test point dans polygone (shapely), 24/09/2026
+Champs : IDZONBRUIT IDCBS UUEID ANNEE CODEDEPT TYPETERR PRODUCTEUR CODINFRA TYPESOURCE CBSTYPE ZONEDEF LEGENDE INDICETYPE VALIDEDEB VALIDEFIN
+
+Couche                          dans une zone ?   zones à moins de 150 m (distance, LEGENDE, source, type, indice, CODINFRA, VALIDEFIN)
+N_BRUIT_ZBR_INFRA_R_A_LD_S_054  non               (25 m, 55), (43 m, 60), (62 m, 65), (74 m, 70), (104 m, 75)  R A LD CODINFRA=000 VALIDEFIN=None
+N_BRUIT_ZBR_INFRA_R_A_LN_S_054  non               (39 m, 50), (58 m, 55), (75 m, 60), (107 m, 65)             R A LN CODINFRA=000
+N_BRUIT_ZBR_INFRA_R_C_LD_S_054  non               plus proche : 70 m
+N_BRUIT_ZBR_INFRA_F_A_LD_S_054  non               plus proche : 105 m
+N_BRUIT_ZBR_INFRA_F_A_LN_S_054  non               plus proche : 140 m
+N_BRUIT_ZBR_INFRA_F_C_*_054     non               plus proche : ~365 m
+
+Comparaison Géo-IDE (DDT 54, 3e échéance 2018, org_38050/2f4b7bcb-...internet.map, couche N_BRUIT_ZBR_R_A_LD_S_054) :
+WMS GetFeatureInfo (1.3.0 et 1.1.1) -> HTTP 500 ; WFS -> "msOGRFileOpen(): OGR error. Open failed ... File not found". Service mort.

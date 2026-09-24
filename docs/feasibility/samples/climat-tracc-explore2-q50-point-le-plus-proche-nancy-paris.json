@@ -1,0 +1,65 @@
+{
+ "_note": "Valeurs brutes des CSV = chaines Timedelta pandas ('11 days 22:47:59.98'), converties ici en jours. SWI04D = nan partout dans les CSV Centiles. Source: object.files.data.gouv.fr/meteofrance-drias/TRACC-2023/CSV_wk_032025/Indicateurs-Absolue_Centiles-Explore2-Climat_Moyenne-20ans_{RWL20,RWL27,RWL40,historical}_csv.tar, fichiers *_ENSq50.csv (mediane d'ensemble), historique 1976-2005",
+ "Nancy": {
+  "point_grille": {
+   "id": "14403",
+   "lat": "48.6889",
+   "lon": "6.1937",
+   "distance_km": 2.8
+  },
+  "SWI04D": {
+   "RWL-20": "nan",
+   "RWL-27": "nan",
+   "RWL-40": "nan"
+  },
+  "TR": {
+   "RWL-20": 6.3,
+   "RWL-27": 11.7,
+   "RWL-40": 22.3,
+   "historical": 1.9
+  },
+  "TX30D": {
+   "RWL-20": 11.9,
+   "RWL-27": 17.6,
+   "RWL-40": 28.0,
+   "historical": 6.1
+  },
+  "TX35D": {
+   "RWL-20": 1.8,
+   "RWL-27": 3.9,
+   "RWL-40": 7.5,
+   "historical": 0.5
+  }
+ },
+ "Paris-Segur": {
+  "point_grille": {
+   "id": "14510",
+   "lat": "48.8234",
+   "lon": "2.2821",
+   "distance_km": 3.6
+  },
+  "SWI04D": {
+   "RWL-20": "nan",
+   "RWL-27": "nan",
+   "RWL-40": "nan"
+  },
+  "TR": {
+   "RWL-20": 16.8,
+   "RWL-27": 25.6,
+   "RWL-40": 42.8,
+   "historical": 7.8
+  },
+  "TX30D": {
+   "RWL-20": 14.1,
+   "RWL-27": 20.9,
+   "RWL-40": 32.1,
+   "historical": 8.9
+  },
+  "TX35D": {
+   "RWL-20": 2.1,
+   "RWL-27": 4.0,
+   "RWL-40": 7.6,
+   "historical": 0.7
+  }
+ }
+}

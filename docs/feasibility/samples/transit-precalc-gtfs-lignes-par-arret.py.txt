@@ -1,0 +1,28 @@
+# usage: gtfs_lines.py feed.zip YYYYMMDD lat lon radius_m
+import csv,io,sys,zipfile,math,json,collections
+z=zipfile.ZipFile(sys.argv[1]);day=sys.argv[2];la,lo,R=map(float,sys.argv[3:6])
+def rd(n):
+    try: return csv.DictReader(io.TextIOWrapper(z.open(n),'utf-8-sig'))
+    except KeyError: return []
+wd=['monday','tuesday','wednesday','thursday','friday','saturday','sunday'][__import__('datetime').datetime.strptime(day,'%Y%m%d').weekday()]
+svc={c['service_id'] for c in rd('calendar.txt') if c[wd]=='1' and c['start_date']<=day<=c['end_date']}
+for c in rd('calendar_dates.txt'):
+    if c['date']==day: (svc.add if c['exception_type']=='1' else svc.discard)(c['service_id'])
+M={'0':'tram','1':'métro','2':'train','3':'bus','4':'ferry','5':'téléphérique','6':'télécabine','7':'funiculaire','11':'trolleybus','12':'monorail'}
+ag={a.get('agency_id',''):a['agency_name'] for a in rd('agency.txt')}
+routes={r['route_id']:(r['route_short_name'] or r['route_long_name'],M.get(r['route_type'],r['route_type']),ag.get(r.get('agency_id',''),next(iter(ag.values())))) for r in rd('routes.txt')}
+trips={t['trip_id']:t['route_id'] for t in rd('trips.txt') if t['service_id'] in svc}
+alltrips={t['trip_id']:t['route_id'] for t in rd('trips.txt')}
+def d(a,b): return math.hypot((b-lo)*math.cos(math.radians(la))*111320,(a-la)*111320)
+st={};par={}
+for s in rd('stops.txt'):
+    if s.get('location_type','0') in ('','0'):
+        dd=d(float(s['stop_lat']),float(s['stop_lon']))
+        if dd<=R: st[s['stop_id']]=(s['stop_name'],round(dd))
+dep=collections.defaultdict(collections.Counter);lines=collections.defaultdict(set)
+for r in rd('stop_times.txt'):
+    if r['stop_id'] in st:
+        lines[r['stop_id']].add(alltrips.get(r['trip_id']))
+        if r['trip_id'] in trips: dep[r['stop_id']][trips[r['trip_id']]]+=1
+out=[{'stop':st[s][0],'dist_m':st[s][1],'lines':[{'line':routes[x][0],'mode':routes[x][1],'operator':routes[x][2],'departures':dep[s][x]} for x in sorted(lines[s]) if x in routes]} for s in sorted(st,key=lambda s:st[s][1])]
+print(json.dumps({'date':day,'services_actifs':len(svc),'stops':out},ensure_ascii=False,indent=1))

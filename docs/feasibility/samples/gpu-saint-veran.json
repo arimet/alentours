@@ -1,0 +1,411 @@
+{
+ "municipality": {
+  "type": "FeatureCollection",
+  "features": [
+   {
+    "type": "Feature",
+    "id": "municipality.13360727",
+    "geometry": {
+     "type": "MultiPolygon",
+     "_note": "coordonnées omises (échantillon)"
+    },
+    "geometry_name": "the_geom",
+    "properties": {
+     "gid": 13360727,
+     "insee": "05157",
+     "name": "SAINT-VERAN",
+     "is_rnu": false,
+     "is_deleted": false,
+     "is_coastline": false
+    }
+   }
+  ],
+  "totalFeatures": 1,
+  "numberMatched": 1,
+  "numberReturned": 1,
+  "timeStamp": "2026-09-24T15:52:03.041Z",
+  "crs": {
+   "type": "name",
+   "properties": {
+    "name": "urn:ogc:def:crs:EPSG::4326"
+   }
+  }
+ },
+ "document": {
+  "type": "FeatureCollection",
+  "features": [
+   {
+    "type": "Feature",
+    "id": "document.21593",
+    "geometry": {
+     "type": "MultiPolygon",
+     "_note": "coordonnées omises (échantillon)"
+    },
+    "geometry_name": "the_geom",
+    "properties": {
+     "gid": 21593,
+     "id": "26235f1b69afff5c4e57dd2d9403f662",
+     "grid_name": "05157",
+     "grid_title": "SAINT-VERAN",
+     "name": "05157_PLU_20250915",
+     "gpu_doc_id": "26235f1b69afff5c4e57dd2d9403f662",
+     "gpu_status": "production",
+     "gpu_timestamp": "2025-09-19T17:41:30.132Z",
+     "partition": "DU_05157",
+     "du_type": "PLU"
+    }
+   }
+  ],
+  "totalFeatures": 1,
+  "numberMatched": 1,
+  "numberReturned": 1,
+  "timeStamp": "2026-09-24T15:52:03.251Z",
+  "crs": {
+   "type": "name",
+   "properties": {
+    "name": "urn:ogc:def:crs:EPSG::4326"
+   }
+  }
+ },
+ "zone-urba": {
+  "type": "FeatureCollection",
+  "features": [
+   {
+    "type": "Feature",
+    "id": "zone_urba.3067276",
+    "geometry": {
+     "type": "MultiPolygon",
+     "_note": "coordonnées omises (échantillon)"
+    },
+    "geometry_name": "the_geom",
+    "properties": {
+     "gid": 3067276,
+     "gpu_doc_id": "26235f1b69afff5c4e57dd2d9403f662",
+     "gpu_status": "production",
+     "gpu_timestamp": "2025-09-19T17:41:30.132Z",
+     "partition": "DU_05157",
+     "libelle": "Ua",
+     "libelong": "Zone urbaine correspondant aux centres anciens et quartiers historiques",
+     "typezone": "U",
+     "destdomi": null,
+     "nomfic": "05157_reglement_20250915.pdf",
+     "urlfic": "",
+     "insee": null,
+     "datappro": null,
+     "datvalid": "20250520",
+     "idurba": "05157_PLU_20250915",
+     "idzone": null,
+     "lib_idzone": "",
+     "formdomi": null,
+     "destoui": null,
+     "destcdt": null,
+     "destnon": null,
+     "symbole": null
+    }
+   }
+  ],
+  "totalFeatures": 1,
+  "numberMatched": 1,
+  "numberReturned": 1,
+  "timeStamp": "2026-09-24T15:52:03.483Z",
+  "crs": {
+   "type": "name",
+   "properties": {
+    "name": "urn:ogc:def:crs:EPSG::4326"
+   }
+  }
+ },
+ "secteur-cc": {
+  "type": "FeatureCollection",
+  "features": [],
+  "totalFeatures": 0,
+  "numberMatched": 0,
+  "numberReturned": 0,
+  "timeStamp": "2026-09-24T15:52:03.675Z",
+  "crs": null
+ },
+ "prescription-surf": {
+  "type": "FeatureCollection",
+  "features": [
+   {
+    "type": "Feature",
+    "id": "prescription_surf.12168498",
+    "geometry": {
+     "type": "MultiPolygon",
+     "_note": "coordonnées omises (échantillon)"
+    },
+    "geometry_name": "the_geom",
+    "properties": {
+     "gid": 12168498,
+     "gpu_doc_id": "26235f1b69afff5c4e57dd2d9403f662",
+     "gpu_status": "production",
+     "gpu_timestamp": "2025-09-19T17:41:30.132Z",
+     "partition": "DU_05157",
+     "libelle": "Périmètre soumis à Orientation d'Aménagement et de Programmation (OAP)",
+     "txt": "",
+     "typepsc": "18",
+     "nomfic": "05157_reglement_20250915.pdf",
+     "urlfic": "",
+     "insee": null,
+     "datappro": null,
+     "datvalid": "20250520",
+     "idurba": "05157_PLU_20250915",
+     "stypepsc": "00",
+     "idpsc": null,
+     "lib_idpsc": "",
+     "nature": null,
+     "symbole": null
+    }
+   }
+  ],
+  "totalFeatures": 1,
+  "numberMatched": 1,
+  "numberReturned": 1,
+  "timeStamp": "2026-09-24T15:52:03.839Z",
+  "crs": {
+   "type": "name",
+   "properties": {
+    "name": "urn:ogc:def:crs:EPSG::4326"
+   }
+  }
+ },
+ "info-surf": {
+  "type": "FeatureCollection",
+  "features": [
+   {
+    "type": "Feature",
+    "id": "info_surf.3660271",
+    "geometry": {
+     "type": "MultiPolygon",
+     "_note": "coordonnées omises (échantillon)"
+    },
+    "geometry_name": "the_geom",
+    "properties": {
+     "gid": 3660271,
+     "gpu_doc_id": "26235f1b69afff5c4e57dd2d9403f662",
+     "gpu_status": "production",
+     "gpu_timestamp": "2025-09-19T17:41:30.132Z",
+     "partition": "DU_05157",
+     "libelle": "Zone de présomption archéologique - Saisine de la DRAC sur toutes les demandes de PC, PD, PA et décisions de réalisation de ZAC - De Sainte-Agathe à Saint-Véran (zone 1)",
+     "txt": "",
+     "typeinf": "16",
+     "typep": null,
+     "nomfic": "05157_zone_presomption_archeologique_20250915.pdf",
+     "urlfic": "",
+     "insee": null,
+     "idurba": "05157_PLU_20250915",
+     "datvalid": "20250520",
+     "stypeinf": "00",
+     "stypep": null,
+     "idinfo": null,
+     "lib_idinfo": "",
+     "nature": null,
+     "symbole": null
+    }
+   },
+   {
+    "type": "Feature",
+    "id": "info_surf.3660270",
+    "geometry": {
+     "type": "MultiPolygon",
+     "_note": "coordonnées omises (échantillon)"
+    },
+    "geometry_name": "the_geom",
+    "properties": {
+     "gid": 3660270,
+     "gpu_doc_id": "26235f1b69afff5c4e57dd2d9403f662",
+     "gpu_status": "production",
+     "gpu_timestamp": "2025-09-19T17:41:30.132Z",
+     "partition": "DU_05157",
+     "libelle": "Périmètre du Site Patrimonial Remarquable (SPR)",
+     "txt": "",
+     "typeinf": "97",
+     "typep": null,
+     "nomfic": "05157_servitude_ac4_20250915.pdf",
+     "urlfic": "",
+     "insee": null,
+     "idurba": "05157_PLU_20250915",
+     "datvalid": "20250520",
+     "stypeinf": "00",
+     "stypep": null,
+     "idinfo": null,
+     "lib_idinfo": "",
+     "nature": null,
+     "symbole": null
+    }
+   },
+   {
+    "type": "Feature",
+    "id": "info_surf.3660273",
+    "geometry": {
+     "type": "MultiPolygon",
+     "_note": "coordonnées omises (échantillon)"
+    },
+    "geometry_name": "the_geom",
+    "properties": {
+     "gid": 3660273,
+     "gpu_doc_id": "26235f1b69afff5c4e57dd2d9403f662",
+     "gpu_status": "production",
+     "gpu_timestamp": "2025-09-19T17:41:30.132Z",
+     "partition": "DU_05157",
+     "libelle": "Périmètre de droit de préemption urbain",
+     "txt": "",
+     "typeinf": "04",
+     "typep": null,
+     "nomfic": "05157_droit_preemption_urbain_20250915.pdf",
+     "urlfic": "",
+     "insee": null,
+     "idurba": "05157_PLU_20250915",
+     "datvalid": "20250912",
+     "stypeinf": "00",
+     "stypep": null,
+     "idinfo": null,
+     "lib_idinfo": "",
+     "nature": null,
+     "symbole": null
+    }
+   }
+  ],
+  "totalFeatures": 3,
+  "numberMatched": 3,
+  "numberReturned": 3,
+  "timeStamp": "2026-09-24T15:52:04.361Z",
+  "crs": {
+   "type": "name",
+   "properties": {
+    "name": "urn:ogc:def:crs:EPSG::4326"
+   }
+  }
+ },
+ "assiette-sup-s": {
+  "type": "FeatureCollection",
+  "features": [
+   {
+    "type": "Feature",
+    "id": "assiette_sup_s.5934981",
+    "geometry": {
+     "type": "MultiPolygon",
+     "_note": "coordonnées omises (échantillon)"
+    },
+    "geometry_name": "the_geom",
+    "properties": {
+     "gid": 5934981,
+     "gpu_doc_id": "b54c65426dab446dcb26449bf9a483b2",
+     "gpu_status": "production",
+     "gpu_timestamp": "2026-09-21T22:54:06.931Z",
+     "suptype": "ac1",
+     "partition": "172014607_SUP_05_AC1",
+     "fichier": "AC1_Ferme-avec-cadran-solaire-I6TFIB_19960802_act.pdf",
+     "idass": "AC1-172014607-1910030736-1-2",
+     "idgen": "AC1-172014607-1910030736-1",
+     "nomass": "AC1_Ferme-avec-cadran-solaire-I6TFIB_abor",
+     "typeass": "Périmètre des abords",
+     "modegeoass": "Zone tampon",
+     "paramcalc": 500,
+     "srcgeoass": "Plus précis que le cadastre",
+     "datesrcass": "20180101",
+     "angle1": null,
+     "angle2": null,
+     "rayon": null,
+     "h": null,
+     "href": null,
+     "xdebut": null,
+     "xfinal": null,
+     "ydebut": null,
+     "yfinal": null,
+     "largeur": null,
+     "nomsuplitt": "Ferme avec cadran solaire",
+     "nomreg": "",
+     "urlreg": ""
+    }
+   },
+   {
+    "type": "Feature",
+    "id": "assiette_sup_s.5935099",
+    "geometry": {
+     "type": "MultiPolygon",
+     "_note": "coordonnées omises (échantillon)"
+    },
+    "geometry_name": "the_geom",
+    "properties": {
+     "gid": 5935099,
+     "gpu_doc_id": "31d53d1f1d0bc114ee34f991a65fec78",
+     "gpu_status": "production",
+     "gpu_timestamp": "2026-09-21T23:06:34.092Z",
+     "suptype": "ac4",
+     "partition": "172014607_SUP_05_AC4",
+     "fichier": "AC4_Site-patrimonial-remarquable-de-Saint-Veran_20160518_act.pdf",
+     "idass": "AC4-172014607-2003250010-1-1",
+     "idgen": "AC4-172014607-2003250010-1",
+     "nomass": "AC4_Site-patrimonial-remarquable-de-Saint-Veran_ass",
+     "typeass": "Périmètre du SPR",
+     "modegeoass": "Égale au générateur",
+     "paramcalc": null,
+     "srcgeoass": "Cadastre",
+     "datesrcass": "20180101",
+     "angle1": null,
+     "angle2": null,
+     "rayon": null,
+     "h": null,
+     "href": null,
+     "xdebut": null,
+     "xfinal": null,
+     "ydebut": null,
+     "yfinal": null,
+     "largeur": null,
+     "nomsuplitt": "Site patrimonial remarquable de Saint Véran",
+     "nomreg": "",
+     "urlreg": ""
+    }
+   }
+  ],
+  "totalFeatures": 2,
+  "numberMatched": 2,
+  "numberReturned": 2,
+  "timeStamp": "2026-09-24T15:52:05.164Z",
+  "crs": {
+   "type": "name",
+   "properties": {
+    "name": "urn:ogc:def:crs:EPSG::4326"
+   }
+  }
+ },
+ "parcelle": {
+  "type": "FeatureCollection",
+  "features": [
+   {
+    "type": "Feature",
+    "id": "parcelle.9608551",
+    "geometry": {
+     "type": "MultiPolygon",
+     "_note": "coordonnées omises (échantillon)"
+    },
+    "geometry_name": "geom",
+    "properties": {
+     "gid": 6803057,
+     "numero": "1163",
+     "feuille": 1,
+     "section": "AB",
+     "code_dep": "05",
+     "nom_com": "Saint-Véran",
+     "code_com": "157",
+     "com_abs": "000",
+     "code_arr": "000",
+     "idu": "05157000AB1163",
+     "contenance": 75,
+     "code_insee": "05157"
+    }
+   }
+  ],
+  "totalFeatures": 1,
+  "numberMatched": 1,
+  "numberReturned": 1,
+  "timeStamp": "2026-09-24T15:53:46.194Z",
+  "crs": {
+   "type": "name",
+   "properties": {
+    "name": "urn:ogc:def:crs:EPSG::4326"
+   }
+  }
+ }
+}

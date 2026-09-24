@@ -1,0 +1,46 @@
+CODGEO_2026,annee,indicateur,unite_de_compte,nombre,taux_pour_mille,est_diffuse,insee_pop,insee_pop_millesime,insee_log,insee_log_millesime,complement_info_nombre,complement_info_taux
+05157,2025,Cambriolages de logement,Infraction,0,0.0,diff,160,2023,459,2022,,
+05157,2025,Destructions et dégradations volontaires,Infraction,,,ndiff,160,2023,459,2022,2.1404959,5.6238329
+05157,2025,Escroqueries et fraudes aux moyens de paiement,Victime,,,ndiff,160,2023,459,2022,2.9097744,7.5784279
+05157,2025,Trafic de stupéfiants,Mis en cause,0,0.0,diff,160,2023,459,2022,,
+05157,2025,Usage de stupéfiants,Mis en cause,0,0.0,diff,160,2023,459,2022,,
+05157,2025,Usage de stupéfiants (AFD),Mis en cause,0,0.0,diff,160,2023,459,2022,,
+05157,2025,Violences physiques hors cadre familial,Victime,0,0.0,diff,160,2023,459,2022,,
+05157,2025,Violences physiques intrafamiliales,Victime,,,ndiff,160,2023,459,2022,1.4827586,2.7948847
+05157,2025,Violences sexuelles,Victime,,,ndiff,160,2023,459,2022,1.8932039,2.9114037
+05157,2025,Vols avec armes,Infraction,0,0.0,diff,160,2023,459,2022,,
+05157,2025,Vols d'accessoires sur véhicules,Véhicule,0,0.0,diff,160,2023,459,2022,,
+05157,2025,Vols dans les véhicules,Véhicule,,,ndiff,160,2023,459,2022,1.2886598,1.9501388
+05157,2025,Vols de véhicule,Véhicule,0,0.0,diff,160,2023,459,2022,,
+05157,2025,Vols sans violence contre des personnes,Victime entendue,,,ndiff,160,2023,459,2022,1.2413793,2.8122254
+05157,2025,Vols violents sans arme,Infraction,0,0.0,diff,160,2023,459,2022,,
+54395,2025,Cambriolages de logement,Infraction,339,4.6558157,diff,103671,2023,72812,2022,,
+54395,2025,Destructions et dégradations volontaires,Infraction,1235,11.9126853,diff,103671,2023,72812,2022,,
+54395,2025,Escroqueries et fraudes aux moyens de paiement,Victime,741,7.1476112,diff,103671,2023,72812,2022,,
+54395,2025,Trafic de stupéfiants,Mis en cause,132,1.2732587,diff,103671,2023,72812,2022,,
+54395,2025,Usage de stupéfiants,Mis en cause,583,5.6235591,diff,103671,2023,72812,2022,,
+54395,2025,Usage de stupéfiants (AFD),Mis en cause,350,3.3760647,diff,103671,2023,72812,2022,,
+54395,2025,Violences physiques hors cadre familial,Victime,707,6.8196506,diff,103671,2023,72812,2022,,
+54395,2025,Violences physiques intrafamiliales,Victime,428,4.1284448,diff,103671,2023,72812,2022,,
+54395,2025,Violences sexuelles,Victime,317,3.05775,diff,103671,2023,72812,2022,,
+54395,2025,Vols avec armes,Infraction,16,0.1543344,diff,103671,2023,72812,2022,,
+54395,2025,Vols d'accessoires sur véhicules,Véhicule,99,0.954944,diff,103671,2023,72812,2022,,
+54395,2025,Vols dans les véhicules,Véhicule,729,7.0318604,diff,103671,2023,72812,2022,,
+54395,2025,Vols de véhicule,Véhicule,127,1.2250292,diff,103671,2023,72812,2022,,
+54395,2025,Vols sans violence contre des personnes,Victime entendue,2248,21.6839811,diff,103671,2023,72812,2022,,
+54395,2025,Vols violents sans arme,Infraction,164,1.5819274,diff,103671,2023,72812,2022,,
+75107,2025,Cambriolages de logement,Infraction,260,6.613942,diff,48015,2023,39311,2022,,
+75107,2025,Destructions et dégradations volontaires,Infraction,382,7.9558471,diff,48015,2023,39311,2022,,
+75107,2025,Escroqueries et fraudes aux moyens de paiement,Victime,688,14.3288556,diff,48015,2023,39311,2022,,
+75107,2025,Trafic de stupéfiants,Mis en cause,82,1.7077996,diff,48015,2023,39311,2022,,
+75107,2025,Usage de stupéfiants,Mis en cause,438,9.1221493,diff,48015,2023,39311,2022,,
+75107,2025,Usage de stupéfiants (AFD),Mis en cause,355,7.3935229,diff,48015,2023,39311,2022,,
+75107,2025,Violences physiques hors cadre familial,Victime,205,4.2694991,diff,48015,2023,39311,2022,,
+75107,2025,Violences physiques intrafamiliales,Victime,115,2.3950849,diff,48015,2023,39311,2022,,
+75107,2025,Violences sexuelles,Victime,166,3.4572529,diff,48015,2023,39311,2022,,
+75107,2025,Vols avec armes,Infraction,,,ndiff,48015,2023,39311,2022,4.5,0.1052705
+75107,2025,Vols d'accessoires sur véhicules,Véhicule,53,1.1038217,diff,48015,2023,39311,2022,,
+75107,2025,Vols dans les véhicules,Véhicule,319,6.6437572,diff,48015,2023,39311,2022,,
+75107,2025,Vols de véhicule,Véhicule,91,1.8952411,diff,48015,2023,39311,2022,,
+75107,2025,Vols sans violence contre des personnes,Victime entendue,2226,46.3605123,diff,48015,2023,39311,2022,,
+75107,2025,Vols violents sans arme,Infraction,124,2.5825263,diff,48015,2023,39311,2022,,

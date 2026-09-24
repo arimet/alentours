@@ -1,0 +1,66 @@
+{
+ "date": "20260929",
+ "services_actifs": 1,
+ "stops": [
+  {
+   "stop": "Nancy College Jean Lamour",
+   "dist_m": 100,
+   "lines": [
+    {
+     "line": "T2",
+     "mode": "bus",
+     "operator": "STAN Nancy",
+     "departures": 123
+    },
+    {
+     "line": "32",
+     "mode": "bus",
+     "operator": "STAN Nancy",
+     "departures": 9
+    }
+   ]
+  },
+  {
+   "stop": "Alix Le Clerc",
+   "dist_m": 183,
+   "lines": [
+    {
+     "line": "T2",
+     "mode": "bus",
+     "operator": "STAN Nancy",
+     "departures": 123
+    }
+   ]
+  },
+  {
+   "stop": "Nancy College Jean Lamour",
+   "dist_m": 208,
+   "lines": [
+    {
+     "line": "T2",
+     "mode": "bus",
+     "operator": "STAN Nancy",
+     "departures": 123
+    },
+    {
+     "line": "32",
+     "mode": "bus",
+     "operator": "STAN Nancy",
+     "departures": 8
+    }
+   ]
+  },
+  {
+   "stop": "Alix Le Clerc",
+   "dist_m": 253,
+   "lines": [
+    {
+     "line": "T2",
+     "mode": "bus",
+     "operator": "STAN Nancy",
+     "departures": 123
+    }
+   ]
+  }
+ ]
+}
