@@ -2,6 +2,7 @@ import { parseFragment, toFragment, type Point } from '../lib/fragment';
 import { parsePlaces, precisionOf, communeCode, searchUrl, reverseUrl, type Place } from '../lib/geocode';
 import { getJson } from '../lib/http';
 import { EXAMPLES } from '../lib/examples';
+import homeRoutes from '../data/home-routes.json';
 import { BLOCKS, GROUPS } from '../blocks';
 import { mountBlocks } from './render';
 import { createMap } from './map';
@@ -97,12 +98,12 @@ const exampleBtn = $<HTMLButtonElement>('example');
 exampleBtn.textContent = example.label;
 exampleBtn.addEventListener('click', () => { location.hash = toFragment(example); });
 
-// Home map: metropolitan France with every example as a clickable marker.
+// Home map: metropolitan France with its main road corridors drawing in (scripts/routes.mjs).
 // On wide screens a white side panel covers the left of the map: keep the subject to its right.
 const focusX = () => (innerWidth > 896 ? 0.64 : 0.5);
 const homeMap = createMap($('home-map'), { zoom: 5, minZoom: 4, maxZoom: 9, label: 'Carte de France avec des adresses d’exemple', focusX });
 homeMap.setView({ lat: 46.6, lon: 2.4 }, 6);
-homeMap.setMarkers(EXAMPLES.map((e) => ({ ...e, label: `Voir la fiche : ${e.label}`, focusable: true, onClick: () => { location.hash = toFragment(e); } })));
+homeMap.setLines(homeRoutes.lines as [number, number][][]);
 
 // --- Sheet ---
 const sheetMap = createMap($('sheet-map'), { zoom: 16, minZoom: 12, maxZoom: 18, label: 'Carte de situation de l’adresse', focusX });

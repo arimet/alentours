@@ -26,6 +26,9 @@ export const createMap = (root: HTMLElement, opts: { zoom: number; minZoom?: num
   // Where `center` is drawn, as fractions of the width and height (fit() moves it into the free area).
   let anchor: { x: number; y: number } | null = null;
   let markers: Marker[] = [], route: [number, number][] = [];
+  // Decorative lines (home page roads): drawn in with an animation during their first seconds only
+  // (renders in that window, e.g. the first resize, just restart it unnoticed).
+  let lines: [number, number][][] = [], drawUntil = 0;
   root.classList.add('map');
   root.replaceChildren();
   const el = <K extends keyof HTMLElementTagNameMap>(tag: K, cls: string) => Object.assign(document.createElement(tag), { className: cls });
@@ -69,9 +72,10 @@ export const createMap = (root: HTMLElement, opts: { zoom: number; minZoom?: num
     }
     tiles.replaceChildren(...imgs);
     svg.setAttribute('viewBox', `0 0 ${w} ${h}`);
-    svg.innerHTML = route.length
-      ? `<polyline points="${route.map(([lon, lat]) => at({ lat, lon }).join(',')).join(' ')}" />`
-      : '';
+    const pts = (l: [number, number][]) => l.map(([lon, lat]) => at({ lat, lon }).join(',')).join(' ');
+    svg.innerHTML = lines.map((l, i) =>
+      `<polyline class="map-line${Date.now() < drawUntil ? ' is-drawing' : ''}" pathLength="1" style="--i:${i}" points="${pts(l)}" />`).join('')
+      + (route.length ? `<polyline class="map-walk" points="${pts(route)}" />` : '');
     pins.replaceChildren(...markers.map((m) => {
       const [x, y] = at(m);
       const pin = el(m.onClick ? 'button' : 'span', `pin pin-${m.kind ?? 'poi'}${m.selected ? ' is-selected' : ''}`);
@@ -92,6 +96,7 @@ export const createMap = (root: HTMLElement, opts: { zoom: number; minZoom?: num
     setView(c: Pt, z = zoom) { center = home = c; zoom = z; anchor = null; render(); },
     setMarkers(ms: Marker[]) { markers = ms; render(); },
     setRoute(line: [number, number][] | undefined) { route = line ?? []; render(); },
+    setLines(ls: [number, number][][]) { lines = ls; drawUntil = Date.now() + 1500; render(); },
     /**
      * Frames every point (largest zoom that fits) inside the part of the map left free by the
      * panels drawn over it: `pad` gives the covered margins in px.
