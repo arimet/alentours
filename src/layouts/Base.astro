@@ -182,15 +182,26 @@ const fontCss = [
   .key-label { font-size: 0.8rem; color: var(--muted); }
   .key:hover .key-value { text-decoration: underline; }
   .strip-label { display: inline-block; font-variant: small-caps; letter-spacing: 0.08em; color: var(--ink); font-weight: 600; margin: 0 0 0.5rem; padding: 0.15rem 0.6rem; background: #fff; border-radius: 6px; box-shadow: 0 2px 8px rgb(31 35 36 / 0.12); }
-  .strip { list-style: none; margin: 0; padding: 0.25rem 0.25rem 0.6rem; display: flex; align-items: flex-start; gap: 0.9rem; overflow-x: auto; scroll-snap-type: x proximity; }
-  .strip li { flex: 0 0 min(19rem, 80vw); scroll-snap-align: start; }
+  /* Whole cards only: the strip shows 1 to 4 cards depending on its width and scrolls card by card,
+     with room around them so the selected outline and the shadows are never clipped. */
+  .stage-strip { container-type: inline-size; }
+  .strip-head { display: flex; justify-content: space-between; align-items: end; gap: 1rem; }
+  .strip-nav { display: flex; gap: 0.4rem; margin-bottom: 0.5rem; }
+  .strip-nav button { width: 36px; height: 36px; border: 0; border-radius: 8px; background: #fff; color: var(--ink); font: 500 1.4rem/1 var(--sans); cursor: pointer; box-shadow: 0 2px 8px rgb(31 35 36 / 0.12); }
+  .strip-nav button:disabled { opacity: 0.4; cursor: default; }
+  .strip { --n: 1; --gap: 1rem; list-style: none; margin: -8px; padding: 8px; display: flex; gap: var(--gap); overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding: 8px; scrollbar-width: none; }
+  .strip::-webkit-scrollbar { display: none; }
+  .strip li { flex: 0 0 calc((100% - (var(--n) - 1) * var(--gap)) / var(--n)); scroll-snap-align: start; display: flex; }
+  @container (min-width: 26rem) { .strip { --n: 2; } }
+  @container (min-width: 42rem) { .strip { --n: 3; } }
+  @container (min-width: 60rem) { .strip { --n: 4; } }
   .card { width: 100%; display: flex; gap: 0.8rem; align-items: flex-start; text-align: left; padding: 0.85rem 1rem; border: 1px solid var(--line); border-radius: 10px; background: #fff; color: var(--ink); font: inherit; cursor: pointer; box-shadow: 0 6px 18px rgb(31 35 36 / 0.16); }
   .card:hover { border-color: #b9c0bf; }
   .card.is-selected { border-color: var(--orange); box-shadow: 0 0 0 2px var(--orange), 0 10px 26px -14px rgb(31 35 36 / 0.5); }
   .badge { flex: none; display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: var(--teal); color: #fff; font: 700 0.72rem/1 var(--sans); }
   .card.is-selected .badge { background: var(--orange-ink); }
   .card-body { display: grid; gap: 0.15rem; min-width: 0; }
-  .card-body strong { font: 600 1.15rem/1.15 var(--serif); }
+  .card-body strong { font: 600 1.15rem/1.15 var(--serif); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
   .card-detail { font-size: 0.82rem; color: var(--muted); overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
   .card-dist { font-size: 0.85rem; font-weight: 700; color: var(--orange-ink); }
 
@@ -263,8 +274,6 @@ const fontCss = [
     .keys { order: 5; margin: 1rem 0 0; border-top: 0; }
     .key { grid-template-columns: 1fr 1fr; align-items: baseline; gap: 0.75rem; border-bottom: 1px solid var(--line); padding-bottom: 0.5rem; }
     .key-value { order: 2; text-align: right; }
-    .strip { align-items: flex-start; }
-    .card { height: auto; }
     .themes-more { order: 6; margin: 1rem 0 1.25rem; }
     #search .stage-side { display: block; width: 100%; padding: 1.25rem 0; }
     #search .stage-map { order: -1; }

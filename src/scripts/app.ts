@@ -160,6 +160,22 @@ const coveredMargins = () => {
   };
 };
 
+// Strip arrows: one screenful of cards at a time; disabled at the ends.
+const strip = $('strip'), prev = $<HTMLButtonElement>('strip-prev'), nextBtn = $<HTMLButtonElement>('strip-next');
+const syncArrows = () => {
+  prev.disabled = strip.scrollLeft <= 2;
+  nextBtn.disabled = strip.scrollLeft + strip.clientWidth >= strip.scrollWidth - 2;
+};
+const page = (dir: 1 | -1) => {
+  const behavior = matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
+  strip.scrollBy({ left: dir * strip.clientWidth, behavior });
+  setTimeout(syncArrows, 450); // the scroll event can lag behind a smooth scroll
+};
+prev.addEventListener('click', () => page(-1));
+nextBtn.addEventListener('click', () => page(1));
+strip.addEventListener('scroll', syncArrows, { passive: true });
+new ResizeObserver(syncArrows).observe(strip);
+
 // Places of the active theme: numbered markers, a strip of cards, the walking route to the selected one.
 const renderPlaces = (fit = true) => {
   if (!here) return;
@@ -183,7 +199,8 @@ const renderPlaces = (fit = true) => {
     return make('li', {}, card);
   }));
   $('stage-strip').hidden = false;
-  if (fit) $('strip').scrollLeft = 0;
+  if (fit) strip.scrollLeft = 0;
+  syncArrows();
   // Frame all the places, once the strip is laid out (its height is part of the covered margins).
   if (fit && items.length) sheetMap.fit([here, ...items.map((i) => i.at!)], coveredMargins());
 };

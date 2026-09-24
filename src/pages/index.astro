@@ -53,7 +53,13 @@ import Base from '../layouts/Base.astro';
         </div>
 
         <div class="stage-strip" id="stage-strip" hidden>
-          <p id="strip-label" class="strip-label"></p>
+          <div class="strip-head">
+            <p id="strip-label" class="strip-label"></p>
+            <div class="strip-nav">
+              <button type="button" id="strip-prev" aria-label="Lieux précédents">‹</button>
+              <button type="button" id="strip-next" aria-label="Lieux suivants">›</button>
+            </div>
+          </div>
           <ul id="strip" class="strip" aria-labelledby="strip-label"></ul>
         </div>
       </div>
