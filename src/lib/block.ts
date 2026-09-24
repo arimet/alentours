@@ -35,9 +35,11 @@ export type BlockView = {
   /** e.g. "à l’adresse", "à la commune", "réseau d’eau de la commune". */
   precision: string;
   source: { name: string; url: string; updated?: string };
-  /** Honest limits worth saying out loud. */
-  notes?: string[];
+  /** Honest limits worth saying out loud, optionally ending with a link. */
+  notes?: Note[];
 };
+
+export type Note = string | { text: string; link: { label: string; url: string } };
 
 export type Block = { id: string; title: string; load: (ctx: Context) => Promise<BlockView> };
 

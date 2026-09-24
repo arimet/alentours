@@ -1,4 +1,4 @@
-import { distance, formatDistance, type BlockView, type Fact, type Item } from './block.ts';
+import { distance, formatDistance, type BlockView, type Fact, type Item, type Note } from './block.ts';
 
 type Point = { lat: number; lon: number };
 export type Urgence = 'generale' | 'pediatrique' | 'smur';
@@ -123,9 +123,10 @@ export const santeView = (d: SanteData): BlockView => {
   const urgItems = (d.urgences ?? []).filter((u) => u.urgence !== 'smur').slice(0, 3)
     .map((u) => toItem(u, u.urgence === 'pediatrique' ? 'Urgences pédiatriques' : 'Urgences'));
   const finess = frDate(d.finessDate), ameli = frDate(d.ameliDate);
-  const notes = [
+  const notes: Note[] = [
     `Pharmacies et urgences : répertoire FINESS, extraction du ${finess ?? 'date inconnue'}.`,
-    `Médecins généralistes : copie de l’annuaire santé de l’Assurance Maladie publiée par Opendatasoft (un tiers, pas l’Assurance Maladie), copie du ${ameli ?? 'date inconnue'}. Annuaire officiel : ${AMELI_URL}`,
+    `Médecins généralistes : copie de l’annuaire santé de l’Assurance Maladie publiée par Opendatasoft (un tiers, pas l’Assurance Maladie), copie du ${ameli ?? 'date inconnue'}.`,
+    { text: 'Annuaire officiel :', link: { label: 'annuaire santé de l’Assurance Maladie', url: AMELI_URL } },
     'FINESS ne distingue pas les urgences adultes, les urgences pédiatriques et les antennes SMUR (équipes mobiles, sans accueil du public). Le tri se fait sur le nom de l’établissement et peut se tromper.',
   ];
   if (!d.pharmacies || !d.urgences) notes.push('Le répertoire FINESS n’a pas répondu en partie : les pharmacies ou les urgences peuvent manquer.');

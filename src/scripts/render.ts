@@ -27,7 +27,10 @@ const view = (v: BlockView) => {
       ...(i.detail || i.distance !== undefined
         ? [el('span', { className: 'detail' }, [i.detail, i.distance !== undefined && formatDistance(i.distance)].filter(Boolean).join(', '))]
         : [])))));
-  for (const n of v.notes ?? []) frag.append(el('p', { className: 'note' }, n));
+  for (const n of v.notes ?? [])
+    frag.append(typeof n === 'string'
+      ? el('p', { className: 'note' }, n)
+      : el('p', { className: 'note' }, `${n.text} `, el('a', { href: n.link.url, rel: 'noopener' }, n.link.label), '.'));
   frag.append(el('p', { className: 'provenance' },
     `Précision : ${v.precision}. `,
     'Source : ', el('a', { href: v.source.url, rel: 'noopener' }, v.source.name),
