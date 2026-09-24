@@ -27,8 +27,12 @@ import Base from '../layouts/Base.astro';
     </section>
 
     <section id="sheet" hidden aria-labelledby="sheet-title">
-      <div class="stage">
+      <div class="stage" id="sheet-stage">
         <div class="stage-map" id="sheet-map"></div>
+        <div class="stage-loading" id="stage-loading" role="status">
+          <span class="loader" aria-hidden="true"></span>
+          <p>Chargement des écoles, commerces, services de santé et itinéraires à pied…</p>
+        </div>
 
         <div class="stage-side">
           <div class="stage-head">

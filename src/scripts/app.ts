@@ -117,7 +117,6 @@ let here: Place | undefined;
 let views = new Map<string, BlockView | null>();
 let activeTheme = 'ecoles';
 let selected = 0;
-let picked = false;
 const PREFERRED = ['ecoles', 'sante', 'commerces'];
 
 const mapItems = (id: string) => (views.get(id)?.items ?? []).filter((i) => i.at);
@@ -143,7 +142,7 @@ const renderThemes = () => {
       make('sup', {}, views.has(id) ? `(${count})` : '(…)'));
     if (active) btn.setAttribute('aria-current', 'true');
     btn.disabled = views.has(id) && !count;
-    btn.addEventListener('click', () => { activeTheme = id; picked = true; selected = 0; renderThemes(); renderPlaces(); });
+    btn.addEventListener('click', () => { activeTheme = id; selected = 0; renderThemes(); renderPlaces(); });
     return make('li', {}, btn);
   }));
   $('themes-more-list').replaceChildren(...BLOCKS.filter((b) => !MAP_THEMES.includes(b.id)).map((b) =>
@@ -189,15 +188,28 @@ const renderPlaces = (fit = true) => {
   if (fit && items.length) sheetMap.fit([here, ...items.map((i) => i.at!)], coveredMargins());
 };
 
-const onBlock = (b: Block, v: BlockView | null) => {
-  views.set(b.id, v);
+// The stage (map, themes, places, key figures) shows once its blocks have answered, in one go,
+// rather than filling in piece by piece. Slow blocks elsewhere (Risques…) don't hold it.
+const STAGE_BLOCKS = [...MAP_THEMES, ...KEYS];
+const STAGE_TIMEOUT_MS = 15000;
+let revealTimer: ReturnType<typeof setTimeout> | undefined;
+const reveal = () => {
+  clearTimeout(revealTimer);
+  if (!$('sheet-stage').classList.contains('is-loading')) return;
+  activeTheme = PREFERRED.find((id) => mapItems(id).length) ?? activeTheme;
   renderKeys();
   renderThemes();
-  // Default theme: the first of PREFERRED with places, waiting for a block before skipping it.
-  if (!picked) {
-    const first = PREFERRED.find((id) => !views.has(id) || mapItems(id).length);
-    if (first && mapItems(first).length) { activeTheme = first; picked = true; }
+  $('sheet-stage').classList.remove('is-loading');
+  renderPlaces();
+};
+const onBlock = (b: Block, v: BlockView | null) => {
+  views.set(b.id, v);
+  if ($('sheet-stage').classList.contains('is-loading')) {
+    if (STAGE_BLOCKS.every((id) => views.has(id))) reveal();
+    return;
   }
+  renderKeys();
+  renderThemes();
   if (b.id === activeTheme) renderPlaces();
 };
 
@@ -220,7 +232,8 @@ const showSheet = async (point: Point) => {
   views = new Map();
   activeTheme = 'ecoles';
   selected = 0;
-  picked = false;
+  clearTimeout(revealTimer);
+  $('sheet-stage').classList.add('is-loading');
   try {
     const place = await placeFor(point);
     if (!place) {
@@ -233,8 +246,7 @@ const showSheet = async (point: Point) => {
     sheetMap.setView(place, 16);
     sheetMap.setRoute(undefined);
     sheetMap.setMarkers([{ ...place, label: place.label, kind: 'main' }]);
-    renderKeys();
-    renderThemes();
+    revealTimer = setTimeout(reveal, STAGE_TIMEOUT_MS);
     document.title = `${place.label} · Mon adresse en données`;
     meta.textContent = `Commune : ${place.city} (INSEE ${place.citycode}). Précision de la localisation : ${precisionOf(place.type)}.`;
     mountBlocks($('blocks'), BLOCKS, {

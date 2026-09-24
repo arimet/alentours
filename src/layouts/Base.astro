@@ -77,6 +77,7 @@ const fontCss = [
     --teal: #1f7466;        /* numbered badges, white text 5.6:1 */
     --serif: 'Cormorant Garamond', 'Iowan Old Style', Georgia, serif;
     --sans: 'Schibsted Grotesk', 'Helvetica Neue', Arial, system-ui, sans-serif;
+    --header-h: 4rem;
     color-scheme: light;
   }
   * { box-sizing: border-box; }
@@ -86,11 +87,13 @@ const fontCss = [
   [hidden] { display: none !important; }
   .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 
-  header.site { padding: 1.1rem 1.25rem; max-width: 90rem; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 0.5rem 2rem; justify-content: space-between; align-items: baseline; }
+  header.site { height: var(--header-h); padding: 0 1.25rem; max-width: 90rem; margin: 0 auto; display: flex; gap: 0.5rem 2rem; justify-content: space-between; align-items: center; }
   .brand { font: 600 1.6rem/1 var(--serif); text-decoration: none; letter-spacing: 0.01em; }
   header.site a:not(.brand) { font-variant: small-caps; letter-spacing: 0.06em; font-weight: 600; text-decoration: none; font-size: 1.05rem; }
   header.site a:not(.brand):hover { text-decoration: underline; }
   main { padding: 0 1.25rem 5rem; max-width: 90rem; margin: 0 auto; }
+  /* Home: the stage is the whole page, no scroll. */
+  main:has(> #search:not([hidden])) { padding-bottom: 1rem; }
 
   .kicker { font-variant: small-caps; letter-spacing: 0.08em; color: var(--muted); font-weight: 600; margin: 0 0 0.6rem; }
   .kicker a { color: var(--muted); text-decoration: none; }
@@ -100,11 +103,10 @@ const fontCss = [
 
   /* Stage: the map fills a frame as tall as the screen; the side column and the strip of places
      float over it on white veils, so everything is visible without scrolling. */
-  .stage { position: relative; height: calc(100dvh - 4.75rem); min-height: 32rem; max-height: 62rem; border-radius: 14px; overflow: hidden; background: var(--paper); box-shadow: 0 24px 60px -30px rgb(31 35 36 / 0.45); }
+  .stage { position: relative; height: calc(100dvh - var(--header-h) - 1rem); min-height: 32rem; max-height: 62rem; border-radius: 14px; overflow: hidden; background: var(--paper); box-shadow: 0 24px 60px -30px rgb(31 35 36 / 0.45); }
   .stage-map { position: absolute; inset: 0; }
-  .stage::before, .stage::after { content: ''; position: absolute; pointer-events: none; z-index: 1; }
+  .stage::before { content: ''; position: absolute; pointer-events: none; z-index: 1; }
   .stage::before { inset: 0 auto 0 0; width: min(40rem, 62%); background: linear-gradient(90deg, rgb(255 255 255 / 0.97) 58%, rgb(255 255 255 / 0)); }
-  .stage::after { inset: auto 0 0 0; height: 11rem; background: linear-gradient(0deg, rgb(255 255 255 / 0.95) 40%, rgb(255 255 255 / 0)); }
   .stage-side {
     position: absolute; z-index: 2; inset: 0 auto 0 0; width: min(28rem, 42%);
     padding: clamp(1.25rem, 3vh, 2.5rem) clamp(1.25rem, 3vw, 2.75rem); display: flex; flex-direction: column; gap: clamp(0.75rem, 2.2vh, 1.5rem);
@@ -112,6 +114,14 @@ const fontCss = [
   }
   #search .stage-side { width: min(32rem, 48%); justify-content: center; }
   .stage-strip { position: absolute; z-index: 2; left: min(28rem, 42%); right: 5.5rem; bottom: 1rem; }
+  /* Loading: the stage shows once its blocks have answered. */
+  .stage-loading { display: none; }
+  .stage.is-loading .stage-loading { position: absolute; z-index: 4; inset: 0; display: grid; place-content: center; justify-items: center; gap: 1rem; background: var(--paper); color: var(--muted); text-align: center; padding: 1.5rem; }
+  .stage.is-loading .stage-loading p { margin: 0; max-width: 30ch; }
+  .stage.is-loading :is(.stage-map, .themes, .keys, .stage-strip) { visibility: hidden; }
+  .loader { width: 36px; height: 36px; border-radius: 50%; border: 3px solid var(--line); border-top-color: var(--orange); }
+  @media (prefers-reduced-motion: no-preference) { .loader { animation: spin 0.9s linear infinite; } @keyframes spin { to { transform: rotate(360deg); } } }
+
   /* Map */
   .map { overflow: hidden; background: #e9ebe8; }
   .map-tiles, .map-pins { position: absolute; inset: 0; }
@@ -171,10 +181,10 @@ const fontCss = [
   .key-value { font: 600 1.4rem/1.05 var(--serif); }
   .key-label { font-size: 0.8rem; color: var(--muted); }
   .key:hover .key-value { text-decoration: underline; }
-  .strip-label { font-variant: small-caps; letter-spacing: 0.08em; color: var(--muted); font-weight: 600; margin: 0 0 0.5rem; }
+  .strip-label { display: inline-block; font-variant: small-caps; letter-spacing: 0.08em; color: var(--ink); font-weight: 600; margin: 0 0 0.5rem; padding: 0.15rem 0.6rem; background: #fff; border-radius: 6px; box-shadow: 0 2px 8px rgb(31 35 36 / 0.12); }
   .strip { list-style: none; margin: 0; padding: 0.25rem 0.25rem 0.6rem; display: flex; align-items: flex-start; gap: 0.9rem; overflow-x: auto; scroll-snap-type: x proximity; }
   .strip li { flex: 0 0 min(19rem, 80vw); scroll-snap-align: start; }
-  .card { width: 100%; display: flex; gap: 0.8rem; align-items: flex-start; text-align: left; padding: 0.85rem 1rem; border: 1px solid var(--line); border-radius: 10px; background: #fff; color: var(--ink); font: inherit; cursor: pointer; box-shadow: 0 8px 22px -14px rgb(31 35 36 / 0.4); }
+  .card { width: 100%; display: flex; gap: 0.8rem; align-items: flex-start; text-align: left; padding: 0.85rem 1rem; border: 1px solid var(--line); border-radius: 10px; background: #fff; color: var(--ink); font: inherit; cursor: pointer; box-shadow: 0 6px 18px rgb(31 35 36 / 0.16); }
   .card:hover { border-color: #b9c0bf; }
   .card.is-selected { border-color: var(--orange); box-shadow: 0 0 0 2px var(--orange), 0 10px 26px -14px rgb(31 35 36 / 0.5); }
   .badge { flex: none; display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: var(--teal); color: #fff; font: 700 0.72rem/1 var(--sans); }
@@ -184,16 +194,30 @@ const fontCss = [
   .card-detail { font-size: 0.82rem; color: var(--muted); overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
   .card-dist { font-size: 0.85rem; font-weight: 700; color: var(--orange-ink); }
 
-  /* Blocks under the stage */
-  .details-title { font: 600 clamp(1.8rem, 3vw, 2.4rem)/1.1 var(--serif); margin: 3rem 0 1.25rem; }
-  .blocks { display: grid; gap: 1.25rem; grid-template-columns: repeat(auto-fill, minmax(min(100%, 22rem), 1fr)); }
-  .block { background: var(--paper); border: 1px solid var(--line); border-radius: 10px; padding: 1.4rem; scroll-margin-top: 1rem; }
-  .block h2 { font: 600 1.65rem/1.1 var(--serif); margin: 0 0 1rem; }
-  .facts { margin: 0; display: grid; gap: 0.8rem; }
-  .facts dt { font-variant: small-caps; letter-spacing: 0.05em; font-size: 0.92rem; color: var(--muted); font-weight: 600; }
-  .facts dd { margin: 0.1rem 0 0; }
-  .facts dd strong { font-size: 1.05rem; }
-  .facts .detail, .items .detail { display: block; color: var(--muted); font-size: 0.9rem; }
+  /* Details under the stage: one editorial row per theme, title and provenance on the left. */
+  .details-title { font: 600 clamp(1.8rem, 3vw, 2.4rem)/1.1 var(--serif); margin: 3rem 0 0.5rem; }
+  .blocks { display: grid; }
+  .block { display: grid; grid-template-columns: minmax(12rem, 17rem) 1fr; gap: 1rem 3rem; padding: 2rem 0; border-top: 1px solid var(--line); scroll-margin-top: 1rem; }
+  .block-head h2 { font: 600 1.9rem/1.05 var(--serif); margin: 0 0 0.6rem; }
+  .provenance { display: grid; gap: 0.3rem; margin: 0; font-size: 0.82rem; color: var(--muted); }
+  .block-body { min-width: 0; }
+  .facts { margin: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr)); gap: 1.25rem 2rem; }
+  .fact dt { font-variant: small-caps; letter-spacing: 0.05em; font-size: 0.9rem; color: var(--muted); font-weight: 600; }
+  .fact dd { margin: 0.2rem 0 0; }
+  .fact-value { display: block; font: 600 1.45rem/1.15 var(--serif); }
+  .fact .detail { display: block; margin-top: 0.25rem; color: var(--muted); font-size: 0.88rem; }
+  .explanation { margin: 1.25rem 0 0; color: var(--muted); max-width: 72ch; }
+  .items { margin: 1.25rem 0 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr)); gap: 0.1rem 2rem; }
+  .items li { display: grid; padding: 0.5rem 0; border-bottom: 1px dotted var(--line); }
+  .item-name { font-weight: 600; }
+  .items .detail { color: var(--muted); font-size: 0.85rem; }
+  .item-dist { font-size: 0.85rem; font-weight: 700; color: var(--orange-ink); }
+  .notes { margin-top: 1rem; }
+  .notes summary { cursor: pointer; font-size: 0.9rem; font-weight: 600; color: var(--muted); }
+  .notes summary:hover { color: var(--ink); }
+  .note { margin: 0.6rem 0 0; font-size: 0.88rem; color: var(--muted); padding-left: 0.75rem; border-left: 2px solid var(--orange); max-width: 72ch; }
+  .error { margin: 0; color: var(--muted); }
+  @media (max-width: 40rem) { .block { grid-template-columns: 1fr; padding: 1.5rem 0; } }
   .level-icon { display: inline-grid; place-items: center; min-width: 1.5rem; height: 1.5rem; padding: 0 0.35rem; margin-right: 0.45rem; border-radius: 999px; font-size: 0.78rem; font-weight: 800; vertical-align: 0.1em; }
   /* Colour doubles the icon and the hidden word, it never carries the meaning alone. */
   .level-ok .level-icon { background: #dcfce7; color: #14532d; }
@@ -201,11 +225,6 @@ const fontCss = [
   .level-warn .level-icon { background: #fef3c7; color: #78350f; }
   .level-alert .level-icon { background: #fee2e2; color: #7f1d1d; }
   .level-unknown .level-icon { background: #eef0ef; color: #3a4042; }
-  .explanation { margin: 1rem 0 0; }
-  .items { margin: 1rem 0 0; padding: 0; list-style: none; display: grid; gap: 0.55rem; }
-  .note { margin: 0.75rem 0 0; font-size: 0.9rem; color: var(--muted); padding-left: 0.75rem; border-left: 2px solid var(--orange); }
-  .provenance { margin: 1rem 0 0; padding-top: 0.75rem; border-top: 1px solid var(--line); font-size: 0.85rem; color: var(--muted); }
-  .error { margin: 0; color: var(--muted); }
   .skeleton { display: grid; gap: 0.6rem; }
   .skeleton span { height: 0.9rem; border-radius: 999px; background: #eceeec; }
   .skeleton span:nth-child(2) { width: 70%; }
@@ -225,10 +244,11 @@ const fontCss = [
      screen), then the places strip right under it so it shows without scrolling. */
   @media (max-width: 56rem) {
     .stage { height: auto; min-height: 0; max-height: none; display: flex; flex-direction: column; }
-    .stage::before, .stage::after { display: none; }
+    .stage::before { display: none; }
     .stage-side { display: contents; }
     .stage-head, .themes, .keys, #search .stage-side > * { padding: 0 1.1rem; }
-    header.site { padding: 0.7rem 1rem; flex-wrap: nowrap; }
+    :root { --header-h: 3.25rem; }
+    header.site { padding: 0 1rem; }
     .brand { font-size: 1.25rem; }
     header.site a:not(.brand) { font-size: 0.9rem; text-align: right; }
     .stage-head { order: 1; padding-top: 0.9rem; }
