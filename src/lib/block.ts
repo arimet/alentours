@@ -27,7 +27,11 @@ export type Fact = {
 };
 
 /** `at` lets the sheet's map draw the item as a marker. */
-export type Item = { name: string; detail?: string; distance?: number /* metres */; url?: string; at?: { lat: number; lon: number } };
+export type Item = {
+  name: string; detail?: string; distance?: number /* metres, as the crow flies */; url?: string; at?: { lat: number; lon: number };
+  /** Walking route from the address, when computed (see walk.ts). */
+  walk?: { m: number; min: number; line: [number, number][] };
+};
 
 export type BlockView = {
   /** 1 to 3 key facts. */

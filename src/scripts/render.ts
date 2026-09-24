@@ -1,3 +1,4 @@
+import { formatWalk } from '../lib/walk';
 import { LEVELS, formatDistance, type Block, type BlockView, type Context } from '../lib/block';
 
 const el = <K extends keyof HTMLElementTagNameMap>(tag: K, props: Partial<HTMLElementTagNameMap[K]> = {}, ...children: (Node | string)[]) => {
@@ -24,8 +25,8 @@ const view = (v: BlockView) => {
   if (v.items?.length)
     frag.append(el('ul', { className: 'items' }, ...v.items.map((i) => el('li', {},
       i.url ? el('a', { href: i.url, rel: 'noopener' }, i.name) : el('span', { className: 'item-name' }, i.name),
-      ...(i.detail || i.distance !== undefined
-        ? [el('span', { className: 'detail' }, [i.detail, i.distance !== undefined && formatDistance(i.distance)].filter(Boolean).join(', '))]
+      ...(i.detail || i.walk || i.distance !== undefined
+        ? [el('span', { className: 'detail' }, [i.detail, i.walk ? formatWalk(i.walk) : i.distance !== undefined && `${formatDistance(i.distance)} à vol d’oiseau`].filter(Boolean).join(', '))]
         : [])))));
   for (const n of v.notes ?? [])
     frag.append(typeof n === 'string'
