@@ -252,7 +252,11 @@ const placeFor = async (point: Point): Promise<Place | undefined> => {
   return parsePlaces(await getJson(reverseUrl(point)))[0];
 };
 
+// Opening another address while one is loading: the older one must stop writing into the page
+// (its blocks, map and routes would mix with the new ones).
+let sheetToken = 0;
 const showSheet = async (point: Point) => {
+  const token = ++sheetToken;
   search.hidden = true;
   sheet.hidden = false;
   const title = $('sheet-title'), meta = $('sheet-meta'), sheetStatus = $('sheet-status');
@@ -268,6 +272,7 @@ const showSheet = async (point: Point) => {
   $('sheet-stage').classList.add('is-loading');
   try {
     const place = await placeFor(point);
+    if (token !== sheetToken) return;
     if (!place) {
       title.textContent = 'Aucune adresse à cet endroit';
       sheetStatus.textContent = 'Ce point ne correspond à aucune adresse connue en France.';
@@ -288,7 +293,7 @@ const showSheet = async (point: Point) => {
     }, {
       groups: GROUPS,
       toc: $('toc'),
-      onDone: onBlock,
+      onDone: (b, v) => { if (token === sheetToken) onBlock(b, v); },
       onMap: { ids: MAP_THEMES, show: (id) => {
         activeTheme = id; selected = 0;
         renderThemes(); renderPlaces();
@@ -296,10 +301,11 @@ const showSheet = async (point: Point) => {
       } },
     });
   } catch {
+    if (token !== sheetToken) return;
     title.textContent = 'Adresse indisponible';
     sheetStatus.textContent = 'Le service d’adresses ne répond pas. Rechargez la page dans un instant.';
   }
-  title.focus();
+  if (token === sheetToken) title.focus();
 };
 
 const route = () => {
