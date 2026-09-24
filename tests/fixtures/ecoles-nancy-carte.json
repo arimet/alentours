@@ -1,0 +1,309 @@
+{
+ "total_count": 38,
+ "results": [
+  {
+   "type_et_libelle": "RUE JOSEPH MOUGIN",
+   "n_de_voie_debut": 3,
+   "n_de_voie_fin": 17,
+   "parite": "I",
+   "code_rne": "0541327Z",
+   "secteur_unique": "N"
+  },
+  {
+   "type_et_libelle": "RUE JOSEPH MOUGIN",
+   "n_de_voie_debut": 4,
+   "n_de_voie_fin": 18,
+   "parite": "P",
+   "code_rne": "0541327Z",
+   "secteur_unique": "N"
+  },
+  {
+   "type_et_libelle": "RUE JOSEPH MOUGIN",
+   "n_de_voie_debut": 34,
+   "n_de_voie_fin": 38,
+   "parite": "P",
+   "code_rne": "0541469D",
+   "secteur_unique": "N"
+  },
+  {
+   "type_et_libelle": "RUE JOSEPH MOUGIN",
+   "n_de_voie_debut": 35,
+   "n_de_voie_fin": 39,
+   "parite": "I",
+   "code_rne": "0541327Z",
+   "secteur_unique": "N"
+  },
+  {
+   "type_et_libelle": "RUE JOSEPH MOUGIN",
+   "n_de_voie_debut": 43,
+   "n_de_voie_fin": 43,
+   "parite": "I",
+   "code_rne": "0541469D",
+   "secteur_unique": "N"
+  },
+  {
+   "type_et_libelle": "RUE JOSEPH MOUGIN",
+   "n_de_voie_debut": 74,
+   "n_de_voie_fin": 74,
+   "parite": "P",
+   "code_rne": "0541469D",
+   "secteur_unique": "N"
+  },
+  {
+   "type_et_libelle": "RUE JOSEPH MOUGIN",
+   "n_de_voie_debut": 78,
+   "n_de_voie_fin": 78,
+   "parite": "P",
+   "code_rne": "0541469D",
+   "secteur_unique": "N"
+  },
+  {
+   "type_et_libelle": "RUE JOSEPH MOUGIN",
+   "n_de_voie_debut": 29,
+   "n_de_voie_fin": 31,
+   "parite": "I",
+   "code_rne": "0541327Z",
+   "secteur_unique": "N"
+  },
+  {
+   "type_et_libelle": "RUE JOSEPH MOUGIN",
+   "n_de_voie_debut": 30,
+   "n_de_voie_fin": 32,
+   "parite": "P",
+   "code_rne": "0541469D",
+   "secteur_unique": "N"
+  },
+  {
+   "type_et_libelle": "RUE JOSEPH MOUGIN",
+   "n_de_voie_debut": 35,
+   "n_de_voie_fin": 39,
+   "parite": "I",
+   "code_rne": "0541469D",
+   "secteur_unique": "N"
+  },
+  {
+   "type_et_libelle": "RUE JOSEPH MOUGIN",
+   "n_de_voie_debut": 43,
+   "n_de_voie_fin": 43,
+   "parite": "I",
+   "code_rne": "0541327Z",
+   "secteur_unique": "N"
+  },
+  {
+   "type_et_libelle": "RUE JOSEPH MOUGIN",
+   "n_de_voie_debut": 70,
+   "n_de_voie_fin": 70,
+   "parite": "P",
+   "code_rne": "0541327Z",
+   "secteur_unique": "N"
+  },
+  {
+   "type_et_libelle": "RUE JOSEPH MOUGIN",
+   "n_de_voie_debut": 72,
+   "n_de_voie_fin": 72,
+   "parite": "P",
+   "code_rne": "0541469D",
+   "secteur_unique": "N"
+  },
+  {
+   "type_et_libelle": "RUE JOSEPH MOUGIN",
+   "n_de_voie_debut": 72,
+   "n_de_voie_fin": 72,
+   "parite": "P",
+   "code_rne": "0541327Z",
+   "secteur_unique": "N"
+  },
+  {
+   "type_et_libelle": "RUE JOSEPH MOUGIN",
+   "n_de_voie_debut": 20,
+   "n_de_voie_fin": 26,
+   "parite": "P",
+   "code_rne": "0541327Z",
+   "secteur_unique": "N"
+  },
+  {
+   "type_et_libelle": "RUE JOSEPH MOUGIN",
+   "n_de_voie_debut": 34,
+   "n_de_voie_fin": 38,
+   "parite": "P",
+   "code_rne": "0541327Z",
+   "secteur_unique": "N"
+  },
+  {
+   "type_et_libelle": "RUE JOSEPH MOUGIN",
+   "n_de_voie_debut": 41,
+   "n_de_voie_fin": 41,
+   "parite": "I",
+   "code_rne": "0541469D",
+   "secteur_unique": "N"
+  },
+  {
+   "type_et_libelle": "RUE JOSEPH MOUGIN",
+   "n_de_voie_debut": 41,
+   "n_de_voie_fin": 41,
+   "parite": "I",
+   "code_rne": "0541327Z",
+   "secteur_unique": "N"
+  },
+  {
+   "type_et_libelle": "RUE JOSEPH MOUGIN",
+   "n_de_voie_debut": 46,
+   "n_de_voie_fin": 56,
+   "parite": "P",
+   "code_rne": "0541469D",
+   "secteur_unique": "N"
+  },
+  {
+   "type_et_libelle": "RUE JOSEPH MOUGIN",
+   "n_de_voie_debut": 76,
+   "n_de_voie_fin": 76,
+   "parite": "P",
+   "code_rne": "0541327Z",
+   "secteur_unique": "N"
+  },
+  {
+   "type_et_libelle": "RUE JOSEPH MOUGIN",
+   "n_de_voie_debut": 78,
+   "n_de_voie_fin": 78,
+   "parite": "P",
+   "code_rne": "0541327Z",
+   "secteur_unique": "N"
+  },
+  {
+   "type_et_libelle": "RUE JOSEPH MOUGIN",
+   "n_de_voie_debut": 3,
+   "n_de_voie_fin": 17,
+   "parite": "I",
+   "code_rne": "0541469D",
+   "secteur_unique": "N"
+  },
+  {
+   "type_et_libelle": "RUE JOSEPH MOUGIN",
+   "n_de_voie_debut": 20,
+   "n_de_voie_fin": 26,
+   "parite": "P",
+   "code_rne": "0541469D",
+   "secteur_unique": "N"
+  },
+  {
+   "type_et_libelle": "RUE JOSEPH MOUGIN",
+   "n_de_voie_debut": 45,
+   "n_de_voie_fin": 55,
+   "parite": "I",
+   "code_rne": "0541469D",
+   "secteur_unique": "N"
+  },
+  {
+   "type_et_libelle": "RUE JOSEPH MOUGIN",
+   "n_de_voie_debut": 45,
+   "n_de_voie_fin": 55,
+   "parite": "I",
+   "code_rne": "0541327Z",
+   "secteur_unique": "N"
+  },
+  {
+   "type_et_libelle": "RUE JOSEPH MOUGIN",
+   "n_de_voie_debut": 66,
+   "n_de_voie_fin": 66,
+   "parite": "P",
+   "code_rne": "0541327Z",
+   "secteur_unique": "N"
+  },
+  {
+   "type_et_libelle": "RUE JOSEPH MOUGIN",
+   "n_de_voie_debut": 68,
+   "n_de_voie_fin": 68,
+   "parite": "P",
+   "code_rne": "0541469D",
+   "secteur_unique": "N"
+  },
+  {
+   "type_et_libelle": "RUE JOSEPH MOUGIN",
+   "n_de_voie_debut": 68,
+   "n_de_voie_fin": 68,
+   "parite": "P",
+   "code_rne": "0541327Z",
+   "secteur_unique": "N"
+  },
+  {
+   "type_et_libelle": "RUE JOSEPH MOUGIN",
+   "n_de_voie_debut": 70,
+   "n_de_voie_fin": 70,
+   "parite": "P",
+   "code_rne": "0541469D",
+   "secteur_unique": "N"
+  },
+  {
+   "type_et_libelle": "RUE JOSEPH MOUGIN",
+   "n_de_voie_debut": 4,
+   "n_de_voie_fin": 18,
+   "parite": "P",
+   "code_rne": "0541469D",
+   "secteur_unique": "N"
+  },
+  {
+   "type_et_libelle": "RUE JOSEPH MOUGIN",
+   "n_de_voie_debut": 21,
+   "n_de_voie_fin": 27,
+   "parite": "I",
+   "code_rne": "0541469D",
+   "secteur_unique": "N"
+  },
+  {
+   "type_et_libelle": "RUE JOSEPH MOUGIN",
+   "n_de_voie_debut": 21,
+   "n_de_voie_fin": 27,
+   "parite": "I",
+   "code_rne": "0541327Z",
+   "secteur_unique": "N"
+  },
+  {
+   "type_et_libelle": "RUE JOSEPH MOUGIN",
+   "n_de_voie_debut": 29,
+   "n_de_voie_fin": 31,
+   "parite": "I",
+   "code_rne": "0541469D",
+   "secteur_unique": "N"
+  },
+  {
+   "type_et_libelle": "RUE JOSEPH MOUGIN",
+   "n_de_voie_debut": 30,
+   "n_de_voie_fin": 32,
+   "parite": "P",
+   "code_rne": "0541327Z",
+   "secteur_unique": "N"
+  },
+  {
+   "type_et_libelle": "RUE JOSEPH MOUGIN",
+   "n_de_voie_debut": 46,
+   "n_de_voie_fin": 56,
+   "parite": "P",
+   "code_rne": "0541327Z",
+   "secteur_unique": "N"
+  },
+  {
+   "type_et_libelle": "RUE JOSEPH MOUGIN",
+   "n_de_voie_debut": 66,
+   "n_de_voie_fin": 66,
+   "parite": "P",
+   "code_rne": "0541469D",
+   "secteur_unique": "N"
+  },
+  {
+   "type_et_libelle": "RUE JOSEPH MOUGIN",
+   "n_de_voie_debut": 74,
+   "n_de_voie_fin": 74,
+   "parite": "P",
+   "code_rne": "0541327Z",
+   "secteur_unique": "N"
+  },
+  {
+   "type_et_libelle": "RUE JOSEPH MOUGIN",
+   "n_de_voie_debut": 76,
+   "n_de_voie_fin": 76,
+   "parite": "P",
+   "code_rne": "0541469D",
+   "secteur_unique": "N"
+  }
+ ]
+}

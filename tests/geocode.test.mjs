@@ -9,7 +9,7 @@ test('parses a reverse-geocoding answer into places', () => {
   assert.deepEqual(parsePlaces(fixture('geocodage-reverse-segur-paris.json')), [{
     label: '20 Avenue de Ségur 75007 Paris',
     lat: 48.850699, lon: 2.308628,
-    citycode: '75107', city: 'Paris', postcode: '75007', type: 'housenumber',
+    citycode: '75107', city: 'Paris', postcode: '75007', housenumber: '20', street: 'Avenue de Ségur', type: 'housenumber',
   }]);
 });
 
@@ -23,6 +23,8 @@ test('a municipality result is flagged as commune-level', () => {
   const [veran] = parsePlaces(fixture('geocodage-search-saint-veran.json'));
   assert.equal(veran.type, 'municipality');
   assert.equal(precisionOf(veran.type), 'commune');
+  assert.equal(veran.street, undefined);
+  assert.equal(veran.housenumber, undefined);
 });
 
 test('empty or malformed answers give no places', () => {

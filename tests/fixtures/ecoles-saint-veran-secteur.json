@@ -1,19 +1,19 @@
 {
- "total_count": 930,
+ "total_count": 1,
  "results": [
   {
-   "identifiant_de_l_etablissement": "0752528R",
-   "nom_etablissement": "Collège Victor Duruy",
+   "identifiant_de_l_etablissement": "0050013M",
+   "nom_etablissement": "Collège des Hautes Vallées",
    "statut_public_prive": "Public",
    "type_contrat_prive": "SANS OBJET",
-   "nom_commune": "Paris",
+   "nom_commune": "Guillestre",
    "ecole_maternelle": null,
    "ecole_elementaire": null,
    "voie_generale": "0",
    "voie_technologique": "0",
    "voie_professionnelle": "0",
    "date_maj_ligne": "2026-09-24",
-   "dist": 488.67551872785253
+   "dist": 17013.965850954704
   }
  ]
 }

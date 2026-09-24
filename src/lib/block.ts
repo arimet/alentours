@@ -10,6 +10,9 @@ export type Context = {
   /** Whole-commune code (75056…), as most commune-level datasets expect. */
   commune: string;
   city: string;
+  /** From the geocoder, when the place is an address ("35", "Rue Joseph Mougin"). */
+  housenumber?: string;
+  street?: string;
 };
 
 /** Never rely on colour alone: every level has an icon and a word (see LEVELS). */

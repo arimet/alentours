@@ -1,1 +1,61 @@
-{"total_count": 5, "results": [{"identifiant_de_l_etablissement": "0050003B", "nom_etablissement": "Lyc\u00e9e polyvalent d'altitude - Suzanne Jouli\u00e9 Roos", "statut_public_prive": "Public", "type_contrat_prive": "SANS OBJET", "code_postal": "05105", "nom_commune": "Brian\u00e7on", "voie_generale": "1", "voie_technologique": "1", "voie_professionnelle": "1", "date_maj_ligne": "2026-09-24", "dist": 27916.22609323926}, {"identifiant_de_l_etablissement": "0050004C", "nom_etablissement": "Lyc\u00e9e Honor\u00e9 Romane", "statut_public_prive": "Public", "type_contrat_prive": "SANS OBJET", "code_postal": "05202", "nom_commune": "Embrun", "voie_generale": "1", "voie_technologique": "1", "voie_professionnelle": "0", "date_maj_ligne": "2026-09-24", "dist": 32533.217245526303}]}
+{
+ "total_count": 4,
+ "results": [
+  {
+   "identifiant_de_l_etablissement": "0050003B",
+   "nom_etablissement": "Lycée polyvalent d'altitude - Suzanne Joulié Roos",
+   "statut_public_prive": "Public",
+   "type_contrat_prive": "SANS OBJET",
+   "nom_commune": "Briançon",
+   "ecole_maternelle": null,
+   "ecole_elementaire": null,
+   "voie_generale": "1",
+   "voie_technologique": "1",
+   "voie_professionnelle": "1",
+   "date_maj_ligne": "2026-09-24",
+   "dist": 27916.22609323926
+  },
+  {
+   "identifiant_de_l_etablissement": "0050004C",
+   "nom_etablissement": "Lycée Honoré Romane",
+   "statut_public_prive": "Public",
+   "type_contrat_prive": "SANS OBJET",
+   "nom_commune": "Embrun",
+   "ecole_maternelle": null,
+   "ecole_elementaire": null,
+   "voie_generale": "1",
+   "voie_technologique": "1",
+   "voie_professionnelle": "0",
+   "date_maj_ligne": "2026-09-24",
+   "dist": 32533.217245526303
+  },
+  {
+   "identifiant_de_l_etablissement": "0050005D",
+   "nom_etablissement": "Lycée professionnel Alpes et Durance",
+   "statut_public_prive": "Public",
+   "type_contrat_prive": "SANS OBJET",
+   "nom_commune": "Embrun",
+   "ecole_maternelle": null,
+   "ecole_elementaire": null,
+   "voie_generale": "0",
+   "voie_technologique": "0",
+   "voie_professionnelle": "1",
+   "date_maj_ligne": "2026-09-24",
+   "dist": 33901.41337986772
+  },
+  {
+   "identifiant_de_l_etablissement": "0040003G",
+   "nom_etablissement": "Lycée polyvalent André Honnorat",
+   "statut_public_prive": "Public",
+   "type_contrat_prive": "SANS OBJET",
+   "nom_commune": "Barcelonnette",
+   "ecole_maternelle": null,
+   "ecole_elementaire": null,
+   "voie_generale": "1",
+   "voie_technologique": "0",
+   "voie_professionnelle": "1",
+   "date_maj_ligne": "2026-09-24",
+   "dist": 38788.42352697215
+  }
+ ]
+}

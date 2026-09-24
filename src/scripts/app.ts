@@ -142,6 +142,7 @@ const showSheet = async (point: Point) => {
     mountBlocks($('blocks'), BLOCKS, {
       lat: place.lat, lon: place.lon, label: place.label,
       citycode: place.citycode, commune: communeCode(place.citycode), city: place.city,
+      housenumber: place.housenumber, street: place.street,
     });
   } catch {
     title.textContent = 'Adresse indisponible';

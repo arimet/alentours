@@ -1,0 +1,45 @@
+{
+ "total_count": 5,
+ "results": [
+  {
+   "type_et_libelle": "VILLA DE SEGUR",
+   "n_de_voie_debut": 2,
+   "n_de_voie_fin": 9999,
+   "parite": "P",
+   "code_rne": "0752249M",
+   "secteur_unique": "N"
+  },
+  {
+   "type_et_libelle": "AVENUE DE SEGUR",
+   "n_de_voie_debut": 1,
+   "n_de_voie_fin": 53,
+   "parite": "I",
+   "code_rne": "0752249M",
+   "secteur_unique": "N"
+  },
+  {
+   "type_et_libelle": "AVENUE DE SEGUR",
+   "n_de_voie_debut": 2,
+   "n_de_voie_fin": 36,
+   "parite": "P",
+   "code_rne": "0752249M",
+   "secteur_unique": "N"
+  },
+  {
+   "type_et_libelle": "VILLA DE SEGUR",
+   "n_de_voie_debut": 1,
+   "n_de_voie_fin": 9999,
+   "parite": "I",
+   "code_rne": "0752249M",
+   "secteur_unique": "N"
+  },
+  {
+   "type_et_libelle": "AVENUE DE SEGUR",
+   "n_de_voie_debut": 55,
+   "n_de_voie_fin": 73,
+   "parite": "I",
+   "code_rne": "0752528R",
+   "secteur_unique": "N"
+  }
+ ]
+}

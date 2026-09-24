@@ -10,6 +10,8 @@ export type Place = {
   citycode: string;
   city: string;
   postcode?: string;
+  housenumber?: string;
+  street?: string;
   type: PlaceType;
 };
 
@@ -22,6 +24,8 @@ export const parsePlaces = (json: any): Place[] =>
     citycode: p.citycode,
     city: p.city,
     ...(p.postcode && { postcode: p.postcode }),
+    ...(p.housenumber && { housenumber: p.housenumber }),
+    ...(p.street && { street: p.street }),
     type: p.type,
   }));
 

@@ -1,0 +1,33 @@
+{
+ "total_count": 2,
+ "results": [
+  {
+   "identifiant_de_l_etablissement": "0541327Z",
+   "nom_etablissement": "Collège Jean Lamour",
+   "statut_public_prive": "Public",
+   "type_contrat_prive": "SANS OBJET",
+   "nom_commune": "Nancy",
+   "ecole_maternelle": null,
+   "ecole_elementaire": null,
+   "voie_generale": "0",
+   "voie_technologique": "0",
+   "voie_professionnelle": "0",
+   "date_maj_ligne": "2026-09-24",
+   "dist": 104.35400575087068
+  },
+  {
+   "identifiant_de_l_etablissement": "0541469D",
+   "nom_etablissement": "Collège Jean de La Fontaine",
+   "statut_public_prive": "Public",
+   "type_contrat_prive": "SANS OBJET",
+   "nom_commune": "Laxou",
+   "ecole_maternelle": null,
+   "ecole_elementaire": null,
+   "voie_generale": "0",
+   "voie_technologique": "0",
+   "voie_professionnelle": "0",
+   "date_maj_ligne": "2026-09-24",
+   "dist": 2071.3909590784624
+  }
+ ]
+}

@@ -1,9 +1,9 @@
 {
- "total_count": 930,
+ "total_count": 1,
  "results": [
   {
-   "identifiant_de_l_etablissement": "0752528R",
-   "nom_etablissement": "Collège Victor Duruy",
+   "identifiant_de_l_etablissement": "0752249M",
+   "nom_etablissement": "Collège Jules Romains",
    "statut_public_prive": "Public",
    "type_contrat_prive": "SANS OBJET",
    "nom_commune": "Paris",
@@ -13,7 +13,7 @@
    "voie_technologique": "0",
    "voie_professionnelle": "0",
    "date_maj_ligne": "2026-09-24",
-   "dist": 488.67551872785253
+   "dist": 894.5989201905302
   }
  ]
 }
