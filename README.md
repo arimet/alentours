@@ -4,7 +4,7 @@
 
 **What public data says about any address in France, with the source of every figure.**
 
-Type an address and get a clear sheet about the place: natural and industrial risks, tap water quality, air quality, airport noise, fibre and mobile coverage, property prices, nearby schools, health services and everyday shops. The data is open but scattered across a dozen official sites; Alentours gathers it, explains it in plain French and links every number to its source.
+Type an address and get a clear sheet about the place: natural and industrial risks, tap water quality, air quality, airport noise, fibre and mobile coverage, property prices, energy labels, property tax, local urban plan, future climate, nearby schools, health services, shops and EV chargers. The data is open but scattered across a dozen official sites; Alentours gathers it, explains it in plain French and links every number to its source.
 
 The site is in French, for people moving house, buying, renting, or simply curious about their neighbourhood.
 
@@ -16,12 +16,17 @@ The site is in French, for people moving house, buying, renting, or simply curio
 | Tap water | latest sample compliance, nitrates, PFAS, pesticides, against regulatory limits | water network of the commune |
 | Air | today's and tomorrow's ATMO index | commune |
 | Noise | airport noise exposure and nuisance plans | zone |
+| Future climate | days ≥ 30 °C and ≥ 35 °C, tropical nights, heatwave days at +2 / +2.7 / +4 °C (TRACC) | commune |
 | Fixed internet | share of premises with fibre, best technology, speeds, copper network closure date | commune |
 | Mobile | 4G and 5G coverage for each operator (operators' simulations) | 200 m grid |
 | Property | median price per m² for flats and houses, yearly trend | commune |
+| Energy (DPE) | energy labels of the building, share of F-G in the street and commune | building, street, commune |
+| Property tax | 2025 rate, who votes it, change since 2021, household waste tax | commune |
+| Urbanism | local plan zone, document and link, public-utility easements, cadastral parcel | parcel |
 | Schools | nearest public schools, catchment *collège*, nearest *lycée* | point, address for the *collège* |
 | Health | nearest pharmacies, GPs and emergency departments | point |
 | Shops | nearest bakery, grocery, supermarket, post office, bank… | point |
+| EV chargers | nearest stations on foot, power, access | point |
 
 Distances are **walking distances** on the IGN road graph for places within 3 km, as the crow flies beyond.
 
@@ -48,6 +53,7 @@ A static [Astro](https://astro.build) site, hosted on GitHub Pages. No backend, 
 | `scripts/internet.mjs` | fibre and fixed internet per commune (Arcep) | 3.5 MB | quarterly |
 | `scripts/shops.mjs` | geolocated shops and services (INSEE BPE) | 6.6 MB | monthly check |
 | `scripts/mobile.mjs` | 200 m mobile coverage tiles (Arcep) | ~57 MB | twice a week check |
+| `scripts/climate.mjs` | future climate indicators per commune (Météo-France) | 7.3 MB | monthly check |
 | `scripts/routes.mjs` | road corridors drawn on the home map | 7 KB | by hand |
 
 Mobile tiles are too big to version: `data-mobile.yml` builds them (GDAL, 7-Zip) into an Actions cache that `deploy.yml` restores before the build. They are never committed.

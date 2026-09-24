@@ -14,7 +14,7 @@ const fakeGet = (place, { empty = false } = {}) => {
   const get = async (url) => {
     calls.push(url);
     const u = new URL(url), page = u.searchParams.get('page') ?? '1';
-    const km = +u.searchParams.get('consolidated_latitude__less') - +u.searchParams.get('consolidated_latitude__greater') > 0.1 ? 10 : 1;
+    const km = Math.round((+u.searchParams.get('consolidated_latitude__less') - +u.searchParams.get('consolidated_latitude__greater')) * 111.32 / 2);
     if (km === 1 && empty) return { data: [], links: { next: null } };
     return fixture(`${place}-${km}km-p${page}`);
   };
@@ -61,12 +61,13 @@ test('Nancy: keeps the latest version of a charge point, hides technical ids', a
   assert.equal(view.facts[2].value, 'jusqu’à 200 kW');
 });
 
-test('Saint-Véran: nearest station in the small box; empty box is widened once', async () => {
-  const { view, calls } = await load('saint-veran', VERAN);
-  assert.equal(calls.length, 1);
+test('Saint-Véran: fewer than 3 stations nearby, so the box widens step by step', async () => {
+  const { r, view, calls } = await load('saint-veran', VERAN);
+  assert.equal(calls.length, 3); // 1 km, 3 km, 10 km
+  assert.equal(r.stations.length, 7);
   assert.match(view.facts[0].detail, /Parking Beauregard/);
   const wide = await load('saint-veran', VERAN, { empty: true });
-  assert.equal(wide.calls.length, 2);
+  assert.equal(wide.calls.length, 3);
   assert.equal(wide.r.stations.length, 7);
 });
 

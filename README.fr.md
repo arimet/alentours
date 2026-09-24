@@ -4,7 +4,7 @@
 
 **Ce que les données publiques disent de n'importe quelle adresse en France, avec la source de chaque chiffre.**
 
-Tapez une adresse et obtenez une fiche claire sur l'endroit : risques naturels et industriels, qualité de l'eau du robinet, qualité de l'air, bruit des aéroports, fibre et réseau mobile, prix de l'immobilier, écoles, santé et commerces du quotidien. Ces données sont ouvertes mais éparpillées sur une dizaine de sites officiels ; Alentours les rassemble, les explique simplement et relie chaque chiffre à sa source.
+Tapez une adresse et obtenez une fiche claire sur l'endroit : risques naturels et industriels, qualité de l'eau du robinet, qualité de l'air, bruit des aéroports, fibre et réseau mobile, prix de l'immobilier, DPE, taxe foncière, urbanisme, climat futur, écoles, santé, commerces et bornes de recharge. Ces données sont ouvertes mais éparpillées sur une dizaine de sites officiels ; Alentours les rassemble, les explique simplement et relie chaque chiffre à sa source.
 
 Pour celles et ceux qui déménagent, achètent, louent, ou sont simplement curieux de leur quartier.
 
@@ -16,12 +16,17 @@ Pour celles et ceux qui déménagent, achètent, louent, ou sont simplement curi
 | Eau du robinet | conformité du dernier prélèvement, nitrates, PFAS, pesticides, comparés aux limites réglementaires | réseau d'eau de la commune |
 | Air | indice ATMO du jour et du lendemain | commune |
 | Bruit | plans d'exposition et de gêne sonore des aéroports | zone |
+| Climat futur | jours à 30 °C et 35 °C ou plus, nuits tropicales, canicules à +2 / +2,7 / +4 °C (TRACC) | commune |
 | Internet fixe | part des locaux raccordables à la fibre, meilleure technologie, débits, date de fermeture du cuivre | commune |
 | Réseau mobile | couverture 4G et 5G par opérateur (simulations des opérateurs) | carreau de 200 m |
 | Immobilier | prix médian au m² des appartements et des maisons, évolution annuelle | commune |
+| Énergie (DPE) | étiquettes de l'immeuble, part de F-G dans la rue et la commune | immeuble, rue, commune |
+| Taxe foncière | taux 2025, qui le vote, évolution depuis 2021, taxe d'ordures ménagères | commune |
+| Urbanisme | zone du PLU, document et lien, servitudes, parcelle cadastrale | parcelle |
 | Écoles | écoles publiques proches, collège de secteur, lycée le plus proche | point, adresse pour le collège |
 | Santé | pharmacies, généralistes et urgences les plus proches | point |
 | Commerces | boulangerie, supérette, supermarché, poste, banque les plus proches… | point |
+| Bornes de recharge | stations les plus proches à pied, puissance, accès | point |
 
 Les distances sont **à pied**, calculées sur le réseau routier de l'IGN pour les lieux à moins de 3 km, à vol d'oiseau au-delà.
 
@@ -48,6 +53,7 @@ Un site statique [Astro](https://astro.build), hébergé sur GitHub Pages. Ni se
 | `scripts/internet.mjs` | fibre et internet fixe par commune (Arcep) | 3,5 Mo | trimestrielle |
 | `scripts/shops.mjs` | commerces et services géolocalisés (BPE de l'INSEE) | 6,6 Mo | vérification mensuelle |
 | `scripts/mobile.mjs` | couverture mobile en carreaux de 200 m (Arcep) | ~57 Mo | vérification deux fois par semaine |
+| `scripts/climate.mjs` | indicateurs de climat futur par commune (Météo-France) | 7,3 Mo | vérification mensuelle |
 | `scripts/routes.mjs` | grands axes dessinés sur la carte d'accueil | 7 Ko | à la main |
 
 Les carreaux mobiles sont trop lourds pour être versionnés : `data-mobile.yml` les construit (GDAL, 7-Zip) dans un cache GitHub Actions que `deploy.yml` restaure avant le build. Ils ne sont jamais commités.

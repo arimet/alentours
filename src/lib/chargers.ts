@@ -11,8 +11,11 @@ export type Station = Point & {
 
 export const IRVE_URL = 'https://www.data.gouv.fr/fr/datasets/5448d3e0c751df01f85d0572/';
 const API = 'https://tabular-api.data.gouv.fr/api/resources/eb76d20a-8501-400e-b336-d85724de5435/data/';
-/** Bounding-box half-sizes (km): first try, then one wider try if empty (rural areas). */
-export const RADII = [1, 10];
+/** Bounding-box half-sizes (km): first try, then one wider try if it finds fewer than MIN_STATIONS (rural areas). */
+export const MIN_STATIONS = 3;
+// Widening step by step keeps each box small enough for the 3-page cap (600 rows, unsorted):
+// a dense area stops at 1 or 3 km, only sparse rural areas reach 10 km.
+export const RADII = [1, 3, 10];
 /** Stations counted in the "nearby" fact, as the crow flies. */
 export const COUNT_M = 1000;
 export const LISTED = 8;
@@ -81,13 +84,13 @@ const fetchRows = async (url: string, get: (url: string) => Promise<any>) => {
   return rows;
 };
 
-/** Small bbox first, one wider bbox if it has no station. `date`: latest `date_maj` seen. */
+/** Small bbox first, then wider ones while it has fewer than MIN_STATIONS. `date`: latest `date_maj` seen. */
 export const nearbyStations = async (p: Point, get: (url: string) => Promise<any>) => {
   let rows: any[] = [], stations: Station[] = [];
   for (const km of RADII) {
     rows = await fetchRows(irveUrl(p, km), get);
     stations = parseIrve(rows, p);
-    if (stations.length) break;
+    if (stations.length >= MIN_STATIONS) break;
   }
   const date = rows.map((r) => String(r.date_maj ?? '')).filter((d) => /^\d{4}-\d{2}-\d{2}/.test(d)).sort().at(-1);
   return { stations, date };
@@ -115,7 +118,7 @@ export const chargersView = (data: { stations?: Station[]; date?: string }): Blo
   const updated = frDate(data.date);
   let facts: Fact[];
   if (!stations) facts = [{ label: 'Station la plus proche', value: 'Donnée indisponible', level: 'unknown', detail: 'La source n’a pas répondu.' }];
-  else if (!stations.length) facts = [{ label: 'Station la plus proche', value: `Aucune à moins de ${RADII[1]} km`, level: 'info' }];
+  else if (!stations.length) facts = [{ label: 'Station la plus proche', value: `Aucune à moins de ${RADII.at(-1)} km`, level: 'info' }];
   else {
     const near = stations.filter((s) => s.distance <= COUNT_M).length;
     const max = Math.max(0, ...listed.map((s) => s.maxKw ?? 0));
