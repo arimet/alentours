@@ -1,0 +1,47 @@
+import { test } from 'node:test';
+import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
+import { parsePlaces, communeCode, precisionOf } from '../src/lib/geocode.ts';
+
+const fixture = (name) => JSON.parse(readFileSync(new URL(`fixtures/${name}`, import.meta.url)));
+
+test('parses a reverse-geocoding answer into places', () => {
+  assert.deepEqual(parsePlaces(fixture('geocodage-reverse-segur-paris.json')), [{
+    label: '20 Avenue de Ségur 75007 Paris',
+    lat: 48.850699, lon: 2.308628,
+    citycode: '75107', city: 'Paris', postcode: '75007', type: 'housenumber',
+  }]);
+});
+
+test('keeps the order of autocomplete results', () => {
+  const places = parsePlaces(fixture('geocodage-autocomplete-segur.json'));
+  assert.equal(places[0].label, 'Rue De Segur 19100 Brive-la-Gaillarde');
+  assert.equal(places[0].lon, 1.531935);
+});
+
+test('a municipality result is flagged as commune-level', () => {
+  const [veran] = parsePlaces(fixture('geocodage-search-saint-veran.json'));
+  assert.equal(veran.type, 'municipality');
+  assert.equal(precisionOf(veran.type), 'commune');
+});
+
+test('empty or malformed answers give no places', () => {
+  assert.deepEqual(parsePlaces({ features: [] }), []);
+  assert.deepEqual(parsePlaces({}), []);
+  assert.deepEqual(parsePlaces(null), []);
+});
+
+test('maps Paris, Lyon and Marseille districts to their commune', () => {
+  assert.equal(communeCode('75107'), '75056');
+  assert.equal(communeCode('75120'), '75056');
+  assert.equal(communeCode('69381'), '69123');
+  assert.equal(communeCode('13216'), '13055');
+  assert.equal(communeCode('05157'), '05157');
+  assert.equal(communeCode('75056'), '75056');
+});
+
+test('precision follows the result type', () => {
+  assert.equal(precisionOf('housenumber'), 'adresse');
+  assert.equal(precisionOf('street'), 'rue');
+  assert.equal(precisionOf('locality'), 'lieu-dit');
+});

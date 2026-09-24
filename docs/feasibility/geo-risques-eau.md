@@ -51,7 +51,7 @@ Exemples enregistrés : `geocodage-search-segur-paris.json`, `geocodage-search-s
 
 ### ⚠️ API indisponible pendant l'étude
 
-Le 24/09/2026 entre 11:19 et 11:40 (heure de Paris), **tous les appels `https://www.georisques.gouv.fr/api/*` ont renvoyé `503 Service Temporarily Unavailable`**, parfois `500`. Cela concerne aussi `georisques.gouv.fr` sans `www` et la spec OpenAPI `/api/v3/api-docs/georisques-api-v1`. Le site web (`/`, `/doc-api`) répondait en 200. L'en-tête `x-kong-upstream-latency: 2` montre que c'est le serveur derrière la passerelle Kong qui refuse les requêtes.
+Le 24/09/2026 entre 11:19 et 11:42 (heure de Paris, une vingtaine de tentatives espacées de ~45 s), **tous les appels `https://www.georisques.gouv.fr/api/*` ont renvoyé `503 Service Temporarily Unavailable`**, parfois `500`. Cela concerne aussi `georisques.gouv.fr` sans `www` et la spec OpenAPI `/api/v3/api-docs/georisques-api-v1`. Le site web (`/`, `/doc-api`) répondait en 200. L'en-tête `x-kong-upstream-latency: 2` montre que c'est le serveur derrière la passerelle Kong qui refuse les requêtes.
 
 **Aucun appel n'a abouti.** Ce qui suit vient de sources secondaires, indiquées à chaque fois :
 - la spec OpenAPI v1 **archivée par Wayback le 2026-07-17** (version 1.12.2), dont un extrait est dans `samples/georisques-v1-openapi-extrait-archive-wayback-2026-07-17.json` ;

@@ -3,6 +3,35 @@ import Base from '../layouts/Base.astro';
 ---
 <Base>
   <main>
-    <h1>Mon adresse en données</h1>
+    <section id="search" class="search">
+      <h1>Ce que les données publiques disent de votre adresse</h1>
+      <p class="lede">Risques, eau, air, fibre, réseau mobile, prix, écoles et santé. Chaque chiffre avec sa source.</p>
+
+      <form id="search-form" role="search" autocomplete="off">
+        <label for="q">Adresse en France</label>
+        <div class="combo">
+          <input id="q" type="text" inputmode="search" role="combobox" aria-autocomplete="list"
+            aria-expanded="false" aria-controls="suggestions" aria-describedby="q-help q-status"
+            placeholder="ex. 12 rue de la Gare, Rennes" spellcheck="false" />
+          <ul id="suggestions" role="listbox" aria-label="Suggestions d’adresses" hidden></ul>
+        </div>
+        <p id="q-help" class="help">L’adresse est envoyée uniquement au service de géocodage de l’IGN, jamais à nous.</p>
+        <p id="q-status" class="status" aria-live="polite"></p>
+      </form>
+
+      <p class="example">Essayer avec : <button type="button" id="example" class="link"></button></p>
+    </section>
+
+    <section id="sheet" class="sheet" hidden aria-labelledby="sheet-title">
+      <p><a href="#" id="back">Nouvelle recherche</a></p>
+      <h1 id="sheet-title" tabindex="-1"></h1>
+      <p id="sheet-meta" class="meta"></p>
+      <p id="sheet-status" class="status" aria-live="polite"></p>
+      <div id="blocks" class="blocks"></div>
+    </section>
   </main>
 </Base>
+
+<script>
+  import './../scripts/app.ts';
+</script>
