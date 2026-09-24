@@ -23,6 +23,14 @@ jobs:
         uses: actions/configure-pages@v6
       - run: npm ci
       - run: npm test
+      # Mobile coverage tiles: built by data-mobile.yml and kept in an Actions cache, never in git.
+      # The prefix picks the most recent cache of format v1; without one, the block says the map
+      # is not available yet.
+      - uses: actions/cache/restore@v5
+        with:
+          path: public/data/mobile
+          key: mobile-v1-latest
+          restore-keys: mobile-v1-
       - run: npm run build
         env:
           SITE_URL: ${{ steps.pages.outputs.origin }}

@@ -1,0 +1,50 @@
+# Mobile coverage tiles (public/data/mobile/*.bin, ~60 MB) are built here, not in the deploy:
+# the Arcep maps weigh ~1.7 GB of 7z for 4G + 5G in metropolitan France and take a long while to
+# rasterize. The tiles are never committed (a quarterly refresh would bloat the history): they
+# live in an Actions cache that deploy.yml restores before `npm run build`.
+# Cache key = format version + latest Arcep quarter + hash of the code producing the tiles.
+# When the format changes, bump "v1" here AND in deploy.yml.
+# Runs twice a week: a hit only restores the cache (which also keeps it from the 7-day eviction);
+# a miss (new quarter, script change) rebuilds, saves and triggers a deploy.
+name: Data mobile
+on:
+  schedule:
+    - cron: '17 4 * * 1,4'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: write # to start the deploy once new tiles are saved
+concurrency:
+  group: data-mobile
+  cancel-in-progress: false
+jobs:
+  tiles:
+    runs-on: ubuntu-latest
+    timeout-minutes: 240
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+      - id: key
+        run: echo "key=mobile-v1-$(node scripts/mobile.mjs --version)-${{ hashFiles('scripts/mobile.mjs', 'src/lib/mobile.ts') }}" >> "$GITHUB_OUTPUT"
+      - id: cache
+        uses: actions/cache/restore@v5
+        with:
+          path: public/data/mobile
+          key: ${{ steps.key.outputs.key }}
+      - if: steps.cache.outputs.cache-hit != 'true'
+        run: sudo apt-get update && sudo apt-get install -y --no-install-recommends gdal-bin p7zip-full
+      - if: steps.cache.outputs.cache-hit != 'true'
+        run: node scripts/mobile.mjs && du -sh public/data/mobile
+        env:
+          MOBILE_WORK: ${{ runner.temp }}/mobile
+      - if: steps.cache.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v5
+        with:
+          path: public/data/mobile
+          key: ${{ steps.key.outputs.key }}
+      - if: steps.cache.outputs.cache-hit != 'true'
+        run: gh workflow run deploy.yml --ref ${{ github.event.repository.default_branch }}
+        env:
+          GH_TOKEN: ${{ github.token }}
