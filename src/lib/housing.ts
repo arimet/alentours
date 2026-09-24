@@ -20,6 +20,7 @@ export const statsUrl = (insee: string) => `${STATS}?code_geo__exact=${encodeURI
 /** The explorer reads ?level=commune&code= on load (checked in its bundle, 24/09/2026). */
 export const explorerUrl = (insee: string) => `https://explore.data.gouv.fr/fr/immobilier?level=commune&code=${encodeURIComponent(insee)}`;
 
+// Flat and house: French keys, as in the published public/data/dvf files (Series) and the official columns.
 type Kind = 'appartement' | 'maison';
 export type Stat = { n: number; median: number | null };
 export type Stats = Record<Kind, Stat> & { total: number };
@@ -60,7 +61,7 @@ export const yearItems = (s: Series): Item[] =>
     detail: [yearPart('appartements', s.appartement.median[i], s.appartement.n[i]), yearPart('maisons', s.maison.median[i], s.maison.n[i])].join(', '),
   }));
 
-export const immoView = ({ insee, arrondissement, stats, dep }: { insee: string; arrondissement: boolean; stats: Stats; dep?: DepFile }): BlockView => {
+export const housingView = ({ insee, district, stats, dep }: { insee: string; district: boolean; stats: Stats; dep?: DepFile }): BlockView => {
   const period = periodText(dep);
   const series = dep?.[insee] as Series | undefined;
   const notes = [
@@ -77,7 +78,7 @@ export const immoView = ({ insee, arrondissement, stats, dep }: { insee: string;
     ],
     explanation: 'Prix au mètre carré tiré des ventes enregistrées par l’administration fiscale : la moitié des biens s’est vendue plus cher que le prix médian, l’autre moitié moins cher.',
     ...(series ? { items: yearItems(series) } : {}),
-    precision: arrondissement ? 'à l’arrondissement' : 'à la commune',
+    precision: district ? 'à l’arrondissement' : 'à la commune',
     source: { name: 'Statistiques DVF (data.gouv.fr, d’après la DGFiP et Etalab)', url: explorerUrl(insee) },
     notes,
   };

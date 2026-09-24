@@ -1,10 +1,10 @@
-// Everyday shops and services around the address, from the files built by scripts/commerces.mjs
+// Everyday shops and services around the address, from the files built by scripts/shops.mjs
 // (INSEE, Base permanente des équipements). Pure functions only, tested on real BPE 2025 rows.
 
 import { distance, formatDistance, type BlockView, type Fact, type Item, type Note } from './block.ts';
 import { formatWalk, MAX_WALK_M, type Walk } from './walk.ts';
 
-/** public/data/commerces/<dep>.json: points are [lat, lon, index in types]. */
+/** public/data/shops/<dep>.json: points are [lat, lon, index in types]. */
 export type File = { types?: string[]; points?: [number, number, number][]; _meta?: { source: string; vintage: string; url: string } };
 type Point = { lat: number; lon: number };
 
@@ -12,7 +12,7 @@ type Point = { lat: number; lon: number };
 export const PAD_KM = 3;
 export const RADIUS = 500;
 
-// Type indexes, in the order of TYPES in scripts/commerces.mjs.
+// Type indexes, in the order of TYPES in scripts/shops.mjs.
 const FOOD = [0, 1, 2], POST = 5, BANK = 6;
 const PAGE = 'https://www.insee.fr/fr/statistiques/8217525?sommaire=8217537';
 
@@ -33,7 +33,7 @@ const howFar = (x: Spot) => x.walk ? formatWalk(x.walk) : `${formatDistance(x.di
 const cap = (s: string) => s[0].toUpperCase() + s.slice(1);
 const low = (s: string) => s[0].toLowerCase() + s.slice(1);
 
-export const commercesView = (file: File, at: Point, near: Spot[][] = candidates(file, at)): BlockView => {
+export const shopsView = (file: File, at: Point, near: Spot[][] = candidates(file, at)): BlockView => {
   const types = file.types ?? [], points = file.points ?? [];
   const source = { name: file._meta?.source ?? 'INSEE, Base permanente des équipements', url: file._meta?.url ?? PAGE };
   const explanation = `Les distances sont à pied depuis l’adresse, calculées sur le réseau routier de l’IGN, jusqu’à ${MAX_WALK_M / 1000} km. Au-delà, elles sont à vol d’oiseau. La base est mise à jour une fois par an : une ouverture ou une fermeture récente peut manquer.`;

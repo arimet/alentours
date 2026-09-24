@@ -6,7 +6,7 @@ import { parsePlaces, communeCode, precisionOf } from '../src/lib/geocode.ts';
 const fixture = (name) => JSON.parse(readFileSync(new URL(`fixtures/${name}`, import.meta.url)));
 
 test('parses a reverse-geocoding answer into places', () => {
-  assert.deepEqual(parsePlaces(fixture('geocodage-reverse-segur-paris.json')), [{
+  assert.deepEqual(parsePlaces(fixture('geocoding-reverse-segur-paris.json')), [{
     label: '20 Avenue de Ségur 75007 Paris',
     lat: 48.850699, lon: 2.308628,
     citycode: '75107', city: 'Paris', postcode: '75007', housenumber: '20', street: 'Avenue de Ségur', type: 'housenumber',
@@ -14,13 +14,13 @@ test('parses a reverse-geocoding answer into places', () => {
 });
 
 test('keeps the order of autocomplete results', () => {
-  const places = parsePlaces(fixture('geocodage-autocomplete-segur.json'));
+  const places = parsePlaces(fixture('geocoding-autocomplete-segur.json'));
   assert.equal(places[0].label, 'Rue De Segur 19100 Brive-la-Gaillarde');
   assert.equal(places[0].lon, 1.531935);
 });
 
 test('a municipality result is flagged as commune-level', () => {
-  const [veran] = parsePlaces(fixture('geocodage-search-saint-veran.json'));
+  const [veran] = parsePlaces(fixture('geocoding-search-saint-veran.json'));
   assert.equal(veran.type, 'municipality');
   assert.equal(precisionOf(veran.type), 'commune');
   assert.equal(veran.street, undefined);

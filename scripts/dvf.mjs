@@ -5,6 +5,7 @@
 //
 // Writes public/data/dvf/<dep>.json:
 //   { "<insee>": { years: [...], appartement: { median: [...], n: [...] }, maison: {...} }, _meta: {...} }
+// (appartement = flat, maison = house: French keys kept, as the published files and src/lib/housing.ts use them)
 // Only aggregates, never individual sales (DGFiP terms forbid re-identification).
 //
 // Method: the one of data.gouv's "Statistiques DVF", read in their pipeline
@@ -12,7 +13,7 @@
 // dataset description (www.data.gouv.fr/fr/datasets/statistiques-dvf/):
 //   1. drop exact duplicate rows (on the columns the pipeline keeps);
 //   2. keep natures "Vente", "Vente en l'état futur d'achèvement", "Adjudication";
-//   3. keep maisons (1), appartements (2) and locaux (4); dépendances and land do not count;
+//   3. keep houses ("maisons", 1), flats ("appartements", 2) and premises ("locaux", 4); outbuildings and land do not count;
 //   4. keep single-property mutations: the id_mutation appears once after 2 and 3;
 //   5. price/m² = valeur_fonciere / surface_reelle_bati; drop when it cannot be computed or is >= 100 000 €/m².
 // No other outlier filter: the official statistics deliberately have none. We follow their monthly computation

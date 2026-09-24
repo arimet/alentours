@@ -10,8 +10,8 @@ const file = {
   ...buildEntries({
     fibre: parseDbf(fixture('cartefibre-2026T2.dbf')),
     best: parseCsv(fixture('mci-best.csv').toString()),
-    debit: parseCsv(fixture('mci-debit.csv').toString()),
-    cuivre: parseCsv(fixture('cuivre.csv').toString()),
+    speed: parseCsv(fixture('mci-debit.csv').toString()),
+    copper: parseCsv(fixture('copper.csv').toString()),
   }),
   _meta: {
     sources: [

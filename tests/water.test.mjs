@@ -1,15 +1,15 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { resultsUrl, udiUrl, networks, latestPerNetwork, conformityFact, measureFact, buildView, PARAMS } from '../src/lib/eau.ts';
+import { resultsUrl, udiUrl, networks, latestPerNetwork, conformityFact, measureFact, buildView, PARAMS } from '../src/lib/water.ts';
 
 const fixture = (name) => JSON.parse(readFileSync(new URL(`fixtures/${name}`, import.meta.url)));
 const all = (commune) => ({
-  udi: fixture(`eau-udi-${commune}.json`),
-  conformite: fixture(`eau-${commune}-conformite.json`),
-  nitrates: fixture(`eau-${commune}-nitrates.json`),
-  pfas: fixture(`eau-${commune}-pfas.json`),
-  pesticides: fixture(`eau-${commune}-pesticides.json`),
+  udi: fixture(`water-udi-${commune}.json`),
+  compliance: fixture(`water-${commune}-compliance.json`),
+  nitrates: fixture(`water-${commune}-nitrates.json`),
+  pfas: fixture(`water-${commune}-pfas.json`),
+  pesticides: fixture(`water-${commune}-pesticides.json`),
 });
 const empty = { count: 0, data: [] };
 
@@ -26,10 +26,10 @@ test('URLs are filtered and small', () => {
 });
 
 test('networks keep only the latest year', () => {
-  assert.deepEqual(networks(fixture('eau-udi-saint-veran.json')), [{ code: '005001137', name: 'ST VERAN ENSEMBLE', quartier: undefined }]);
-  const paris = networks(fixture('eau-udi-paris.json'));
+  assert.deepEqual(networks(fixture('water-udi-saint-veran.json')), [{ code: '005001137', name: 'ST VERAN ENSEMBLE', neighbourhood: undefined }]);
+  const paris = networks(fixture('water-udi-paris.json'));
   assert.equal(paris.length, 4);
-  assert.equal(paris[0].quartier, 'du 1° au 13°, 15° et 16° arrondissement');
+  assert.equal(paris[0].neighbourhood, 'du 1° au 13°, 15° et 16° arrondissement');
   assert.deepEqual(networks(empty), []);
 });
 
@@ -47,14 +47,14 @@ test('groups rows by sample and keeps the latest sample of each network', () => 
 });
 
 test('a conform commune is ok, with the sample date', () => {
-  const f = conformityFact(fixture('eau-saint-veran-conformite.json').data);
+  const f = conformityFact(fixture('water-saint-veran-compliance.json').data);
   assert.equal(f.level, 'ok');
   assert.equal(f.value, 'Conforme');
   assert.match(f.detail, /19 juin 2026/);
 });
 
 test('a bacteriological non-conformity on one network is the worst case', () => {
-  const f = conformityFact(fixture('eau-arvieux-conformite.json').data);
+  const f = conformityFact(fixture('water-arvieux-compliance.json').data);
   assert.equal(f.level, 'alert');
   assert.equal(f.value, 'Non conforme');
   assert.match(f.detail, /bactériolog/);
@@ -70,18 +70,18 @@ test('a physico-chemical non-conformity is a warning', () => {
 });
 
 test('below the detection limit shows the text, never 0', () => {
-  const f = measureFact('PFAS', fixture('eau-saint-veran-pfas.json').data);
+  const f = measureFact('PFAS', fixture('water-saint-veran-pfas.json').data);
   assert.equal(f.value, '<0,029 µg/L');
   assert.equal(f.level, 'ok');
   assert.match(f.detail, /0,1 µg\/L/);
 });
 
 test('nitrates: worst network value against the limit from the API', () => {
-  const f = measureFact('Nitrates', fixture('eau-paris-nitrates.json').data);
+  const f = measureFact('Nitrates', fixture('water-paris-nitrates.json').data);
   assert.equal(f.level, 'ok');
   assert.match(f.value, /mg\/L$/);
   assert.match(f.detail, /50 mg\/L/);
-  const worst = Math.max(...latestPerNetwork(fixture('eau-paris-nitrates.json').data).map((s) => s.rows[0].resultat_numerique));
+  const worst = Math.max(...latestPerNetwork(fixture('water-paris-nitrates.json').data).map((s) => s.rows[0].resultat_numerique));
   assert.equal(f.value, `${worst.toFixed(2).replace('.', ',')} mg/L`);
 });
 
@@ -119,7 +119,7 @@ test('partial failure shows what is available with a note', () => {
 });
 
 test('an empty commune gives unknown levels', () => {
-  const v = buildView({ udi: empty, conformite: empty, nitrates: empty, pfas: empty, pesticides: empty });
+  const v = buildView({ udi: empty, compliance: empty, nitrates: empty, pfas: empty, pesticides: empty });
   assert.ok(v.facts.every((f) => f.level === 'unknown'));
   assert.equal(v.source.updated, undefined);
 });

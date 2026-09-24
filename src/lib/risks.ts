@@ -4,7 +4,7 @@
 import { distance, type BlockView, type Context, type Fact, type Item, type Level } from './block.ts';
 
 export const API = 'https://www.georisques.gouv.fr/api/v1';
-export const RAYON = 1000; // metres, the API's default radius
+export const RADIUS = 1000; // metres, the API's default radius
 
 const q = (params: Record<string, string | number>) => new URLSearchParams(Object.entries(params).map(([k, v]) => [k, String(v)]));
 
@@ -15,15 +15,15 @@ export const urls = (ctx: Context) => {
   return {
     rga: `${API}/rga?${q({ latlon })}`,
     tri: `${API}/tri_zonage?${q({ latlon })}`,
-    sismique: `${API}/zonage_sismique?${q({ code_insee })}`,
+    seismic: `${API}/zonage_sismique?${q({ code_insee })}`,
     radon: `${API}/radon?${q({ code_insee })}`,
-    ssp: `${API}/ssp?${q({ latlon, rayon: RAYON, page_size: 50 })}`,
-    icpe: `${API}/installations_classees?${q({ latlon, rayon: RAYON, page_size: 50 })}`,
+    ssp: `${API}/ssp?${q({ latlon, rayon: RADIUS, page_size: 50 })}`,
+    icpe: `${API}/installations_classees?${q({ latlon, rayon: RADIUS, page_size: 50 })}`,
   };
 };
 
 /** Public "risques près de chez moi" report for the address (URL pattern of the Géorisques site, answers 200). */
-export const rapportUrl = (ctx: Context) =>
+export const reportUrl = (ctx: Context) =>
   `https://www.georisques.gouv.fr/mes-risques/connaitre-les-risques-pres-de-chez-moi/rapport2?${q({
     'form-adresse': 'true', isCadastre: 'false', city: ctx.city, type: 'housenumber', typeForm: 'adresse',
     codeInsee: ctx.citycode, lon: ctx.lon, lat: ctx.lat, adresse: ctx.label,
@@ -38,10 +38,11 @@ const check = (json: any) => {
 const rows = (json: any): any[] => check(json)?.data ?? [];
 
 // Clay shrink-swell exposure map (BRGM), classes set by arrêté du 22 juillet 2020 (updated by arrêté du 9 janvier 2026):
-// exposition faible / moyenne / forte. In the medium and strong zones, loi ELAN (art. 68, code de la construction
-// L132-4 et s.) makes a soil study mandatory to sell a building plot. The map does not cover the city of Paris.
+// low / medium / strong exposure ("exposition faible / moyenne / forte"). In the medium and strong zones, loi ELAN
+// (art. 68, code de la construction L132-4 and following) makes a soil study mandatory to sell a building plot.
+// The map does not cover the city of Paris.
 const RGA: Record<string, Level> = { '1': 'info', '2': 'warn', '3': 'alert' };
-export const argilesFact = (json: any, ctx: Context): Fact => {
+export const clayFact = (json: any, ctx: Context): Fact => {
   const { codeExposition: code, exposition } = check(json) ?? {};
   const label = 'Argiles (sol qui gonfle et se rétracte)';
   if (!RGA[code]) return ctx.commune === '75056'
@@ -55,9 +56,9 @@ export const argilesFact = (json: any, ctx: Context): Fact => {
   };
 };
 
-// Territoires à risque important d'inondation (directive 2007/60/CE): flood maps for three scenarios
-// (forte, moyenne, faible probabilité). Only ~120 territories are mapped, so "outside" is not "no risk".
-export const inondationFact = (json: any): Fact => {
+// "Territoires à risque important d'inondation" (TRI, directive 2007/60/CE): flood maps for three scenarios
+// (high, medium, low probability). Only ~120 territories are mapped, so "outside" is not "no risk".
+export const floodFact = (json: any): Fact => {
   const data = rows(json);
   const label = 'Inondation';
   if (!data.length) return {
@@ -72,29 +73,31 @@ export const inondationFact = (json: any): Fact => {
   };
 };
 
-// Seismic zones: code de l'environnement art. R563-4 (décret 2010-1254): 1 très faible, 2 faible, 3 modérée,
-// 4 moyenne, 5 forte. Arrêté du 22 octobre 2010: no rule for ordinary buildings in zone 1; in zone 2 only
+// Seismic zones: code de l'environnement art. R563-4 (décret 2010-1254): 1 very low, 2 low, 3 moderate,
+// 4 medium, 5 strong. Arrêté du 22 octobre 2010: no rule for ordinary buildings in zone 1; in zone 2 only
 // categories III and IV (schools, hospitals…); from zone 3 also category II, which includes houses.
-const SISMIQUE: Record<string, [string, Level]> = {
+const SEISMIC: Record<string, [string, Level]> = {
   '1': ['très faible', 'ok'], '2': ['faible', 'info'], '3': ['modérée', 'warn'], '4': ['moyenne', 'alert'], '5': ['forte', 'alert'],
 };
-const SEISME_REGLES: Partial<Record<Level, string>> = {
+const SEISMIC_RULES: Partial<Record<Level, string>> = {
   ok: 'Pas de règle parasismique pour les bâtiments courants.',
   info: 'Règles parasismiques pour certains bâtiments neufs (écoles, hôpitaux), pas pour les maisons.',
   warn: 'Les bâtiments neufs, maisons comprises, doivent suivre des règles parasismiques.',
   alert: 'Les bâtiments neufs, maisons comprises, doivent suivre des règles parasismiques.',
 };
-// Radon potential: arrêté du 27 juin 2018 (code de la santé publique R1333-29): zone 1 faible, zone 2 faible avec
-// facteurs géologiques qui facilitent le transfert vers les bâtiments, zone 3 significatif.
+// Radon potential: arrêté du 27 juin 2018 (code de la santé publique R1333-29): zone 1 low, zone 2 low but with
+// geological factors that ease its transfer into buildings, zone 3 significant.
 const RADON: Record<string, [string, Level]> = { '1': ['faible', 'ok'], '2': ['faible', 'info'], '3': ['significatif', 'warn'] };
 const RANK: Level[] = ['unknown', 'ok', 'info', 'warn', 'alert'];
 
-/** Pre-computed commune entry of public/data/risques/<dep>.json (scripts/risques.mjs). */
+/** Pre-computed commune entry of public/data/risks/<dep>.json (scripts/risks.mjs).
+ * Keys are those of the published files (risques = risks, nom = name, etat = status, depuis = since, dernier = latest). */
 export type Commune = {
   radon?: number;
   risques?: string[];
   pprn?: { nom: string; etat: string }[];
   pprt?: { nom: string; etat: string }[];
+  /** "Catastrophe naturelle" recognitions (the CatNat insurance regime). */
   catnat?: { n: number; depuis: string; dernier: string; type: string };
 };
 
@@ -105,18 +108,18 @@ export const communeOf = (file: any, ctx: Context): Commune | undefined => {
 };
 
 /** Live answers first; the pre-computed commune radon class fills a missing or empty one. */
-export const communeFact = (sismique: any, radon: any, commune?: Commune): Fact => {
-  const zone = sismique && rows(sismique)[0]?.code_zone;
-  const classe = (radon && rows(radon)[0]?.classe_potentiel) ?? commune?.radon;
-  const s = SISMIQUE[zone], r = RADON[classe];
+export const communeFact = (seismic: any, radon: any, commune?: Commune): Fact => {
+  const zone = seismic && rows(seismic)[0]?.code_zone;
+  const radonClass = (radon && rows(radon)[0]?.classe_potentiel) ?? commune?.radon;
+  const s = SEISMIC[zone], r = RADON[radonClass];
   const levels = [s?.[1], r?.[1]].filter(Boolean) as Level[];
   const detail = [
-    s && SEISME_REGLES[s[1]],
+    s && SEISMIC_RULES[s[1]],
     r && (r[1] === 'warn' ? 'Le radon, un gaz naturel, peut s’accumuler dans les logements : aérer et faire mesurer est conseillé.' : undefined),
   ].filter(Boolean).join(' ');
   return {
     label: 'Séisme et radon (commune)',
-    value: `Séisme : ${s ? `zone ${zone} (${s[0]})` : 'non disponible'}. Radon : ${r ? `zone ${classe} (${r[0]})` : 'non disponible'}.`,
+    value: `Séisme : ${s ? `zone ${zone} (${s[0]})` : 'non disponible'}. Radon : ${r ? `zone ${radonClass} (${r[0]})` : 'non disponible'}.`,
     level: levels.reduce((a, b) => (RANK.indexOf(b) > RANK.indexOf(a) ? b : a), 'unknown' as Level),
     ...(detail && { detail }),
   };
@@ -201,7 +204,7 @@ const EXPLANATION = 'Ces cartes officielles disent à quels risques connus le li
  * Live wins for point-level facts; the commune file adds the GASPAR lists and fills a missing radon.
  * Throws when neither answers.
  */
-export const risquesView = (live: ({ value: any } | undefined)[], file: any, ctx: Context): BlockView => {
+export const risksView = (live: ({ value: any } | undefined)[], file: any, ctx: Context): BlockView => {
   const c = communeOf(file, ctx);
   if (!live.some(Boolean)) {
     if (!c) throw new Error('Géorisques ne répond pas');
@@ -211,23 +214,23 @@ export const risquesView = (live: ({ value: any } | undefined)[], file: any, ctx
       explanation: EXPLANATION,
       items: [],
       precision: 'à la commune',
-      source: { name: 'Géorisques (base GASPAR) et ASN (potentiel radon 2019)', url: gaspar?.url ?? rapportUrl(ctx), ...(gaspar?.date && { updated: frDate(gaspar.date) }) },
+      source: { name: 'Géorisques (base GASPAR) et ASN (potentiel radon 2019)', url: gaspar?.url ?? reportUrl(ctx), ...(gaspar?.date && { updated: frDate(gaspar.date) }) },
       notes: ['Géorisques ne répond pas : informations à la commune seulement.'],
     };
   }
   const ok = (i: number) => live[i] !== undefined;
-  const [rga, tri, sismique, radon, ssp, icpe] = LIVE.map((_, i) => live[i]?.value);
+  const [rga, tri, seismic, radon, ssp, icpe] = LIVE.map((_, i) => live[i]?.value);
   const facts: Fact[] = [];
-  if (ok(1)) facts.push(inondationFact(tri));
-  if (ok(0)) facts.push(argilesFact(rga, ctx));
-  if (ok(2) || ok(3) || c?.radon) facts.push(communeFact(sismique, radon, c));
+  if (ok(1)) facts.push(floodFact(tri));
+  if (ok(0)) facts.push(clayFact(rga, ctx));
+  if (ok(2) || ok(3) || c?.radon) facts.push(communeFact(seismic, radon, c));
   facts.push(...gasparFacts(c));
 
   // ponytail: page_size 50 per source, so a very dense area can list more sites than it counts; add paging if needed.
   const { items, more } = sitesItems(ssp, icpe, ctx);
   const notes: string[] = [];
-  if (more) notes.push(`${more} autre${more > 1 ? 's' : ''} site${more > 1 ? 's' : ''} dans un rayon de ${RAYON / 1000} km, visibles sur Géorisques.`);
-  if (!items.length && ok(4) && ok(5)) notes.push(`Aucun site pollué ni installation classée recensé dans un rayon de ${RAYON / 1000} km.`);
+  if (more) notes.push(`${more} autre${more > 1 ? 's' : ''} site${more > 1 ? 's' : ''} dans un rayon de ${RADIUS / 1000} km, visibles sur Géorisques.`);
+  if (!items.length && ok(4) && ok(5)) notes.push(`Aucun site pollué ni installation classée recensé dans un rayon de ${RADIUS / 1000} km.`);
   const missing = LIVE.filter((name, i) => !ok(i) && !(i === 3 && c?.radon));
   if (missing.length) notes.push(`Géorisques n’a pas répondu pour ${missing.join(', ')}.`);
 
@@ -238,7 +241,7 @@ export const risquesView = (live: ({ value: any } | undefined)[], file: any, ctx
     precision: c
       ? 'au point pour les argiles et les inondations, à la commune pour la sismicité, le radon et les risques recensés'
       : 'au point pour les argiles et les inondations, à la commune pour la sismicité et le radon',
-    source: { name: 'Géorisques (BRGM, ministère de la Transition écologique)', url: rapportUrl(ctx) },
+    source: { name: 'Géorisques (BRGM, ministère de la Transition écologique)', url: reportUrl(ctx) },
     notes,
   };
 };

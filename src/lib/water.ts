@@ -1,4 +1,4 @@
-// Tap water quality from Hub'Eau (contrôle sanitaire of the ARS). Pure URL builders and parsers.
+// Tap water quality from Hub'Eau (the ARS's "contrôle sanitaire"). Pure URL builders and parsers.
 import type { BlockView, Fact, Item, Level } from './block';
 
 const BASE = 'https://hubeau.eaufrance.fr/api/v1/qualite_eau_potable';
@@ -7,9 +7,9 @@ export const PARAMS = {
   /** Escherichia coli: analysed in nearly every sample (441 of 447 in Paris, 2026), so it lists the samples. */
   ecoli: '1449',
   nitrates: '1340',
-  /** Somme de 20 PFAS. */
+  /** Sum of 20 PFAS ("Somme de 20 PFAS"). */
   pfas: '8847',
-  /** Total des pesticides. */
+  /** Total pesticides ("Total des pesticides"). */
   pesticides: '6276',
 };
 
@@ -45,7 +45,7 @@ export type Row = {
   reseaux?: { code: string; nom: string }[] | null;
 };
 
-export type Network = { code: string; name: string; quartier?: string };
+export type Network = { code: string; name: string; neighbourhood?: string };
 
 export const networks = (json: any): Network[] => {
   const rows: any[] = json?.data ?? [];
@@ -53,7 +53,7 @@ export const networks = (json: any): Network[] => {
   const seen = new Map<string, Network>();
   for (const r of rows)
     if (r.annee === year && !seen.has(r.code_reseau))
-      seen.set(r.code_reseau, { code: r.code_reseau, name: r.nom_reseau, quartier: r.nom_quartier && r.nom_quartier !== '-' ? r.nom_quartier : undefined });
+      seen.set(r.code_reseau, { code: r.code_reseau, name: r.nom_reseau, neighbourhood: r.nom_quartier && r.nom_quartier !== '-' ? r.nom_quartier : undefined });
   return [...seen.values()];
 };
 
@@ -130,18 +130,18 @@ export const measureFact = (label: string, rows: Row[]): Fact => {
   return { label, value, level: over ? 'warn' : 'ok', detail: `${when}. Limite réglementaire : ${limitText}${over ? ', dépassée' : ''}.` };
 };
 
-export type Answers = { udi: any; conformite: any; nitrates: any; pfas: any; pesticides: any };
+export type Answers = { udi: any; compliance: any; nitrates: any; pfas: any; pesticides: any };
 
 /** Each answer is the Hub'Eau JSON, or null when that call failed. */
 export const buildView = (a: Answers): BlockView => {
   const rows = (j: any): Row[] => j?.data ?? [];
   const nets = networks(a.udi);
   const facts = [
-    conformityFact([...rows(a.conformite), ...rows(a.nitrates), ...rows(a.pfas), ...rows(a.pesticides)]),
+    conformityFact([...rows(a.compliance), ...rows(a.nitrates), ...rows(a.pfas), ...rows(a.pesticides)]),
     measureFact('Nitrates', rows(a.nitrates)),
     measureFact('PFAS (somme de 20)', rows(a.pfas)),
   ];
-  const failed = ([['conformité', a.conformite], ['nitrates', a.nitrates], ['PFAS', a.pfas], ['pesticides', a.pesticides], ['réseaux', a.udi]] as const)
+  const failed = ([['conformité', a.compliance], ['nitrates', a.nitrates], ['PFAS', a.pfas], ['pesticides', a.pesticides], ['réseaux', a.udi]] as const)
     .filter(([, j]) => j === null).map(([n]) => n);
   for (const [i, name] of [[0, 'conformité'], [1, 'nitrates'], [2, 'PFAS']] as const)
     if (failed.includes(name)) facts[i] = { ...facts[i], value: 'Donnée indisponible', level: 'unknown' as Level, detail: 'Le service n’a pas répondu.' };
@@ -151,14 +151,14 @@ export const buildView = (a: Answers): BlockView => {
     const p = measureFact('Total des pesticides', rows(a.pesticides));
     items.push({ name: 'Total des pesticides', detail: `${p.value}. ${p.detail}` });
   }
-  if (nets.length > 1) for (const n of nets) items.push({ name: `Réseau ${n.name}`, detail: n.quartier });
+  if (nets.length > 1) for (const n of nets) items.push({ name: `Réseau ${n.name}`, detail: n.neighbourhood });
 
   const notes = ['Les résultats sont publiés avec 2 à 5 mois de retard sur la date du prélèvement.'];
   if (nets.length > 1)
     notes.push(`La commune est desservie par ${nets.length} réseaux d’eau. Faute de lien entre l’adresse et le réseau, chaque valeur affichée est la moins bonne des derniers prélèvements de chaque réseau.`);
   if (failed.length) notes.push(`Donnée indisponible pour l’instant : ${failed.join(', ')}.`);
 
-  const dates = [a.conformite, a.nitrates, a.pfas, a.pesticides].flatMap(rows).map((r) => r.date_prelevement).sort();
+  const dates = [a.compliance, a.nitrates, a.pfas, a.pesticides].flatMap(rows).map((r) => r.date_prelevement).sort();
   const last = dates.at(-1);
   return {
     facts,

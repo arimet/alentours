@@ -1,18 +1,18 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { collect, buildFiles } from '../scripts/commerces.mjs';
-import { candidates, commercesView } from '../src/lib/commerces.ts';
+import { collect, buildFiles } from '../scripts/shops.mjs';
+import { candidates, shopsView } from '../src/lib/shops.ts';
 
-// Department files as the script writes them, from real BPE 2025 rows (tests/fixtures/commerces-*).
-const file = async (name, dep) => buildFiles(await collect(readFileSync(new URL(`fixtures/commerces-${name}.csv`, import.meta.url), 'utf8').split('\n')))[dep];
+// Department files as the script writes them, from real BPE 2025 rows (tests/fixtures/shops-*).
+const file = async (name, dep) => buildFiles(await collect(readFileSync(new URL(`fixtures/shops-${name}.csv`, import.meta.url), 'utf8').split('\n')))[dep];
 const NANCY = { lat: 48.703193, lon: 6.16209 };
 const SAINT_VERAN = { lat: 44.704139, lon: 6.861073 };
 const FORT_DE_FRANCE = { lat: 14.603312, lon: -61.069095 };
 const visible = (v) => [v.explanation, v.precision, v.source.name, ...(v.notes ?? []), ...v.facts.flatMap((f) => [f.label, f.value, f.detail ?? '']), ...(v.items ?? []).flatMap((i) => [i.name, i.detail ?? ''])].join('\n');
 
 test('Nancy, 35 rue Joseph Mougin: a bakery close by, post office and bank a little further', async () => {
-  const v = commercesView(await file('nancy', '54'), NANCY);
+  const v = shopsView(await file('nancy', '54'), NANCY);
   assert.deepEqual(v.facts.map((f) => f.label), ['Commerce alimentaire le plus proche', 'Bureau de poste ou relais poste', 'Banque', 'Commerces et services à moins de 500 m']);
   assert.equal(v.facts[0].value, 'Boulangerie à 90 m à vol d’oiseau');
   assert.equal(v.facts[0].detail, 'Supérette ou épicerie à 530 m à vol d’oiseau ; supermarché ou hypermarché à 620 m à vol d’oiseau.');
@@ -31,7 +31,7 @@ test('Nancy, 35 rue Joseph Mougin: a bakery close by, post office and bank a lit
 });
 
 test('Saint-Véran: a small shop in the village, the supermarket and the bank far down the valley', async () => {
-  const v = commercesView(await file('saint-veran', '05'), SAINT_VERAN);
+  const v = shopsView(await file('saint-veran', '05'), SAINT_VERAN);
   assert.equal(v.facts[0].value, 'Supérette ou épicerie à 630 m à vol d’oiseau');
   assert.equal(v.facts[1].value, 'À 810 m à vol d’oiseau');
   assert.equal(v.facts[2].value, 'À 17 km à vol d’oiseau');
@@ -40,7 +40,7 @@ test('Saint-Véran: a small shop in the village, the supermarket and the bank fa
 });
 
 test('Fort-de-France: many shops around', async () => {
-  const v = commercesView(await file('fort-de-france', '972'), FORT_DE_FRANCE);
+  const v = shopsView(await file('fort-de-france', '972'), FORT_DE_FRANCE);
   assert.equal(v.facts[0].value, 'Boulangerie à 130 m à vol d’oiseau');
   assert.equal(v.facts[2].value, 'À 40 m à vol d’oiseau');
   assert.equal(v.facts[3].value, '49');
@@ -49,16 +49,16 @@ test('Fort-de-France: many shops around', async () => {
 
 test('a category absent from the file says so, an empty file too', async () => {
   const f = await file('nancy', '54');
-  const v = commercesView({ ...f, points: f.points.filter((p) => p[2] !== 6) }, NANCY);
+  const v = shopsView({ ...f, points: f.points.filter((p) => p[2] !== 6) }, NANCY);
   assert.equal(v.facts[2].value, 'Aucune trouvée à proximité');
   assert.equal(v.items.length, 7);
-  const empty = commercesView({}, NANCY);
+  const empty = shopsView({}, NANCY);
   assert.deepEqual(empty.facts, [{ label: 'Commerces et services', value: 'Donnée indisponible pour ce territoire', level: 'unknown' }]);
 });
 
 test('no em-dash, no name', async () => {
   for (const [n, d, p] of [['nancy', '54', NANCY], ['saint-veran', '05', SAINT_VERAN], ['fort-de-france', '972', FORT_DE_FRANCE]])
-    assert.doesNotMatch(visible(commercesView(await file(n, d), p)), /—/);
+    assert.doesNotMatch(visible(shopsView(await file(n, d), p)), /—/);
 });
 
 test('the nearest shop on foot wins over the nearest as the crow flies', async () => {
@@ -66,7 +66,7 @@ test('the nearest shop on foot wins over the nearest as the crow flies', async (
   const near = candidates(f, NANCY);
   assert.ok(near.every((xs) => xs.length <= 2));
   near[0] = [{ ...near[0][0], walk: { m: 800, min: 12, line: [] } }, { ...near[0][1], walk: { m: 300, min: 5, line: [] } }];
-  const v = commercesView(f, NANCY, near);
+  const v = shopsView(f, NANCY, near);
   assert.equal(v.facts[0].value, 'Boulangerie à 300 m à pied, 5 min');
   const bakery = v.items.find((i) => i.name === 'Boulangerie');
   assert.deepEqual([bakery.walk.m, bakery.at], [300, near[0][1].at]);

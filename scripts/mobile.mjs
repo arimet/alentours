@@ -1,6 +1,6 @@
 // Builds public/data/mobile/<dep>.bin from Arcep's theoretical coverage maps ("Mon réseau mobile").
 //
-//   node scripts/mobile.mjs            every department (métropole + DROM)
+//   node scripts/mobile.mjs            every department (metropolitan France + overseas departments)
 //   node scripts/mobile.mjs 971 972    only these (a territory is processed as a whole)
 //   node scripts/mobile.mjs --version  prints the latest Arcep quarter (the CI cache key)
 //
@@ -129,7 +129,7 @@ const rasterize = async (layer, [minX, minY, maxX, maxY]) => {
 const main = async () => {
   const qs = await quarters();
   if (process.argv[2] === '--version') return console.log(qs[0]);
-  if (!sevenZip) throw new Error('7-Zip introuvable (7z ou 7zz)');
+  if (!sevenZip) throw new Error('7-Zip not found (7z or 7zz)');
   const only = process.argv.slice(2);
   const boxes = await departmentBoxes();
   mkdirSync(WORK, { recursive: true });
@@ -145,7 +145,7 @@ const main = async () => {
       layers.push(await rasterize(l, box));
       console.log(`${territory} ${l.code} ${l.techno}: ${Math.round((Date.now() - t0) / 1000)} s`);
     }
-    if (!layers.length) { console.warn(`${territory}: aucune carte trouvée`); continue; }
+    if (!layers.length) { console.warn(`${territory}: no map found`); continue; }
     for (const dep of deps) {
       const [x0, y0, x1, y1] = boxes[dep].box;
       const w = (x1 - x0) / CELL, h = (y1 - y0) / CELL;
@@ -161,7 +161,7 @@ const main = async () => {
       };
       writeFileSync(join(OUT, `${dep}.bin`), encodeTile(header, grids));
     }
-    console.log(`${territory}: ${deps.length} département(s), ${Math.round((Date.now() - t0) / 1000)} s`);
+    console.log(`${territory}: ${deps.length} department(s), ${Math.round((Date.now() - t0) / 1000)} s`);
   }
 };
 

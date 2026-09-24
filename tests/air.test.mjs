@@ -1,13 +1,13 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { airView, indiceUrl, parseIndices } from '../src/lib/air.ts';
+import { airView, indexUrl, parseIndices } from '../src/lib/air.ts';
 
 const fixture = (name) => JSON.parse(readFileSync(new URL(`fixtures/air-${name}.json`, import.meta.url)));
 const view = (name, today = '2026-09-24') => airView(parseIndices(fixture(name)), today);
 
 test('filters on the commune code, with encoded quotes', () => {
-  const u = indiceUrl('75107');
+  const u = indexUrl('75107');
   assert.match(u, /CQL_FILTER=code_zone%3D%2775107%27/);
   assert.match(u, /typeNames=ind%3Aind_atmo_2021/);
 });

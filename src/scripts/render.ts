@@ -59,7 +59,7 @@ const statusChip = (v: BlockView) => {
 
 type Options = {
   groups: { title: string; ids: string[] }[];
-  /** Sommaire filled with one link per block, its status added once loaded. */
+  /** Table of contents filled with one link per block, its status added once loaded. */
   toc?: HTMLElement;
   /** Blocks drawn on the map get a "Voir sur la carte" button. */
   onMap?: { ids: string[]; show: (id: string) => void };
@@ -77,13 +77,13 @@ export const mountBlocks = (container: HTMLElement, blocks: Block[], ctx: Contex
     const group = el('section', { className: 'group' }, el('h2', { className: 'group-title' }, g.title));
     container.append(group);
     for (const b of members) {
-      const tocLink = el('a', { href: `#bloc-${b.id}`, onclick: (e: Event) => { e.preventDefault(); section.scrollIntoView({ behavior: 'smooth' }); } }, b.title);
+      const tocLink = el('a', { href: `#block-${b.id}`, onclick: (e: Event) => { e.preventDefault(); section.scrollIntoView({ behavior: 'smooth' }); } }, b.title);
       tocList.append(el('li', {}, tocLink));
       const body = el('div', { className: 'block-body' }, skeleton());
       const title = el('div', { className: 'block-title' }, el('h3', {}, b.title));
       const head = el('div', { className: 'block-head' }, title);
       if (onMap?.ids.includes(b.id)) head.append(el('button', { type: 'button', className: 'to-map', onclick: () => onMap.show(b.id) }, 'Voir sur la carte ↑'));
-      const section = el('section', { className: 'block', id: `bloc-${b.id}` }, head, body);
+      const section = el('section', { className: 'block', id: `block-${b.id}` }, head, body);
       section.setAttribute('aria-busy', 'true');
       group.append(section);
       // Each block loads on its own: a slow or failing source never blocks the others.
@@ -102,7 +102,7 @@ export const mountBlocks = (container: HTMLElement, blocks: Block[], ctx: Contex
         .finally(() => section.removeAttribute('aria-busy'));
     }
   }
-  // Highlight the sommaire entry of the block in view.
+  // Highlight the table of contents entry of the block in view.
   if (toc) {
     const links = new Map([...toc.querySelectorAll<HTMLAnchorElement>('a')].map((a) => [a.hash.slice(1), a]));
     const io = new IntersectionObserver((entries) => {

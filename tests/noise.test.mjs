@@ -1,10 +1,10 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { bruitView, gfiUrl, parseZones, PEB } from '../src/lib/bruit.ts';
+import { noiseView, gfiUrl, parseZones, PEB } from '../src/lib/noise.ts';
 
-const zones = (kind, place) => parseZones(JSON.parse(readFileSync(new URL(`fixtures/bruit-${kind}-${place}.json`, import.meta.url))));
-const view = (place) => bruitView(zones('peb', place), zones('pgs', place));
+const zones = (kind, place) => parseZones(JSON.parse(readFileSync(new URL(`fixtures/noise-${kind}-${place}.json`, import.meta.url))));
+const view = (place) => noiseView(zones('peb', place), zones('pgs', place));
 const ROAD_NOTE = 'Le bruit des routes et des voies ferrées n’est pas encore affiché : ces cartes existent seulement pour les grands axes et les grandes agglomérations.';
 
 test('asks a ±0.05° box of 1001 px, at the pixel of the point', () => {

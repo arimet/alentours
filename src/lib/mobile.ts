@@ -5,7 +5,7 @@
 //   bytes 4-7     header length n (uint32, little endian)
 //   bytes 8..8+n  header, UTF-8 JSON (see Header)
 //   from 4096     cells, row-major from the north-west corner, BYTES_PER_CELL(layers) bytes each.
-//                 Layer i sits in byte i>>2 at bit (i&3)*2: 0 none, 1 limitée, 2 bonne, 3 très bonne.
+//                 Layer i sits in byte i>>2 at bit (i&3)*2: 0 none, 1 limited, 2 good, 3 very good.
 // The grid is in the projection Arcep publishes each territory in (Lambert-93 in metropolitan
 // France, the local UTM zone overseas), so polygons are rasterized without reprojection and each
 // cell is a true 200 m square. The browser projects the BAN point with the formulas below.
@@ -35,7 +35,7 @@ export type Header = {
   height: number;
   layers: Layer[];
 };
-/** 0 none, 1 limitée, 2 bonne, 3 très bonne. */
+/** 0 none, 1 limited ("limitée"), 2 good ("bonne"), 3 very good ("très bonne"). */
 export type Coverage = 0 | 1 | 2 | 3;
 
 export const bytesPerCell = (layers: number) => Math.ceil(layers / 4);
@@ -108,7 +108,7 @@ export const readPoint = (file: Uint8Array, lat: number, lon: number) => {
 /** Builds a tile. `grids[i]` holds layer i's levels (0..3), one byte per cell, row-major. */
 export const encodeTile = (h: Header, grids: Uint8Array[]) => {
   const json = new TextEncoder().encode(JSON.stringify(h));
-  if (8 + json.length > DATA_OFFSET) throw new Error('En-tête trop long');
+  if (8 + json.length > DATA_OFFSET) throw new Error('Header too long');
   const size = bytesPerCell(h.layers.length), cells = h.width * h.height;
   const out = new Uint8Array(DATA_OFFSET + cells * size);
   out.set(new TextEncoder().encode(MAGIC));

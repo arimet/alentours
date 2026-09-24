@@ -116,26 +116,26 @@ const two = (i: number) => String(i + 1).padStart(2, '0');
 
 let here: Place | undefined;
 let views = new Map<string, BlockView | null>();
-let activeTheme = 'ecoles';
+let activeTheme = 'schools';
 let selected = 0;
-const PREFERRED = ['ecoles', 'sante', 'commerces'];
+const PREFERRED = ['schools', 'health', 'shops'];
 
 const mapItems = (id: string) => (views.get(id)?.items ?? []).filter((i) => i.at);
 
 // Key figures: the first fact of a few blocks, in large type.
-const KEYS = ['air', 'internet', 'immobilier'];
+const KEYS = ['air', 'internet', 'housing'];
 const renderKeys = () => {
   $('keys').hidden = false;
   $('keys').replaceChildren(...KEYS.map((id) => {
     const b = BLOCKS.find((x) => x.id === id)!, v = views.get(id), f = v?.facts[0];
-    return make('a', { className: 'key', href: `#bloc-${id}`, onclick: (e: Event) => { e.preventDefault(); $(`bloc-${id}`).scrollIntoView({ behavior: 'smooth' }); } },
+    return make('a', { className: 'key', href: `#block-${id}`, onclick: (e: Event) => { e.preventDefault(); $(`block-${id}`).scrollIntoView({ behavior: 'smooth' }); } },
       make('strong', { className: 'key-value' }, v === undefined ? '…' : f?.value ?? 'Indisponible'),
       make('span', { className: 'key-label' }, f ? `${b.title} : ${f.label}` : b.title));
   }));
 };
 
 // Themes drawn on the map come first; the others only scroll to their block below the map.
-const MAP_THEMES = ['ecoles', 'sante', 'commerces'];
+const MAP_THEMES = ['schools', 'health', 'shops'];
 const renderThemes = () => {
   $('themes-map-list').replaceChildren(...MAP_THEMES.map((id) => {
     const b = BLOCKS.find((x) => x.id === id)!, count = mapItems(id).length, active = id === activeTheme;
@@ -147,7 +147,7 @@ const renderThemes = () => {
     return make('li', {}, btn);
   }));
   $('themes-more-list').replaceChildren(...BLOCKS.filter((b) => !MAP_THEMES.includes(b.id)).map((b) =>
-    make('li', {}, make('a', { href: `#bloc-${b.id}`, className: 'theme-link', onclick: (e: Event) => { e.preventDefault(); $(`bloc-${b.id}`).scrollIntoView({ behavior: 'smooth' }); } }, b.title))));
+    make('li', {}, make('a', { href: `#block-${b.id}`, className: 'theme-link', onclick: (e: Event) => { e.preventDefault(); $(`block-${b.id}`).scrollIntoView({ behavior: 'smooth' }); } }, b.title))));
   $('themes-map').hidden = $('themes-more').hidden = false;
 };
 
@@ -207,7 +207,7 @@ const renderPlaces = (fit = true) => {
 };
 
 // The stage (map, themes, places, key figures) shows once its blocks have answered, in one go,
-// rather than filling in piece by piece. Slow blocks elsewhere (Risques…) don't hold it.
+// rather than filling in piece by piece. Slow blocks elsewhere (risks…) don't hold it.
 const STAGE_BLOCKS = [...MAP_THEMES, ...KEYS];
 const STAGE_TIMEOUT_MS = 15000;
 let revealTimer: ReturnType<typeof setTimeout> | undefined;
@@ -248,7 +248,7 @@ const showSheet = async (point: Point) => {
   $('blocks').replaceChildren();
   $('themes-map').hidden = $('themes-more').hidden = $('stage-strip').hidden = $('keys').hidden = true;
   views = new Map();
-  activeTheme = 'ecoles';
+  activeTheme = 'schools';
   selected = 0;
   clearTimeout(revealTimer);
   $('sheet-stage').classList.add('is-loading');

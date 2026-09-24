@@ -7,7 +7,7 @@
 //   Paris, Lyon and Marseille are split in arrondissements (75107…), no whole-commune row.
 // - Ma connexion internet, statistiques communales (Arcep): best technology and speed classes.
 //   Paris, Lyon and Marseille only as whole communes (75056, 69123, 13055).
-// - Fermeture du réseau cuivre (economie.gouv.fr, from Orange's schedule): by arrondissement in
+// - Copper network closure, "Fermeture du réseau cuivre" (economie.gouv.fr, from Orange's schedule): by arrondissement in
 //   Paris, Lyon and Marseille; INSEE codes lose their leading zero (5157 = 05157).
 // Every source uses the current commune codes, so a commune nouvelle has one entry under its new
 // code, like the geocoder returns. The block reads the arrondissement entry for the fibre and the
@@ -21,7 +21,7 @@ import { departmentOf } from '../src/lib/data.ts';
 
 const MCI = 'https://data.arcep.fr/fixe/maconnexioninternet/statistiques/last/commune';
 const CARTEFIBRE = 'https://www.data.gouv.fr/api/1/datasets/le-marche-du-haut-et-tres-haut-debit-fixe-deploiements/';
-const CUIVRE = 'https://data.economie.gouv.fr/api/explore/v2.1/catalog/datasets/fermeture-reseau-cuivre';
+const COPPER = 'https://data.economie.gouv.fr/api/explore/v2.1/catalog/datasets/fermeture-reseau-cuivre';
 
 /** Semicolon CSV without quoted separators (true of the Arcep and ODS exports used here). */
 export const parseCsv = (text) => {
@@ -52,7 +52,7 @@ const PLM = (code) => (/^751\d\d$/.test(code) ? '75056' : /^6938\d$/.test(code) 
 
 const int = (v) => Math.round(Number(v)) || 0;
 
-const CUIVRE_STATUS = (msg) => (/déjà fermé/.test(msg) ? 'f' : /pas encore prévu/.test(msg) ? 'n' : 'p');
+const copperStatus = (msg) => (/déjà fermé/.test(msg) ? 'f' : /pas encore prévu/.test(msg) ? 'n' : 'p');
 
 /**
  * Compact entries by INSEE code.
@@ -60,7 +60,7 @@ const CUIVRE_STATUS = (msg) => (/déjà fermé/.test(msg) ? 'f' : /pas encore pr
  * d: [≥ 30 Mbit/s, ≥ 1 Gbit/s] locaux by wired or terrestrial radio access, satellite excluded (MCI)
  * cu: copper closure { s: 'p' planned | 'f' closed | 'n' not planned yet, d?: technical closure date }
  */
-export const buildEntries = ({ fibre, best, debit, cuivre }) => {
+export const buildEntries = ({ fibre, best, speed, copper }) => {
   const out = {};
   const at = (code) => (out[code] ??= {});
   for (const r of fibre) {
@@ -74,11 +74,11 @@ export const buildEntries = ({ fibre, best, debit, cuivre }) => {
     const b = { fo: int(r.elig_ftth), coax: int(r.elig_coax), cu: int(r.elig_cu_30) + int(r.elig_cu_8), thdr: int(r.elig_thdr), '4gf': int(r.elig_4gf), hdr: int(r.elig_hdr), sat: int(r.elig_sat) };
     Object.assign(at(r.code_insee), { n: int(r.nbr), b: Object.fromEntries(Object.entries(b).filter(([, v]) => v)) });
   }
-  for (const r of debit) at(r.code_insee).d = [int(r.elig_thd30), int(r.elig_thd1g)];
-  for (const r of cuivre) {
+  for (const r of speed) at(r.code_insee).d = [int(r.elig_thd30), int(r.elig_thd1g)];
+  for (const r of copper) {
     const code = r.code_insee.padStart(5, '0');
     if (!/^\d[\dAB]\d{3}$/.test(code) || code === '00000') continue;
-    const s = CUIVRE_STATUS(r.output_usager);
+    const s = copperStatus(r.output_usager);
     at(code).cu = s === 'n' || !r.fermeture_technique ? { s } : { s, d: r.fermeture_technique };
   }
   return out;
@@ -117,9 +117,9 @@ const main = async () => {
   const fibre = parseDbf(execFileSync('unzip', ['-p', zip, dbfName], { maxBuffer: 1 << 30 }));
 
   const best = parseCsv((await get(`${MCI}/commune_meilleure_techno_thd.csv`, 'mci-best.csv')).toString());
-  const debit = parseCsv((await get(`${MCI}/commune_debit_terrestre.csv`, 'mci-debit.csv')).toString());
-  const cuivre = parseCsv((await get(`${CUIVRE}/exports/csv?delimiter=%3B&select=code_insee,fermeture_technique,output_usager`, 'cuivre.csv')).toString());
-  const cuivreMeta = await json(CUIVRE);
+  const speed = parseCsv((await get(`${MCI}/commune_debit_terrestre.csv`, 'mci-debit.csv')).toString());
+  const copper = parseCsv((await get(`${COPPER}/exports/csv?delimiter=%3B&select=code_insee,fermeture_technique,output_usager`, 'copper.csv')).toString());
+  const copperMeta = await json(COPPER);
 
   const mciDate = best[0].date; // 2026-06-30
   const [y, q] = [quarter.slice(0, 4), quarter.slice(5)];
@@ -127,13 +127,13 @@ const main = async () => {
     sources: [
       { name: `Arcep, Cartefibre (déploiements FttH), T${q} ${y}`, url: 'https://www.data.gouv.fr/datasets/le-marche-du-haut-et-tres-haut-debit-fixe-deploiements', date: res.last_modified.slice(0, 10) },
       { name: `Arcep, Ma connexion internet, données au ${mciDate.split('-').reverse().join('/')}`, url: 'https://www.data.gouv.fr/datasets/ma-connexion-internet', date: mciDate },
-      { name: 'Fermeture du réseau cuivre (ministère de l’Économie, d’après Orange)', url: 'https://www.data.gouv.fr/datasets/fermeture-du-reseau-cuivre', date: cuivreMeta.metas.default.modified.slice(0, 10) },
+      { name: 'Fermeture du réseau cuivre (ministère de l’Économie, d’après Orange)', url: 'https://www.data.gouv.fr/datasets/fermeture-du-reseau-cuivre', date: copperMeta.metas.default.modified.slice(0, 10) },
     ],
   };
 
   rmSync(outDir, { recursive: true, force: true });
   mkdirSync(outDir, { recursive: true });
-  const deps = byDepartment(buildEntries({ fibre, best, debit, cuivre }));
+  const deps = byDepartment(buildEntries({ fibre, best, speed, copper }));
   for (const [dep, entries] of Object.entries(deps)) writeFileSync(join(outDir, `${dep}.json`), JSON.stringify({ ...entries, _meta }));
   const total = readdirSync(outDir).reduce((n, f) => n + readFileSync(join(outDir, f)).length, 0);
   console.log(`${Object.keys(deps).length} files, ${(total / 1e6).toFixed(1)} MB, ${Object.values(deps).reduce((n, d) => n + Object.keys(d).length, 0)} communes`);

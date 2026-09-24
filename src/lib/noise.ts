@@ -28,7 +28,7 @@ export type Zone = { zone: string; airport: string; oaci: string; date?: string;
 
 // DGAC names are upper-case abbreviations ("P. CH. DE GAULLE"); the OACI code is the stable key.
 const AIRPORTS: Record<string, string> = { LFPG: 'Paris-CDG', LFPO: 'Paris-Orly', LFPB: 'Paris-Le Bourget' };
-const airportName = (oaci: string, nom: string) => AIRPORTS[oaci] ?? nom;
+const airportName = (oaci: string, name: string) => AIRPORTS[oaci] ?? name;
 
 const isoDay = (d?: string) => d?.slice(0, 10);
 
@@ -46,8 +46,8 @@ export const parseZones = (json: any): Zone[] =>
 
 const frDate = (iso: string) => iso.split('-').reverse().join('/');
 
-// Code de l'urbanisme, art. L112-7 (zones A, B = bruit fort, C = bruit modéré, D optionnelle), R112-3 (seuils Lden:
-// A >= 70, B jusqu'à 62-65, C jusqu'à 55-57, D jusqu'à 50) and L112-10 (constructions allowed in each zone).
+// Code de l'urbanisme, art. L112-7 (zones A, B = loud noise, C = moderate noise, D optional), R112-3 (Lden thresholds:
+// A >= 70, B down to 62-65, C down to 55-57, D down to 50) and L112-10 (constructions allowed in each zone).
 const PEB_DETAIL: Record<string, string> = {
   A: 'Zone de bruit fort, la plus proche des pistes. Les nouveaux logements y sont presque tous interdits.',
   B: 'Zone de bruit fort. Les nouveaux logements y sont presque tous interdits.',
@@ -56,12 +56,12 @@ const PEB_DETAIL: Record<string, string> = {
 };
 const PEB_LEVEL: Record<string, Fact['level']> = { A: 'alert', B: 'alert', C: 'warn', D: 'info' };
 
-export const bruitView = (peb: Zone[], pgs: Zone[]): BlockView => {
+export const noiseView = (peb: Zone[], pgs: Zone[]): BlockView => {
   const p = peb[0], g = pgs[0];
   const facts: Fact[] = [p
     ? { label: 'Zone de bruit d’aéroport', value: `Zone ${p.zone} du PEB de ${p.airport}`, level: PEB_LEVEL[p.zone] ?? 'info', detail: PEB_DETAIL[p.zone] }
     : { label: 'Zone de bruit d’aéroport', value: 'Hors plan d’exposition au bruit d’un aéroport', level: 'ok' }];
-  // Code de l'environnement, art. L571-14 à L571-16 et R571-66: zones 1 to 3 of a PGS open the right to an
+  // Code de l'environnement, art. L571-14 to L571-16 and R571-66: zones 1 to 3 of a PGS open the right to an
   // insulation grant for existing homes.
   if (g) facts.push({ label: 'Plan de gêne sonore', value: `Zone ${g.zone} du PGS de ${g.airport}`, level: 'info',
     detail: 'Les riverains peuvent demander une aide pour insonoriser leur logement.' });

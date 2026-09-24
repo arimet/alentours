@@ -1,16 +1,16 @@
-// Builds public/data/commerces/<dep>.json: everyday shops and services, from the INSEE
+// Builds public/data/shops/<dep>.json: everyday shops and services, from the INSEE
 // "Base permanente des équipements" (BPE), geolocated equipment file, Licence Ouverte.
-// Run: node scripts/commerces.mjs [outDir]. Needs Node 24 and the `unzip` command (present on
+// Run: node scripts/shops.mjs [outDir]. Needs Node 24 and the `unzip` command (present on
 // GitHub runners and macOS). No npm dependency: the CSV is streamed and split by hand below.
 //
 // The file (BPE25.zip, 140 MB, one 1.5 GB CSV) already has LATITUDE / LONGITUDE in WGS84 next to
 // the projected LAMBERT_X / LAMBERT_Y + EPSG, so no reprojection is needed.
 // It also has names, addresses and SIRET numbers: only the type and the point are kept.
 //
-// Geolocation quality, QUALITE_XY (BPE25_anonymisee_varmod.csv): B "Bonne", A "Acceptable",
-// M "Mauvaise", _U "Indéterminée", _Z "Sans objet". Only B and A are kept: M points sit at a random
+// Geolocation quality, QUALITE_XY (BPE25_anonymisee_varmod.csv): B "Bonne" (good), A "Acceptable",
+// M "Mauvaise" (bad), _U "Indéterminée" (unknown), _Z "Sans objet" (not applicable). Only B and A are kept: M points sit at a random
 // place in the street or the commune (QUALITE_GEOLOC 12, 22, 33), which would give false distances.
-// About 9 % of the boulangeries are dropped this way.
+// About 9 % of the bakeries ("boulangeries") are dropped this way.
 
 import { mkdirSync, rmSync, writeFileSync, existsSync, readdirSync, readFileSync } from 'node:fs';
 import { spawn } from 'node:child_process';
@@ -18,7 +18,7 @@ import { createInterface } from 'node:readline';
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
 import { departmentOf } from '../src/lib/data.ts';
-import { PAD_KM } from '../src/lib/commerces.ts';
+import { PAD_KM } from '../src/lib/shops.ts';
 
 export const VINTAGE = '2025';
 export const PAGE = 'https://www.insee.fr/fr/statistiques/8217525?sommaire=8217537';
@@ -30,7 +30,7 @@ const ZIP = 'https://www.insee.fr/fr/statistiques/fichier/8217525/BPE25.zip';
 // B208 commerce spécialisé en fruits et légumes · B324 librairie · B325 papeterie et presse ·
 // A206 bureau de poste · A207 relais poste · A208 agence postale · A203 banque, caisse d'épargne ·
 // B316 station-service. The BPE has no tobacconist, market or cash machine. Pharmacies are in the
-// Santé block. Order matters: the index is what the points store.
+// health block. Order matters: the index is what the points store.
 export const TYPES = [
   { label: 'Boulangerie', codes: ['B207'] },
   { label: 'Supérette ou épicerie', codes: ['B201', 'B202'] },
@@ -93,8 +93,8 @@ export const buildFiles = (deps) => {
 };
 
 const main = async () => {
-  const outDir = process.argv[2] ?? 'public/data/commerces';
-  const cache = process.env.CACHE_DIR ?? join(tmpdir(), 'commerces-data');
+  const outDir = process.argv[2] ?? 'public/data/shops';
+  const cache = process.env.CACHE_DIR ?? join(tmpdir(), 'shops-data');
   mkdirSync(cache, { recursive: true });
   const zip = join(cache, 'BPE25.zip');
   if (!existsSync(zip)) {

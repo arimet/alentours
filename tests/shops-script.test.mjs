@@ -1,10 +1,10 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { splitLine, collect, buildFiles, TYPES } from '../scripts/commerces.mjs';
+import { splitLine, collect, buildFiles, TYPES } from '../scripts/shops.mjs';
 
 // Real rows of BPE25.csv around each address (names, addresses and SIRET blanked), plus 3 pharmacies.
-const lines = (name) => readFileSync(new URL(`fixtures/commerces-${name}.csv`, import.meta.url), 'utf8').split('\n');
+const lines = (name) => readFileSync(new URL(`fixtures/shops-${name}.csv`, import.meta.url), 'utf8').split('\n');
 
 test('splits quoted fields, a ";" inside quotes included', () => {
   assert.deepEqual(splitLine('"a;b";"";12;"say ""hi"""'), ['a;b', '', '12', 'say "hi"']);

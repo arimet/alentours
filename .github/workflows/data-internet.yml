@@ -35,5 +35,5 @@ jobs:
           git switch -c "$branch"
           git commit -m "Update internet data (Arcep)"
           git push -u origin "$branch"
-          gh pr create --title "Internet fixe : données Arcep du $(date -u +%d/%m/%Y)" \
-            --body "Mise à jour automatique de public/data/internet par scripts/internet.mjs (Cartefibre, Ma connexion internet, fermeture du cuivre)."
+          gh pr create --title "Fixed internet: Arcep data of $(date -u +%Y-%m-%d)" \
+            --body "Automatic update of public/data/internet by scripts/internet.mjs (Cartefibre, Ma connexion internet, copper network closure)."

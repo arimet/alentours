@@ -1,7 +1,7 @@
-name: Data commerces
+name: Data shops
 # INSEE republishes the BPE geolocated file each month (Sirene opt-outs) and a new vintage once a
 # year. Check on the 5th of each month and open a PR only when the points changed. A new vintage
-# (BPE26…) has a new page and file URL: update VINTAGE, PAGE and ZIP in scripts/commerces.mjs.
+# (BPE26…) has a new page and file URL: update VINTAGE, PAGE and ZIP in scripts/shops.mjs.
 on:
   schedule:
     - cron: '0 6 5 * *'
@@ -10,7 +10,7 @@ permissions:
   contents: write
   pull-requests: write
 concurrency:
-  group: data-commerces
+  group: data-shops
   cancel-in-progress: false
 jobs:
   refresh:
@@ -22,19 +22,19 @@ jobs:
           node-version: 24
           cache: npm
       - run: npm ci
-      - run: node scripts/commerces.mjs
+      - run: node scripts/shops.mjs
       - run: npm test
       - name: Open a pull request
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          git add public/data/commerces
+          git add public/data/shops
           if git diff --cached --quiet; then echo "No change."; exit 0; fi
-          branch="data/commerces-$(date -u +%Y-%m-%d)"
+          branch="data/shops-$(date -u +%Y-%m-%d)"
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git switch -c "$branch"
-          git commit -m "Update commerces data (INSEE BPE)"
+          git commit -m "Update shops data (INSEE BPE)"
           git push -u origin "$branch"
-          gh pr create --title "Commerces et services : données INSEE BPE du $(date -u +%d/%m/%Y)" \
-            --body "Mise à jour automatique de public/data/commerces par scripts/commerces.mjs (Base permanente des équipements, INSEE)."
+          gh pr create --title "Shops and services: INSEE BPE data of $(date -u +%Y-%m-%d)" \
+            --body "Automatic update of public/data/shops by scripts/shops.mjs (Base permanente des équipements, INSEE)."

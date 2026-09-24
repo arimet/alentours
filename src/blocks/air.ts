@@ -1,9 +1,9 @@
 import type { Block } from '../lib/block';
 import { getJson } from '../lib/http';
-import { airView, indiceUrl, parseIndices } from '../lib/air';
+import { airView, indexUrl, parseIndices } from '../lib/air';
 
 const fetchIndices = async (insee: string) => {
-  try { return parseIndices(await getJson(indiceUrl(insee))); }
+  try { return parseIndices(await getJson(indexUrl(insee))); }
   catch { throw new Error('le service d’Atmo France ne répond pas'); }
 };
 

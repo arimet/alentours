@@ -2,9 +2,9 @@ import { distance, formatDistance, type BlockView, type Fact, type Item, type No
 import { formatWalk, MAX_WALK_M, type Walk } from './walk.ts';
 
 type Point = { lat: number; lon: number };
-export type Urgence = 'generale' | 'pediatrique' | 'smur';
+export type EmergencyKind = 'general' | 'paediatric' | 'smur';
 /** `walk`: route from the address, added by the loader for the nearest few pharmacies and GPs. */
-export type Place = Point & { name: string; address: string; distance: number; detail?: string; urgence?: Urgence; walk?: Walk };
+export type Place = Point & { name: string; address: string; distance: number; detail?: string; emergency?: EmergencyKind; walk?: Walk };
 
 /** Walked ones first by walking distance, then the others as the crow flies (as byWalk sorts). */
 export const onFoot = <T extends { distance: number; walk?: Walk }>(xs: T[]) =>
@@ -19,7 +19,7 @@ const ODS = 'https://public.opendatasoft.com/api/explore/v2.1/catalog/datasets/a
 export const AMELI_META_URL = ODS;
 
 /** Bounding-box half-sizes (km): first try, then one wider try if empty (rural areas). */
-export const RADII = { pharmacie: [1.5, 15], urgences: [15, 60] } as const;
+export const RADII = { pharmacy: [1.5, 15], emergency: [15, 60] } as const;
 export type FinessKind = keyof typeof RADII;
 
 // ponytail: 200 rows per bbox, no paging; the radii keep dense Paris well under it.
@@ -28,7 +28,7 @@ export const finessUrl = (kind: FinessKind, p: Point, km: number) => {
   const q = new URLSearchParams({
     etat__exact: 'ACTUEL',
     type__exact: 'ET',
-    ...(kind === 'pharmacie' ? { categ_code__exact: '620' } : { san_urg__exact: 'true' }),
+    ...(kind === 'pharmacy' ? { categ_code__exact: '620' } : { san_urg__exact: 'true' }),
     geoloc_4326_lat__greater: (p.lat - dLat).toFixed(5),
     geoloc_4326_lat__less: (p.lat + dLat).toFixed(5),
     geoloc_4326_long__greater: (p.lon - dLon).toFixed(5),
@@ -58,7 +58,7 @@ const title = (s: string) => s.split(' ').map((w) => ACRONYMS.test(w.toUpperCase
 
 export const byDistance = <T extends { distance: number }>(xs: T[]) => [...xs].sort((a, b) => a.distance - b.distance);
 
-/** FINESS rows, sorted by distance. `urgence` says what kind of emergency site it is, from its name. */
+/** FINESS rows, sorted by distance. `emergency` says what kind of emergency site it is, from its name. */
 export const parseFiness = (json: any, from: Point): Place[] => byDistance((json?.data ?? [])
   .filter((r: any) => Number.isFinite(r.geoloc_4326_lat) && Number.isFinite(r.geoloc_4326_long))
   .map((r: any) => {
@@ -68,7 +68,7 @@ export const parseFiness = (json: any, from: Point): Place[] => byDistance((json
       name: title(clean(r.rs)),
       address: title(clean([r.adresse_num_voie, r.adresse_type_voie, r.adresse_nom_voie].join(' ')) + (r.adresse_lib_routage ? `, ${clean(r.adresse_lib_routage)}` : '')),
       distance: distance(from, at),
-      urgence: urgenceKind(r),
+      emergency: emergencyKind(r),
     };
   }));
 
@@ -77,11 +77,11 @@ export const parseFiness = (json: any, from: Point): Place[] => byDistance((json
  * true for all three. SMUR antennas carry "SMUR"/"SAMU" in their name, or have no medicine
  * activity (`san_med`) and "ANTENNE" in their name; paediatric sites are spotted by name.
  */
-export const urgenceKind = (r: { rs?: string; san_med?: boolean }): Urgence => {
+export const emergencyKind = (r: { rs?: string; san_med?: boolean }): EmergencyKind => {
   const n = clean(r.rs).toUpperCase();
   if (/SMUR|SAMU/.test(n) || (r.san_med === false && /ANTENNE/.test(n))) return 'smur';
-  if (/ENFANT|PEDIATRI|PÉDIATRI|ROBERT DEBRE|APHP SUN SITE TROUSSEAU|LENVAL/.test(n)) return 'pediatrique';
-  return 'generale';
+  if (/ENFANT|PEDIATRI|PÉDIATRI|ROBERT DEBRE|APHP SUN SITE TROUSSEAU|LENVAL/.test(n)) return 'paediatric';
+  return 'general';
 };
 
 /** The Ameli directory has one row per opening slot: keep one per (name, address). */
@@ -117,7 +117,7 @@ export const toItem = (p: Place, kind: string): Item => ({ name: p.name, detail:
 export const frDate = (iso?: string) => iso && /^\d{4}-\d{2}-\d{2}/.test(iso) ? iso.slice(0, 10).split('-').reverse().join('/') : undefined;
 
 /** What load() gathered; `undefined` means that source failed. */
-export type SanteData = { pharmacies?: Place[]; gps?: Place[]; urgences?: Place[]; finessDate?: string; ameliDate?: string };
+export type HealthData = { pharmacies?: Place[]; gps?: Place[]; emergencies?: Place[]; finessDate?: string; ameliDate?: string };
 
 const nearestFact = (label: string, places: Place[] | undefined, noneWithin: string): Fact => {
   if (!places) return { label, value: 'Donnée indisponible', level: 'unknown', detail: 'La source n’a pas répondu.' };
@@ -126,11 +126,11 @@ const nearestFact = (label: string, places: Place[] | undefined, noneWithin: str
   return { label, value: howFar(p), detail: `${p.name}, ${p.address}.` };
 };
 
-export const santeView = (data: SanteData): BlockView => {
+export const healthView = (data: HealthData): BlockView => {
   const d = { ...data, pharmacies: data.pharmacies && onFoot(data.pharmacies), gps: data.gps && onFoot(data.gps) };
-  const general = d.urgences?.filter((u) => u.urgence === 'generale');
-  const urgItems = (d.urgences ?? []).filter((u) => u.urgence !== 'smur').slice(0, 3)
-    .map((u) => toItem(u, u.urgence === 'pediatrique' ? 'Urgences pédiatriques' : 'Urgences'));
+  const general = d.emergencies?.filter((u) => u.emergency === 'general');
+  const emergencyItems = (d.emergencies ?? []).filter((u) => u.emergency !== 'smur').slice(0, 3)
+    .map((u) => toItem(u, u.emergency === 'paediatric' ? 'Urgences pédiatriques' : 'Urgences'));
   const finess = frDate(d.finessDate), ameli = frDate(d.ameliDate);
   const notes: Note[] = [
     `Pharmacies et urgences : répertoire FINESS, extraction du ${finess ?? 'date inconnue'}.`,
@@ -139,19 +139,19 @@ export const santeView = (data: SanteData): BlockView => {
     'Distances à pied : calcul d’itinéraire de la Géoplateforme (IGN).',
     'FINESS ne distingue pas les urgences adultes, les urgences pédiatriques et les antennes SMUR (équipes mobiles, sans accueil du public). Le tri se fait sur le nom de l’établissement et peut se tromper.',
   ];
-  if (!d.pharmacies || !d.urgences) notes.push('Le répertoire FINESS n’a pas répondu en partie : les pharmacies ou les urgences peuvent manquer.');
+  if (!d.pharmacies || !d.emergencies) notes.push('Le répertoire FINESS n’a pas répondu en partie : les pharmacies ou les urgences peuvent manquer.');
   if (!d.gps) notes.push('L’annuaire des médecins n’a pas répondu : les généralistes manquent.');
   return {
     facts: [
-      nearestFact('Pharmacie la plus proche', d.pharmacies, `Aucune à moins de ${RADII.pharmacie[1]} km`),
+      nearestFact('Pharmacie la plus proche', d.pharmacies, `Aucune à moins de ${RADII.pharmacy[1]} km`),
       nearestFact('Médecin généraliste le plus proche', d.gps, 'Aucun à moins de 50 km'),
-      nearestFact('Service d’urgences le plus proche', general, `Aucun à moins de ${RADII.urgences[1]} km`),
+      nearestFact('Service d’urgences le plus proche', general, `Aucun à moins de ${RADII.emergency[1]} km`),
     ],
     explanation: `Les distances sont à pied, calculées sur le réseau routier de l’IGN, pour les pharmacies et les médecins les plus proches à moins de ${MAX_WALK_M / 1000} km. Au-delà, et pour les urgences, elles sont à vol d’oiseau. La liste ne dit pas si un médecin accepte de nouveaux patients.`,
     items: [
       ...(d.pharmacies ?? []).slice(0, 3).map((p) => toItem(p, 'Pharmacie')),
       ...(d.gps ?? []).slice(0, 3).map((p) => toItem(p, ['Médecin généraliste', p.detail].filter(Boolean).join(', '))),
-      ...urgItems,
+      ...emergencyItems,
     ],
     precision: 'au point',
     source: { name: 'FINESS, data.gouv.fr', url: FINESS_URL, updated: finess },

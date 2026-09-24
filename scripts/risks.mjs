@@ -1,9 +1,9 @@
-// Pre-computes commune-level risk facts into public/data/risques/<department>.json, the fallback of the
-// "Risques" block when the Géorisques API does not answer. Plain Node 24, no dependency: the GASPAR zip
+// Pre-computes commune-level risk facts into public/data/risks/<department>.json, the fallback of the
+// "Risques" (risks) block when the Géorisques API does not answer. Plain Node 24, no dependency: the GASPAR zip
 // is read with the system `unzip` (present on macOS and GitHub's ubuntu runners).
 // Sources: docs/feasibility/geo-risques-eau.md, section 5. No official national file gives the seismic
 // zone per commune (only departmental DDT layers and a private wpd shapefile), so it stays live-only.
-// Usage: node scripts/risques.mjs [folder with gaspar.zip and radon.csv already downloaded]
+// Usage: node scripts/risks.mjs [folder with gaspar.zip and radon.csv already downloaded]
 import { execFileSync } from 'node:child_process';
 import { mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync, existsSync } from 'node:fs';
 import { tmpdir } from 'node:os';
@@ -13,7 +13,7 @@ import { departmentOf } from '../src/lib/data.ts';
 const GASPAR = 'https://files.georisques.fr/GASPAR/gaspar.zip';
 const RADON = 'https://static.data.gouv.fr/resources/connaitre-le-potentiel-radon-de-ma-commune/20190506-174309/radon.csv';
 export const CATNAT_YEARS = 30;
-const OUT = new URL('../public/data/risques/', import.meta.url);
+const OUT = new URL('../public/data/risks/', import.meta.url);
 
 /** One `;` CSV line, with "quoted ; fields". */
 export const splitLine = (line) => {
@@ -37,7 +37,8 @@ export const parseCsv = (text) => {
   return lines.map((l) => Object.fromEntries(splitLine(l).map((v, i) => [keys[i], v.trim()])));
 };
 
-/** Builds { insee: { radon, risques, pprn, pprt, catnat } } from the parsed tables. */
+/** Builds { insee: { radon, risques, pprn, pprt, catnat } } from the parsed tables.
+ * The French keys (risques, nom, etat, depuis, dernier) are those of the published files, read by src/lib/risks.ts. */
 export const build = ({ radon, ddrm, pprn, pprt, catnat }, today = new Date()) => {
   const out = {};
   const at = (code) => (out[code] ??= {});
@@ -68,7 +69,7 @@ export const build = ({ radon, ddrm, pprn, pprt, catnat }, today = new Date()) =
 const unzip = (zip, name) => execFileSync('unzip', ['-p', zip, name], { maxBuffer: 1 << 28 }).toString('utf8');
 
 if (import.meta.main) {
-  const dir = process.argv[2] ?? mkdtempSync(join(tmpdir(), 'risques-'));
+  const dir = process.argv[2] ?? mkdtempSync(join(tmpdir(), 'risks-'));
   const get = async (url, file) => {
     const path = join(dir, file);
     if (existsSync(path)) return path;
