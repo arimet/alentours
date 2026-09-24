@@ -1,0 +1,5 @@
+code_insee;nom_com;code_dep;code_reg;nbr;type;nbr_elig_8;elig_ftth;elig_coax;elig_cu_30;elig_thdr;elig_cu_8;elig_4gf;elig_hdr;elig_sat;date
+97209;Fort-de-France;972;02;58448;all;58448;56817;778;358;0;0;495;0;0;2026-06-30
+75056;Paris;75;11;1665813;all;1665813;1597360;53635;3034;0;0;11781;0;3;2026-06-30
+78334;Lévis-Saint-Nom;78;11;807;all;807;806;0;0;0;0;0;0;1;2026-06-30
+05157;Saint-Véran;05;93;465;all;465;445;0;0;0;0;14;0;6;2026-06-30

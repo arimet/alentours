@@ -1,0 +1,39 @@
+name: Data internet
+# Arcep publishes Cartefibre and Ma connexion internet each quarter (about 10 weeks after its end):
+# refresh on the 20th of the publication month, and open a PR to review the diff before it goes live.
+on:
+  schedule:
+    - cron: '0 6 20 3,6,9,12 *'
+  workflow_dispatch:
+permissions:
+  contents: write
+  pull-requests: write
+concurrency:
+  group: data-internet
+  cancel-in-progress: false
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: node scripts/internet.mjs
+      - run: npm test
+      - name: Open a pull request
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git add public/data/internet
+          if git diff --cached --quiet; then echo "No change."; exit 0; fi
+          branch="data/internet-$(date -u +%Y-%m-%d)"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git switch -c "$branch"
+          git commit -m "Update internet data (Arcep)"
+          git push -u origin "$branch"
+          gh pr create --title "Internet fixe : données Arcep du $(date -u +%d/%m/%Y)" \
+            --body "Mise à jour automatique de public/data/internet par scripts/internet.mjs (Cartefibre, Ma connexion internet, fermeture du cuivre)."
