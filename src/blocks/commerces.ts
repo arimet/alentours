@@ -1,7 +1,8 @@
 import type { Block } from '../lib/block';
 import { getJson } from '../lib/http';
 import { dataUrl, departmentOf } from '../lib/data';
-import { commercesView } from '../lib/commerces';
+import { candidates, commercesView } from '../lib/commerces';
+import { byWalk } from '../lib/walk';
 
 export const commerces: Block = {
   id: 'commerces',
@@ -10,6 +11,8 @@ export const commerces: Block = {
     // No file where the BPE has no usable point (Mayotte, Saint-Pierre-et-Miquelon…): the view says so.
     const file = await getJson(dataUrl('commerces', departmentOf(ctx.commune)))
       .catch((e) => { if (e instanceof Error && e.message === 'HTTP 404') return {}; throw e; });
-    return commercesView(file, ctx);
+    // The 2 nearest of each of the 8 types, routed on foot (16 routes at most).
+    const near = await Promise.all(candidates(file, ctx).map((xs) => byWalk(ctx, xs)));
+    return commercesView(file, ctx, near);
   },
 };

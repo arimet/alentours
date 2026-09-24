@@ -4,7 +4,9 @@ import { getJson } from '../lib/http';
 import { EXAMPLES } from '../lib/examples';
 import { BLOCKS } from '../blocks';
 import { mountBlocks } from './render';
-import { createMap, type Marker } from './map';
+import { createMap } from './map';
+import { formatWalk } from '../lib/walk';
+import { formatDistance } from '../lib/block';
 import type { Block, BlockView } from '../lib/block';
 
 const $ = <T extends HTMLElement>(id: string) => document.getElementById(id) as T;
@@ -96,50 +98,93 @@ exampleBtn.textContent = example.label;
 exampleBtn.addEventListener('click', () => { location.hash = toFragment(example); });
 
 // Home map: metropolitan France with every example as a clickable marker.
-const homeMap = createMap($('home-map'), { zoom: 5, minZoom: 4, maxZoom: 9, label: 'Carte de France avec des adresses d’exemple' });
-homeMap.setView({ lat: 46.6, lon: 2.4 }, 5);
-homeMap.setMarkers(EXAMPLES.map((e) => ({ ...e, label: `Voir la fiche : ${e.label}`, onClick: () => { location.hash = toFragment(e); } })));
+// On wide screens a white side panel covers the left of the map: keep the subject to its right.
+const focusX = () => (innerWidth > 896 ? 0.64 : 0.5);
+const homeMap = createMap($('home-map'), { zoom: 5, minZoom: 4, maxZoom: 9, label: 'Carte de France avec des adresses d’exemple', focusX });
+homeMap.setView({ lat: 46.6, lon: 2.4 }, 6);
+homeMap.setMarkers(EXAMPLES.map((e) => ({ ...e, label: `Voir la fiche : ${e.label}`, focusable: true, onClick: () => { location.hash = toFragment(e); } })));
 
 // --- Sheet ---
-const sheetMap = createMap($('sheet-map'), { zoom: 16, minZoom: 12, maxZoom: 18, label: 'Carte de situation de l’adresse' });
+const sheetMap = createMap($('sheet-map'), { zoom: 16, minZoom: 12, maxZoom: 18, label: 'Carte de situation de l’adresse', focusX });
+const make = <K extends keyof HTMLElementTagNameMap>(tag: K, props: Partial<HTMLElementTagNameMap[K]> = {}, ...children: (Node | string)[]) => {
+  const n = Object.assign(document.createElement(tag), props);
+  n.append(...children);
+  return n;
+};
+const two = (i: number) => String(i + 1).padStart(2, '0');
 
-// Key figures: the first fact of a few blocks, repeated in large type.
-const KEYS: { block: string; tone: string }[] = [
-  { block: 'air', tone: 'grey' }, { block: 'internet', tone: 'yellow' }, { block: 'immobilier', tone: 'coral' },
-];
-const keyTile = (tone: string, label: string, value: string, id: string) => {
-  const a = Object.assign(document.createElement('a'), { className: `key key-${tone}`, href: `#bloc-${id}` });
-  a.addEventListener('click', (e) => { e.preventDefault(); document.getElementById(`bloc-${id}`)?.scrollIntoView({ behavior: 'smooth' }); });
-  a.append(Object.assign(document.createElement('span'), { className: 'key-label', textContent: label }),
-    Object.assign(document.createElement('strong'), { className: 'key-value', textContent: value }));
-  return a;
+let here: Place | undefined;
+let views = new Map<string, BlockView | null>();
+let activeTheme = 'ecoles';
+let selected = 0;
+let picked = false;
+const PREFERRED = ['ecoles', 'sante', 'commerces'];
+
+const mapItems = (id: string) => (views.get(id)?.items ?? []).filter((i) => i.at);
+
+// Key figures: the first fact of a few blocks, in large type.
+const KEYS = ['air', 'internet', 'immobilier'];
+const renderKeys = () => {
+  $('keys').replaceChildren(...KEYS.map((id) => {
+    const b = BLOCKS.find((x) => x.id === id)!, v = views.get(id), f = v?.facts[0];
+    return make('a', { className: 'key', href: `#bloc-${id}`, onclick: (e: Event) => { e.preventDefault(); $(`bloc-${id}`).scrollIntoView({ behavior: 'smooth' }); } },
+      make('strong', { className: 'key-value' }, v === undefined ? '…' : f?.value ?? 'Indisponible'),
+      make('span', { className: 'key-label' }, f ? `${b.title} : ${f.label}` : b.title));
+  }));
 };
 
-// Theme pills: each one shows or hides its block.
-const themePills = () => {
-  $('theme-pills').replaceChildren(...BLOCKS.map((b) => {
-    const pill = Object.assign(document.createElement('button'), { type: 'button', className: 'pill', textContent: b.title });
-    pill.setAttribute('aria-pressed', 'true');
-    pill.addEventListener('click', () => {
-      const on = pill.getAttribute('aria-pressed') !== 'true';
-      pill.setAttribute('aria-pressed', String(on));
-      const section = document.getElementById(`bloc-${b.id}`);
-      if (section) section.hidden = !on;
+const renderThemes = () => {
+  $('themes').replaceChildren(make('ul', {}, ...BLOCKS.map((b) => {
+    const count = mapItems(b.id).length, active = b.id === activeTheme;
+    const btn = make('button', { type: 'button', className: `theme${active ? ' is-active' : ''}` }, b.title);
+    if (count) btn.append(make('sup', {}, `(${count})`));
+    if (active) btn.setAttribute('aria-current', 'true');
+    btn.addEventListener('click', () => {
+      if (count) { activeTheme = b.id; picked = true; selected = 0; renderThemes(); renderPlaces(); }
+      else $(`bloc-${b.id}`).scrollIntoView({ behavior: 'smooth' });
     });
-    return pill;
-  }));
+    return make('li', {}, btn);
+  })));
   $('themes').hidden = false;
 };
 
+// Places of the active theme: numbered markers, a strip of cards, the walking route to the selected one.
+const renderPlaces = (fit = true) => {
+  if (!here) return;
+  const items = mapItems(activeTheme), title = BLOCKS.find((b) => b.id === activeTheme)!.title;
+  const pick = (i: number) => { selected = i; renderPlaces(false); };
+  sheetMap.setMarkers([
+    ...items.map((it, i) => ({ ...it.at!, text: two(i), label: it.name, selected: i === selected, onClick: () => pick(i) })),
+    { lat: here.lat, lon: here.lon, label: here.label, kind: 'main' as const },
+  ]);
+  sheetMap.setRoute(items[selected]?.walk?.line);
+  if (fit && items.length) sheetMap.fit([here, ...items.slice(0, 6).map((i) => i.at!)]);
+  $('strip-label').textContent = items.length ? `${title}, du plus proche au plus loin` : '';
+  $('strip').replaceChildren(...items.map((it, i) => {
+    const card = make('button', { type: 'button', className: `card${i === selected ? ' is-selected' : ''}` },
+      make('span', { className: 'badge' }, two(i)),
+      make('span', { className: 'card-body' },
+        make('strong', {}, it.name),
+        ...(it.detail ? [make('span', { className: 'card-detail' }, it.detail)] : []),
+        make('span', { className: 'card-dist' }, it.walk ? formatWalk(it.walk) : it.distance !== undefined ? `${formatDistance(it.distance)} à vol d’oiseau` : '')));
+    card.setAttribute('aria-pressed', String(i === selected));
+    card.addEventListener('click', () => pick(i));
+    return make('li', {}, card);
+  }));
+  $('stage-bottom').hidden = false;
+  if (fit) $('strip').scrollLeft = 0;
+};
+
 const onBlock = (b: Block, v: BlockView | null) => {
-  const key = KEYS.find((k) => k.block === b.id);
-  const tile = document.getElementById(`key-${b.id}`);
-  if (key && tile) {
-    const f = v?.facts[0];
-    tile.replaceWith(Object.assign(keyTile(key.tone, f ? `${b.title} : ${f.label}` : b.title, f?.value ?? 'Indisponible', b.id), { id: `key-${b.id}` }));
+  views.set(b.id, v);
+  renderKeys();
+  renderThemes();
+  // Default theme: the first of PREFERRED with places, waiting for a block before skipping it.
+  if (!picked) {
+    const first = PREFERRED.find((id) => !views.has(id) || mapItems(id).length);
+    if (first && mapItems(first).length) { activeTheme = first; picked = true; }
   }
-  const pins: Marker[] = (v?.items ?? []).filter((i) => i.at).map((i) => ({ ...i.at!, label: `${b.title} : ${i.name}` }));
-  if (pins.length) sheetMap.addMarkers(pins);
+  if (b.id === activeTheme) renderPlaces();
 };
 
 const placeFor = async (point: Point): Promise<Place | undefined> => {
@@ -157,7 +202,11 @@ const showSheet = async (point: Point) => {
   title.textContent = 'Recherche de l’adresse…';
   meta.textContent = sheetStatus.textContent = '';
   $('blocks').replaceChildren();
-  $('keys').hidden = $('themes').hidden = true;
+  $('themes').hidden = $('stage-bottom').hidden = true;
+  views = new Map();
+  activeTheme = 'ecoles';
+  selected = 0;
+  picked = false;
   try {
     const place = await placeFor(point);
     if (!place) {
@@ -166,11 +215,12 @@ const showSheet = async (point: Point) => {
       return;
     }
     title.textContent = place.label;
+    here = place;
     sheetMap.setView(place, 16);
+    sheetMap.setRoute(undefined);
     sheetMap.setMarkers([{ ...place, label: place.label, kind: 'main' }]);
-    $('keys').replaceChildren(...KEYS.map((k) => Object.assign(keyTile(k.tone, BLOCKS.find((b) => b.id === k.block)!.title, '…', k.block), { id: `key-${k.block}` })));
-    $('keys').hidden = false;
-    themePills();
+    renderKeys();
+    renderThemes();
     document.title = `${place.label} · Mon adresse en données`;
     meta.textContent = `Commune : ${place.city} (INSEE ${place.citycode}). Précision de la localisation : ${precisionOf(place.type)}.`;
     mountBlocks($('blocks'), BLOCKS, {

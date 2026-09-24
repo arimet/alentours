@@ -58,13 +58,13 @@ test('Nancy, 35 rue Joseph Mougin: public schools first, both collèges shown ho
   const v = schoolsView(lists('nancy'));
   assert.ok(v.facts.length <= 4);
   assert.deepEqual(v.facts.map((f) => [f.label, f.value]), [
-    ['Maternelle publique la plus proche', 'à 450 m'],
-    ['Élémentaire publique la plus proche', 'à 330 m'],
+    ['Maternelle publique la plus proche', 'à 450 m à vol d’oiseau'],
+    ['Élémentaire publique la plus proche', 'à 330 m à vol d’oiseau'],
     ['Collège de secteur', '2 collèges possibles'],
-    ['Lycée public le plus proche', 'à 1,8 km'],
+    ['Lycée public le plus proche', 'à 1,8 km à vol d’oiseau'],
   ]);
   assert.match(v.facts[0].detail, /Michelet/);
-  assert.equal(v.facts[2].detail, 'La carte scolaire indique deux collèges pour cette adresse : Collège Jean Lamour (Nancy) à 100 m ou Collège Jean de La Fontaine (Laxou) à 2,1 km. Vérifiez auprès du conseil départemental.');
+  assert.equal(v.facts[2].detail, 'La carte scolaire indique deux collèges pour cette adresse : Collège Jean Lamour (Nancy) à 100 m à vol d’oiseau ou Collège Jean de La Fontaine (Laxou) à 2,1 km à vol d’oiseau. Vérifiez auprès du conseil départemental.');
   const names = v.items.map((i) => i.name);
   assert.ok(names.includes('Ecole élémentaire d\'application Boudonville'));
   // The private school nearest to the address comes after every public one.
@@ -81,7 +81,7 @@ test('Nancy, 35 rue Joseph Mougin: public schools first, both collèges shown ho
 
 test('Saint-Véran: single-sector commune, far collège and lycée', () => {
   const v = schoolsView(lists('saint-veran'));
-  assert.deepEqual(v.facts.map((f) => f.value), ['à 3,3 km', 'à 700 m', 'Collège des Hautes Vallées', 'à 28 km']);
+  assert.deepEqual(v.facts.map((f) => f.value), ['à 3,3 km à vol d’oiseau', 'à 700 m à vol d’oiseau', 'Collège des Hautes Vallées', 'à 28 km à vol d’oiseau']);
   assert.match(v.facts[0].detail, /MOLINES/); // a primaire counts as a maternelle
   assert.match(v.facts[2].detail, /17 km.*carte scolaire/);
   assert.match(v.facts[3].detail, /général, technologique et professionnel/);
@@ -115,4 +115,17 @@ test('expands the directory abbreviations of primary schools', () => {
   assert.equal(schoolName('E.P.PR JEAN PAUL II 6 rue Albert de Lapparent'), 'École primaire JEAN PAUL II 6 rue Albert de Lapparent');
   assert.equal(schoolName('E.M.PU EBLE'), 'École maternelle EBLE');
   assert.equal(schoolName('Collège Victor Duruy'), 'Collège Victor Duruy');
+});
+
+test('the nearest on foot wins: Moselly is 330 m as the crow flies but 842 m on foot', () => {
+  const l = lists('nancy');
+  const walks = { 'Ecole élémentaire Moselly': { m: 842, min: 13, line: [] }, "Ecole élémentaire d'application Boudonville": { m: 700, min: 11, line: [] } };
+  const v = schoolsView({ ...l, ecole: l.ecole.map((s) => (walks[s.name] ? { ...s, walk: walks[s.name] } : s)) });
+  assert.equal(v.facts[1].value, 'à 700 m à pied, 11 min');
+  assert.match(v.facts[1].detail, /Boudonville/);
+  const i = v.items.findIndex((x) => /Boudonville/.test(x.name));
+  assert.equal(v.items[i].walk.m, 700);
+  assert.ok(i < v.items.findIndex((x) => /Moselly/.test(x.name)));
+  assert.match(v.explanation, /à pied.*IGN.*3 km.*vol d’oiseau/);
+  assert.ok(v.notes.includes('Distances à pied : calcul d’itinéraire de la Géoplateforme (IGN).'));
 });

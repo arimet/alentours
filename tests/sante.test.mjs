@@ -44,12 +44,12 @@ test('Ségur: nearest pharmacy, GP and general emergency department', async () =
   const { view, calls } = await load('segur', SEGUR);
   assert.equal(calls.length, 2, 'no widening in Paris');
   const [ph, gp, urg] = view.facts;
-  assert.equal(ph.value, 'à 210 m');
+  assert.equal(ph.value, 'à 210 m à vol d’oiseau');
   assert.match(ph.detail, /Pharmacie Mesnard/);
-  assert.equal(gp.value, 'à 50 m');
+  assert.equal(gp.value, 'à 50 m à vol d’oiseau');
   assert.match(gp.detail, /Ratajczak/);
   // Necker (694 m) is a children's hospital: the main fact skips it.
-  assert.equal(urg.value, 'à 2,3 km');
+  assert.equal(urg.value, 'à 2,3 km à vol d’oiseau');
   assert.match(urg.detail, /Saint Joseph/);
   assert.ok(view.items.some((i) => /Necker/.test(i.name) && /pédiatriques/.test(i.detail)));
   assert.equal(view.source.updated, '04/05/2026');
@@ -61,9 +61,9 @@ test('Saint-Véran: empty small bbox is widened once, SMUR antennas are left out
   const { view, calls } = await load('saint-veran', VERAN);
   assert.equal(calls.length, 4);
   const [ph, gp, urg] = view.facts;
-  assert.equal(ph.value, 'à 8,7 km');
-  assert.equal(gp.value, 'à 8,5 km');
-  assert.equal(urg.value, 'à 29 km');
+  assert.equal(ph.value, 'à 8,7 km à vol d’oiseau');
+  assert.equal(gp.value, 'à 8,5 km à vol d’oiseau');
+  assert.equal(urg.value, 'à 29 km à vol d’oiseau');
   assert.match(urg.detail, /Briancon/);
   assert.ok(!view.items.some((i) => /SMUR/.test(i.name)));
 });
@@ -90,4 +90,18 @@ test('partial failure: the rest is shown with a note', () => {
   assert.equal(view.facts[0].level, 'unknown');
   assert.equal(view.facts[1].value, 'Aucun à moins de 50 km');
   assert.ok(view.notes.some((n) => /FINESS n’a pas répondu/.test(n)));
+});
+
+test('the nearest pharmacy on foot wins; emergencies stay as the crow flies', async () => {
+  const { get } = fakeGet('segur');
+  const ph = (await nearbyFiness('pharmacie', SEGUR, get)).places, urg = (await nearbyFiness('urgences', SEGUR, get)).places;
+  const pharmacies = ph.map((p, i) => (i === 0 ? { ...p, walk: { m: 900, min: 14, line: [] } } : i === 1 ? { ...p, walk: { m: 400, min: 6, line: [] } } : p));
+  const view = santeView({ pharmacies, urgences: urg, gps: [] });
+  assert.equal(view.facts[0].value, 'à 400 m à pied, 6 min');
+  assert.ok(view.facts[0].detail.startsWith(ph[1].name));
+  assert.equal(view.items[0].walk.m, 400);
+  assert.equal(view.items[1].walk.m, 900);
+  assert.equal(view.facts[2].value, 'à 2,3 km à vol d’oiseau');
+  assert.match(view.explanation, /urgences, elles sont à vol d’oiseau/);
+  assert.ok(view.notes.includes('Distances à pied : calcul d’itinéraire de la Géoplateforme (IGN).'));
 });

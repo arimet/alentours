@@ -3,11 +3,11 @@ import Base from '../layouts/Base.astro';
 ---
 <Base>
   <main>
-    <section id="search" class="panel">
-      <div class="panel-map" id="home-map"></div>
-      <div class="panel-body">
-        <p class="eyebrow">Données publiques, sourcées</p>
-        <h1>Ce que les données publiques disent de votre adresse</h1>
+    <section id="search" class="stage">
+      <div class="stage-map" id="home-map"></div>
+      <div class="stage-side">
+        <p class="kicker">Données publiques, sourcées</p>
+        <h1 class="display">Ce que les données publiques disent de votre adresse</h1>
         <p class="lede">Risques, eau, air, fibre, réseau mobile, prix, écoles, santé et commerces. Chaque chiffre avec sa source.</p>
 
         <form id="search-form" role="search" autocomplete="off">
@@ -26,27 +26,29 @@ import Base from '../layouts/Base.astro';
       </div>
     </section>
 
-    <section id="sheet" class="panel" hidden aria-labelledby="sheet-title">
-      <div class="panel-map" id="sheet-map"></div>
-      <div class="panel-body">
-        <div class="sheet-head">
-          <div>
-            <p class="eyebrow">Fiche de l’adresse</p>
-            <h1 id="sheet-title" tabindex="-1"></h1>
-            <p id="sheet-meta" class="meta"></p>
+    <section id="sheet" hidden aria-labelledby="sheet-title">
+      <div class="stage">
+        <div class="stage-map" id="sheet-map"></div>
+
+        <div class="stage-side">
+          <p class="kicker"><a href="#" id="back">← Nouvelle recherche</a></p>
+          <h1 id="sheet-title" class="address" tabindex="-1"></h1>
+          <p id="sheet-meta" class="meta"></p>
+          <p id="sheet-status" class="status" aria-live="polite"></p>
+          <nav id="themes" class="themes" aria-label="Thèmes" hidden></nav>
+        </div>
+
+        <div class="stage-bottom" id="stage-bottom" hidden>
+          <div id="keys" class="keys"></div>
+          <div class="strip-wrap">
+            <p id="strip-label" class="strip-label"></p>
+            <ul id="strip" class="strip" aria-labelledby="strip-label"></ul>
           </div>
-          <a href="#" id="back" class="pill">Nouvelle recherche</a>
         </div>
-        <p id="sheet-status" class="status" aria-live="polite"></p>
-
-        <div id="themes" class="themes" role="group" aria-labelledby="themes-label" hidden>
-          <p id="themes-label" class="eyebrow">Thèmes affichés</p>
-          <div id="theme-pills" class="pills"></div>
-        </div>
-
-        <div id="keys" class="keys" hidden></div>
-        <div id="blocks" class="blocks"></div>
       </div>
+
+      <h2 class="details-title">Tout le détail, source par source</h2>
+      <div id="blocks" class="blocks"></div>
     </section>
   </main>
 </Base>

@@ -3,6 +3,7 @@
 // Pure functions only: URL builders and parsers, tested against real answers in tests/fixtures.
 
 import { formatDistance, type BlockView, type Fact, type Item } from './block.ts';
+import { formatWalk, MAX_WALK_M, type Walk } from './walk.ts';
 
 export const DATASET_URL = 'https://data.education.gouv.fr/explore/dataset/fr-en-annuaire-education/';
 const API = 'https://data.education.gouv.fr/api/explore/v2.1/catalog/datasets';
@@ -49,7 +50,16 @@ export const byIdsUrl = (ids: string[], p: { lat: number; lon: number }) =>
 export type School = {
   id: string; name: string; sector: string; public: boolean; town: string; distance: number; at?: { lat: number; lon: number };
   maternelle?: boolean; elementaire?: boolean; pro?: boolean; gt?: boolean; voies?: string; updated?: string;
+  /** Walking route from the address, added by the loader for the nearest few (see walk.ts). */
+  walk?: Walk;
 };
+
+/** Walked ones first by walking distance, then the others as the crow flies (as byWalk sorts). */
+export const onFoot = <T extends { distance: number; walk?: Walk }>(xs: T[]) =>
+  [...xs].sort((a, b) => (a.walk ? 0 : 1) - (b.walk ? 0 : 1) || (a.walk?.m ?? a.distance) - (b.walk?.m ?? b.distance));
+/** "à 840 m à pied, 13 min", or "à 330 m à vol d’oiseau" when no route was computed. */
+export const howFar = (x: { distance: number; walk?: Walk }) => x.walk ? formatWalk(x.walk) : `${formatDistance(x.distance)} à vol d’oiseau`;
+export const WALK_NOTE = 'Distances à pied : calcul d’itinéraire de la Géoplateforme (IGN).';
 
 const sector = (r: any) =>
   r.statut_public_prive === 'Public' ? 'public'
@@ -143,7 +153,7 @@ const NEAR_M = 1000;
 const MIN_PUBLIC = 5, MAX_PUBLIC = 10, MAX_PRIVATE = 4;
 
 const where = (s: School) => `${s.name} (${s.town})`;
-const item = (s: School, what?: string): Item => ({ name: s.name, detail: [what, s.sector, s.voies, s.town].filter(Boolean).join(', '), distance: s.distance, ...(s.at ? { at: s.at } : {}) });
+const item = (s: School, what?: string): Item => ({ name: s.name, detail: [what, s.sector, s.voies, s.town].filter(Boolean).join(', '), distance: s.distance, ...(s.at ? { at: s.at } : {}), ...(s.walk ? { walk: s.walk } : {}) });
 
 export type Lists = {
   /** Nearest écoles, public and private, nearest first. */
@@ -156,19 +166,20 @@ export type Lists = {
   lycee: School[];
 };
 
-export const schoolsView = ({ ecole, college, secteur, lycee }: Lists): BlockView => {
+export const schoolsView = (lists: Lists): BlockView => {
+  const [ecole, college, lycee] = [onFoot(lists.ecole), onFoot(lists.college), onFoot(lists.lycee)], secteur = lists.secteur;
   const pub = ecole.filter((s) => s.public);
   const near = (s: School) => s.distance <= NEAR_M;
   const nearest = (label: string, s: School | undefined, none: string, extra = ''): Fact => s
-    ? { label, value: formatDistance(s.distance), detail: `${where(s)}${extra}.` }
+    ? { label, value: howFar(s), detail: `${where(s)}${extra}.` }
     : { label, value: `${none} à moins de ${RADIUS_KM} km`, level: 'info' };
 
   const gt = lycee.find((s) => s.gt), pro = lycee.find((s) => s.pro && s !== gt);
   const collegeFact: Fact =
-    secteur.length === 1 ? { label: 'Collège de secteur', value: secteur[0].name, detail: `${formatDistance(secteur[0].distance)} (${secteur[0].town}), d’après la carte scolaire.` }
+    secteur.length === 1 ? { label: 'Collège de secteur', value: secteur[0].name, detail: `${howFar(secteur[0])} (${secteur[0].town}), d’après la carte scolaire.` }
     : secteur.length > 1 ? {
       label: 'Collège de secteur', value: `${secteur.length} collèges possibles`, level: 'warn',
-      detail: `La carte scolaire indique ${secteur.length === 2 ? 'deux' : secteur.length} collèges pour cette adresse : ${secteur.map((s) => `${where(s)} ${formatDistance(s.distance)}`).join(' ou ')}. Vérifiez auprès du conseil départemental.`,
+      detail: `La carte scolaire indique ${secteur.length === 2 ? 'deux' : secteur.length} collèges pour cette adresse : ${secteur.map((s) => `${where(s)} ${howFar(s)}`).join(' ou ')}. Vérifiez auprès du conseil départemental.`,
     }
     : nearest('Collège public le plus proche (secteur non trouvé)', college[0], 'Aucun collège public', ', car cette adresse n’a pas été trouvée dans la carte scolaire');
 
@@ -187,10 +198,10 @@ export const schoolsView = ({ ecole, college, secteur, lycee }: Lists): BlockVie
       collegeFact,
       nearest('Lycée public le plus proche', gt, 'Aucun lycée général ou technologique public', gt?.voies ? `, ${gt.voies}` : ''),
     ],
-    explanation: 'Le secteur de l’école est fixé par la mairie : renseignez-vous auprès d’elle. Ce site ne peut pas le connaître, il liste donc les écoles publiques proches, puis les écoles privées. Le collège public dépend de la carte scolaire du département et le lycée de l’affectation décidée par l’académie (Affelnet). Les distances sont mesurées à vol d’oiseau.',
+    explanation: `Le secteur de l’école est fixé par la mairie : renseignez-vous auprès d’elle. Ce site ne peut pas le connaître, il liste donc les écoles publiques proches, puis les écoles privées. Le collège public dépend de la carte scolaire du département et le lycée de l’affectation décidée par l’académie (Affelnet). Les distances sont à pied, calculées sur le réseau routier de l’IGN, pour les établissements les plus proches à moins de ${MAX_WALK_M / 1000} km. Au-delà, elles sont à vol d’oiseau.`,
     items,
     precision: 'au point (établissements géolocalisés), à l’adresse pour le collège de secteur',
     source: { name: 'Annuaire de l’éducation (ministère de l’Éducation nationale)', url: DATASET_URL, ...(updated ? { updated: frDate(updated) } : {}) },
-    notes: [{ text: `Collège de secteur : carte scolaire des collèges publics (DGESCO), mise à jour le ${CARTE_UPDATED}.`, link: { label: 'Voir le jeu de données', url: CARTE_URL } }],
+    notes: [{ text: `Collège de secteur : carte scolaire des collèges publics (DGESCO), mise à jour le ${CARTE_UPDATED}.`, link: { label: 'Voir le jeu de données', url: CARTE_URL } }, WALK_NOTE],
   };
 };

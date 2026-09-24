@@ -1,8 +1,16 @@
 import { distance, formatDistance, type BlockView, type Fact, type Item, type Note } from './block.ts';
+import { formatWalk, MAX_WALK_M, type Walk } from './walk.ts';
 
 type Point = { lat: number; lon: number };
 export type Urgence = 'generale' | 'pediatrique' | 'smur';
-export type Place = Point & { name: string; address: string; distance: number; detail?: string; urgence?: Urgence };
+/** `walk`: route from the address, added by the loader for the nearest few pharmacies and GPs. */
+export type Place = Point & { name: string; address: string; distance: number; detail?: string; urgence?: Urgence; walk?: Walk };
+
+/** Walked ones first by walking distance, then the others as the crow flies (as byWalk sorts). */
+export const onFoot = <T extends { distance: number; walk?: Walk }>(xs: T[]) =>
+  [...xs].sort((a, b) => (a.walk ? 0 : 1) - (b.walk ? 0 : 1) || (a.walk?.m ?? a.distance) - (b.walk?.m ?? b.distance));
+/** "à 840 m à pied, 13 min", or "à 2,3 km à vol d’oiseau" when no route was computed (always for emergencies). */
+const howFar = (p: Place) => p.walk ? formatWalk(p.walk) : `${formatDistance(p.distance)} à vol d’oiseau`;
 
 export const FINESS_URL = 'https://www.data.gouv.fr/fr/datasets/referentiel-finess-t-finess/';
 export const AMELI_URL = 'https://annuairesante.ameli.fr/';
@@ -103,7 +111,7 @@ export const nearbyFiness = async (kind: FinessKind, p: Point, get: (url: string
 
 export const finessDate = (json: any): string | undefined => json?.data?.find((r: any) => r.date_extract_finess)?.date_extract_finess;
 
-export const toItem = (p: Place, kind: string): Item => ({ name: p.name, detail: [kind, p.address].filter(Boolean).join(', '), distance: p.distance, at: { lat: p.lat, lon: p.lon } });
+export const toItem = (p: Place, kind: string): Item => ({ name: p.name, detail: [kind, p.address].filter(Boolean).join(', '), distance: p.distance, at: { lat: p.lat, lon: p.lon }, ...(p.walk ? { walk: p.walk } : {}) });
 
 /** "2026-05-04" or an ISO timestamp → "04/05/2026". */
 export const frDate = (iso?: string) => iso && /^\d{4}-\d{2}-\d{2}/.test(iso) ? iso.slice(0, 10).split('-').reverse().join('/') : undefined;
@@ -115,10 +123,11 @@ const nearestFact = (label: string, places: Place[] | undefined, noneWithin: str
   if (!places) return { label, value: 'Donnée indisponible', level: 'unknown', detail: 'La source n’a pas répondu.' };
   const p = places[0];
   if (!p) return { label, value: noneWithin, level: 'info' };
-  return { label, value: formatDistance(p.distance), detail: `${p.name}, ${p.address}.` };
+  return { label, value: howFar(p), detail: `${p.name}, ${p.address}.` };
 };
 
-export const santeView = (d: SanteData): BlockView => {
+export const santeView = (data: SanteData): BlockView => {
+  const d = { ...data, pharmacies: data.pharmacies && onFoot(data.pharmacies), gps: data.gps && onFoot(data.gps) };
   const general = d.urgences?.filter((u) => u.urgence === 'generale');
   const urgItems = (d.urgences ?? []).filter((u) => u.urgence !== 'smur').slice(0, 3)
     .map((u) => toItem(u, u.urgence === 'pediatrique' ? 'Urgences pédiatriques' : 'Urgences'));
@@ -127,6 +136,7 @@ export const santeView = (d: SanteData): BlockView => {
     `Pharmacies et urgences : répertoire FINESS, extraction du ${finess ?? 'date inconnue'}.`,
     `Médecins généralistes : copie de l’annuaire santé de l’Assurance Maladie publiée par Opendatasoft (un tiers, pas l’Assurance Maladie), copie du ${ameli ?? 'date inconnue'}.`,
     { text: 'Annuaire officiel :', link: { label: 'annuaire santé de l’Assurance Maladie', url: AMELI_URL } },
+    'Distances à pied : calcul d’itinéraire de la Géoplateforme (IGN).',
     'FINESS ne distingue pas les urgences adultes, les urgences pédiatriques et les antennes SMUR (équipes mobiles, sans accueil du public). Le tri se fait sur le nom de l’établissement et peut se tromper.',
   ];
   if (!d.pharmacies || !d.urgences) notes.push('Le répertoire FINESS n’a pas répondu en partie : les pharmacies ou les urgences peuvent manquer.');
@@ -137,7 +147,7 @@ export const santeView = (d: SanteData): BlockView => {
       nearestFact('Médecin généraliste le plus proche', d.gps, 'Aucun à moins de 50 km'),
       nearestFact('Service d’urgences le plus proche', general, `Aucun à moins de ${RADII.urgences[1]} km`),
     ],
-    explanation: 'Les distances sont à vol d’oiseau, pas par la route. La liste ne dit pas si un médecin accepte de nouveaux patients.',
+    explanation: `Les distances sont à pied, calculées sur le réseau routier de l’IGN, pour les pharmacies et les médecins les plus proches à moins de ${MAX_WALK_M / 1000} km. Au-delà, et pour les urgences, elles sont à vol d’oiseau. La liste ne dit pas si un médecin accepte de nouveaux patients.`,
     items: [
       ...(d.pharmacies ?? []).slice(0, 3).map((p) => toItem(p, 'Pharmacie')),
       ...(d.gps ?? []).slice(0, 3).map((p) => toItem(p, ['Médecin généraliste', p.detail].filter(Boolean).join(', '))),
