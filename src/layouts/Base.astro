@@ -85,6 +85,14 @@ const fullTitle = title ? `${title} · ${SITE_NAME}` : SITE_NAME;
   .sheet { padding-top: 1rem; }
   .sheet h1:focus { outline: none; }
   .meta { color: var(--muted); margin: 0; }
+  .map { margin: 1.25rem 0 0; }
+  .map-tiles { position: relative; height: 220px; overflow: hidden; border-radius: var(--radius); border: 1px solid var(--line); background: #eeecea; }
+  .map-tiles img { position: absolute; width: 256px; height: 256px; }
+  .marker {
+    position: absolute; left: 50%; top: 50%; width: 18px; height: 18px; margin: -9px 0 0 -9px;
+    border-radius: 50%; background: var(--accent); border: 3px solid #fff; box-shadow: 0 0 0 2px var(--accent);
+  }
+  .map figcaption { font-size: 0.8rem; color: var(--muted); margin-top: 0.3rem; }
   .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 
   .blocks { display: grid; gap: 1rem; margin-top: 2rem; grid-template-columns: repeat(auto-fill, minmax(min(100%, 22rem), 1fr)); }

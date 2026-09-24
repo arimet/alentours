@@ -26,6 +26,10 @@ import Base from '../layouts/Base.astro';
       <p><a href="#" id="back">Nouvelle recherche</a></p>
       <h1 id="sheet-title" tabindex="-1"></h1>
       <p id="sheet-meta" class="meta"></p>
+      <figure class="map" id="map" hidden>
+        <div class="map-tiles" id="map-tiles" role="img" aria-label="Carte de situation de l’adresse"></div>
+        <figcaption>Plan IGN, © IGN Géoplateforme</figcaption>
+      </figure>
       <p id="sheet-status" class="status" aria-live="polite"></p>
       <div id="blocks" class="blocks"></div>
     </section>

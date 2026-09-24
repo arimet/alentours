@@ -4,6 +4,7 @@ import { getJson } from '../lib/http';
 import { EXAMPLES } from '../lib/examples';
 import { BLOCKS } from '../blocks';
 import { mountBlocks } from './render';
+import { tileOf, tileUrl } from '../lib/tiles';
 
 const $ = <T extends HTMLElement>(id: string) => document.getElementById(id) as T;
 const search = $('search'), sheet = $('sheet');
@@ -94,6 +95,23 @@ exampleBtn.textContent = example.label;
 exampleBtn.addEventListener('click', () => { location.hash = toFragment(example); });
 
 // --- Sheet ---
+// Situation map: 5×3 Plan IGN tiles (wide enough for the 60rem column) at zoom 16, shifted so the address sits in the centre.
+const ZOOM = 16;
+const showMap = (point: Point) => {
+  const { x, y, px, py } = tileOf(point, ZOOM);
+  const tiles = $('map-tiles');
+  tiles.replaceChildren();
+  for (let dy = -1; dy <= 1; dy++)
+    for (let dx = -2; dx <= 2; dx++) {
+      const img = Object.assign(document.createElement('img'), { src: tileUrl(ZOOM, x + dx, y + dy), alt: '', width: 256, height: 256, loading: 'lazy' });
+      img.style.left = `calc(50% + ${(dx * 256 - px).toFixed(1)}px)`;
+      img.style.top = `calc(50% + ${(dy * 256 - py).toFixed(1)}px)`;
+      tiles.append(img);
+    }
+  tiles.append(Object.assign(document.createElement('span'), { className: 'marker' }));
+  $('map').hidden = false;
+};
+
 const placeFor = async (point: Point): Promise<Place | undefined> => {
   try {
     const stored = sessionStorage.getItem(`place:${toFragment(point)}`);
@@ -109,6 +127,7 @@ const showSheet = async (point: Point) => {
   title.textContent = 'Recherche de l’adresse…';
   meta.textContent = sheetStatus.textContent = '';
   $('blocks').replaceChildren();
+  $('map').hidden = true;
   try {
     const place = await placeFor(point);
     if (!place) {
@@ -117,6 +136,7 @@ const showSheet = async (point: Point) => {
       return;
     }
     title.textContent = place.label;
+    showMap(place);
     document.title = `${place.label} · Mon adresse en données`;
     meta.textContent = `Commune : ${place.city} (INSEE ${place.citycode}). Précision de la localisation : ${precisionOf(place.type)}.`;
     mountBlocks($('blocks'), BLOCKS, {
