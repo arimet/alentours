@@ -76,10 +76,10 @@ test('commune: the highest level wins, radon zone 3 is a warning', () => {
   assert.equal(communeFact({ data: [{ code_zone: '5' }] }, radon).level, 'alert');
 });
 
-test('commune: one missing source is said, both missing is unknown', () => {
+test('commune: a missing source is said and is never a green light', () => {
   const f = communeFact(undefined, fixture('risks-archive-radon-saint-malo.json'));
   assert.match(f.value, /Séisme : non disponible/);
-  assert.equal(f.level, 'ok');
+  assert.equal(f.level, 'unknown'); // low radon alone does not mean "rien à signaler"
   assert.equal(communeFact(undefined, { data: [] }).level, 'unknown');
 });
 

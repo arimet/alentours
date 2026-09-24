@@ -63,6 +63,8 @@ test('all live calls fail: commune facts only, said out loud', () => {
   assert.deepEqual(v.notes, ['Géorisques ne répond pas : informations à la commune seulement.']);
   assert.deepEqual(v.facts.map((f) => f.label), ['Séisme et radon (commune)', 'Risques recensés dans la commune', 'Catastrophes naturelles reconnues']);
   assert.match(v.facts[0].value, /Séisme : non disponible\. Radon : zone 2 \(faible\)/);
+  // Seismic zone missing, radon low: not a green light.
+  assert.equal(v.facts[0].level, 'unknown');
   assert.equal(v.source.updated, '21/09/2026');
 });
 

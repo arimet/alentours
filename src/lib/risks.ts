@@ -107,6 +107,12 @@ export const communeOf = (file: any, ctx: Context): Commune | undefined => {
   return c || d ? { ...c, ...d } : undefined;
 };
 
+/** Worst known level; a missing half never shows as "ok" (a known warning still shows). */
+const level = (levels: Level[], missing: boolean): Level => {
+  const worst = levels.reduce((a, b) => (RANK.indexOf(b) > RANK.indexOf(a) ? b : a), 'unknown' as Level);
+  return missing && (worst === 'ok' || worst === 'info') ? 'unknown' : worst;
+};
+
 /** Live answers first; the pre-computed commune radon class fills a missing or empty one. */
 export const communeFact = (seismic: any, radon: any, commune?: Commune): Fact => {
   const zone = seismic && rows(seismic)[0]?.code_zone;
@@ -120,7 +126,7 @@ export const communeFact = (seismic: any, radon: any, commune?: Commune): Fact =
   return {
     label: 'Séisme et radon (commune)',
     value: `Séisme : ${s ? `zone ${zone} (${s[0]})` : 'non disponible'}. Radon : ${r ? `zone ${radonClass} (${r[0]})` : 'non disponible'}.`,
-    level: levels.reduce((a, b) => (RANK.indexOf(b) > RANK.indexOf(a) ? b : a), 'unknown' as Level),
+    level: level(levels, !s || !r),
     ...(detail && { detail }),
   };
 };
