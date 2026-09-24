@@ -2,7 +2,7 @@ import { parseFragment, toFragment, type Point } from '../lib/fragment';
 import { parsePlaces, precisionOf, communeCode, searchUrl, reverseUrl, type Place } from '../lib/geocode';
 import { getJson } from '../lib/http';
 import { EXAMPLES } from '../lib/examples';
-import { BLOCKS } from '../blocks';
+import { BLOCKS, GROUPS } from '../blocks';
 import { mountBlocks } from './render';
 import { createMap } from './map';
 import { formatWalk } from '../lib/walk';
@@ -270,7 +270,16 @@ const showSheet = async (point: Point) => {
       lat: place.lat, lon: place.lon, label: place.label,
       citycode: place.citycode, commune: communeCode(place.citycode), city: place.city,
       housenumber: place.housenumber, street: place.street,
-    }, onBlock);
+    }, {
+      groups: GROUPS,
+      toc: $('toc'),
+      onDone: onBlock,
+      onMap: { ids: MAP_THEMES, show: (id) => {
+        activeTheme = id; selected = 0;
+        renderThemes(); renderPlaces();
+        $('sheet-stage').scrollIntoView({ behavior: 'smooth' });
+      } },
+    });
   } catch {
     title.textContent = 'Adresse indisponible';
     sheetStatus.textContent = 'Le service d’adresses ne répond pas. Rechargez la page dans un instant.';

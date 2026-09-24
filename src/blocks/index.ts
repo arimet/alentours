@@ -12,3 +12,11 @@ import { commerces } from './commerces';
 
 // Sheet order, as in the plan.
 export const BLOCKS: Block[] = [risques, eau, air, bruit, internet, mobile, immobilier, ecoles, sante, commerces];
+
+// Families of the detail section, in sheet order.
+export const GROUPS: { title: string; ids: string[] }[] = [
+  { title: 'Environnement et risques', ids: ['risques', 'eau', 'air', 'bruit'] },
+  { title: 'Connexion', ids: ['internet', 'mobile'] },
+  { title: 'Logement', ids: ['immobilier'] },
+  { title: 'Vie quotidienne', ids: ['ecoles', 'sante', 'commerces'] },
+];

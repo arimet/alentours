@@ -70,3 +70,18 @@ export const distance = (a: { lat: number; lon: number }, b: { lat: number; lon:
   const h = Math.sin(dLat / 2) ** 2 + Math.cos(a.lat * rad) * Math.cos(b.lat * rad) * Math.sin(dLon / 2) ** 2;
   return 2 * R * Math.asin(Math.sqrt(h));
 };
+
+/**
+ * One-line status of a block for scanning, derived only from its facts' levels (no score):
+ * alerts and warnings are counted; a missing fact makes it "Données incomplètes", never a green light;
+ * "Rien à signaler" only when every levelled fact is ok.
+ */
+export const summarize = (facts: Fact[]): { level: Level; text: string } | null => {
+  const n = (l: Level) => facts.filter((f) => f.level === l).length;
+  const plural = (k: number, one: string, many: string) => `${k} ${k > 1 ? many : one}`;
+  if (n('alert')) return { level: 'alert', text: plural(n('alert'), 'point d’attention', 'points d’attention') };
+  if (n('warn')) return { level: 'warn', text: plural(n('warn'), 'point de vigilance', 'points de vigilance') };
+  if (n('unknown')) return { level: 'unknown', text: 'Données incomplètes' };
+  const levelled = facts.filter((f) => f.level);
+  return levelled.length && levelled.every((f) => f.level === 'ok') ? { level: 'ok', text: 'Rien à signaler' } : null;
+};
