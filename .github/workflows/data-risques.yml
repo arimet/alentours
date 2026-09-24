@@ -1,0 +1,28 @@
+name: Data risques
+on:
+  schedule:
+    - cron: '0 5 3 * *' # the 3rd of each month
+  workflow_dispatch:
+permissions:
+  contents: write
+  pull-requests: write
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: node scripts/risques.mjs
+      - run: npm test
+      - uses: peter-evans/create-pull-request@v7
+        with:
+          branch: data/risques
+          commit-message: 'data(risques): update GASPAR and radon commune files'
+          title: 'Données risques : mise à jour mensuelle (GASPAR, radon)'
+          body: 'Fichiers `public/data/risques/` regénérés par `scripts/risques.mjs` depuis la base GASPAR et le potentiel radon (data.gouv).'
+          add-paths: public/data/risques
+          delete-branch: true

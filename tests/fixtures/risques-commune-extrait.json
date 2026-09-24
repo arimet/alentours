@@ -1,0 +1,68 @@
+{
+ "75056": {
+  "risques": [
+   "Inondation",
+   "Transport de marchandises dangereuses"
+  ],
+  "pprn": [
+   {
+    "nom": "PPRi de Paris - Révision",
+    "etat": "Approuvé"
+   },
+   {
+    "nom": "R111.3 - Dissolution de gypse",
+    "etat": "Approuvé"
+   },
+   {
+    "nom": "R111.3 - Anciennes carrières",
+    "etat": "Approuvé"
+   }
+  ],
+  "catnat": {
+   "n": 11,
+   "depuis": "1996-09-24",
+   "dernier": "2018-07-27",
+   "type": "Inondations et/ou Coulées de Boue"
+  }
+ },
+ "75107": {
+  "radon": 1
+ },
+ "05157": {
+  "radon": 2,
+  "risques": [
+   "Inondation",
+   "Mouvement de terrain",
+   "Séisme",
+   "Avalanche",
+   "Feu de forêt"
+  ],
+  "pprn": [
+   {
+    "nom": "PPRN-Multi - Saint-Véran 2018",
+    "etat": "Approuvé"
+   }
+  ],
+  "catnat": {
+   "n": 3,
+   "depuis": "1996-09-24",
+   "dernier": "2023-12-01",
+   "type": "Inondations et/ou Coulées de Boue"
+  }
+ },
+ "_meta": {
+  "sources": [
+   {
+    "name": "Base GASPAR (ministère de la Transition écologique, Géorisques)",
+    "url": "https://www.data.gouv.fr/datasets/base-nationale-de-gestion-assistee-des-procedures-administratives-relatives-aux-risques-gaspar",
+    "date": "2026-09-21"
+   },
+   {
+    "name": "Potentiel radon des communes (ASN, ex-IRSN)",
+    "url": "https://www.data.gouv.fr/datasets/connaitre-le-potentiel-radon-de-ma-commune",
+    "date": "2019-05-06"
+   }
+  ],
+  "generated": "2026-09-24"
+ }
+}

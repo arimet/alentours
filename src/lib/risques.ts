@@ -1,7 +1,7 @@
 // Géorisques API v1 (no token): URL builders and pure parsers. See docs/feasibility/geo-risques-eau.md, section 2.
 // Shapes come from the archived v1 spec 1.12.2 (Wayback 2026-07-17) and archived answers: the API was in 503
 // on 2026-09-24, so the tri_zonage and ssp shapes are only checked against the spec, not a live answer.
-import { distance, type Context, type Fact, type Item, type Level } from './block.ts';
+import { distance, type BlockView, type Context, type Fact, type Item, type Level } from './block.ts';
 
 export const API = 'https://www.georisques.gouv.fr/api/v1';
 export const RAYON = 1000; // metres, the API's default radius
@@ -89,9 +89,26 @@ const SEISME_REGLES: Partial<Record<Level, string>> = {
 const RADON: Record<string, [string, Level]> = { '1': ['faible', 'ok'], '2': ['faible', 'info'], '3': ['significatif', 'warn'] };
 const RANK: Level[] = ['unknown', 'ok', 'info', 'warn', 'alert'];
 
-export const communeFact = (sismique: any, radon: any): Fact => {
-  const s = SISMIQUE[sismique && rows(sismique)[0]?.code_zone];
-  const r = RADON[radon && rows(radon)[0]?.classe_potentiel];
+/** Pre-computed commune entry of public/data/risques/<dep>.json (scripts/risques.mjs). */
+export type Commune = {
+  radon?: number;
+  risques?: string[];
+  pprn?: { nom: string; etat: string }[];
+  pprt?: { nom: string; etat: string }[];
+  catnat?: { n: number; depuis: string; dernier: string; type: string };
+};
+
+/** GASPAR is keyed by whole commune, radon by district in Paris, Lyon and Marseille: merge both entries. */
+export const communeOf = (file: any, ctx: Context): Commune | undefined => {
+  const c = file?.[ctx.commune], d = ctx.citycode !== ctx.commune ? file?.[ctx.citycode] : undefined;
+  return c || d ? { ...c, ...d } : undefined;
+};
+
+/** Live answers first; the pre-computed commune radon class fills a missing or empty one. */
+export const communeFact = (sismique: any, radon: any, commune?: Commune): Fact => {
+  const zone = sismique && rows(sismique)[0]?.code_zone;
+  const classe = (radon && rows(radon)[0]?.classe_potentiel) ?? commune?.radon;
+  const s = SISMIQUE[zone], r = RADON[classe];
   const levels = [s?.[1], r?.[1]].filter(Boolean) as Level[];
   const detail = [
     s && SEISME_REGLES[s[1]],
@@ -99,10 +116,39 @@ export const communeFact = (sismique: any, radon: any): Fact => {
   ].filter(Boolean).join(' ');
   return {
     label: 'Séisme et radon (commune)',
-    value: `Séisme : ${s ? `zone ${rows(sismique)[0].code_zone} (${s[0]})` : 'non disponible'}. Radon : ${r ? `zone ${rows(radon)[0].classe_potentiel} (${r[0]})` : 'non disponible'}.`,
+    value: `Séisme : ${s ? `zone ${zone} (${s[0]})` : 'non disponible'}. Radon : ${r ? `zone ${classe} (${r[0]})` : 'non disponible'}.`,
     level: levels.reduce((a, b) => (RANK.indexOf(b) > RANK.indexOf(a) ? b : a), 'unknown' as Level),
     ...(detail && { detail }),
   };
+};
+
+const sentence = (s: string) => s.charAt(0).toUpperCase() + s.slice(1).toLowerCase();
+const frDate = (iso: string) => iso.split('-').reverse().join('/');
+
+/**
+ * GASPAR facts. Risk labels are those of the DDRM (dossier départemental sur les risques majeurs, code de
+ * l'environnement R125-11). PPRN (L562-1) and PPRT (L515-15) set building rules inside the zones they map.
+ * A catastrophe naturelle arrêté (code des assurances L125-1) opens insurance compensation for the damage.
+ */
+export const gasparFacts = (c?: Commune): Fact[] => {
+  if (!c) return [];
+  const facts: Fact[] = [];
+  const plans = ([['pprn', 'risques naturels'], ['pprt', 'risques technologiques']] as const)
+    .filter(([k]) => c[k]?.length)
+    .map(([k, kind]) => `Plan de prévention des ${kind} : ${c[k]!.map((p) => `${p.nom} (${p.etat.toLowerCase()})`).join(', ')}.`);
+  if (c.risques?.length || plans.length) facts.push({
+    label: 'Risques recensés dans la commune',
+    value: c.risques?.length ? c.risques.join(', ') : 'Aucun risque majeur recensé',
+    level: 'info',
+    detail: [...plans, plans.length ? 'Un plan de prévention fixe des règles de construction dans les zones qu’il cartographie.' : 'Aucun plan de prévention des risques en vigueur.'].join(' '),
+  });
+  if (c.catnat) facts.push({
+    label: 'Catastrophes naturelles reconnues',
+    value: `${c.catnat.n} reconnaissance${c.catnat.n > 1 ? 's' : ''} depuis ${c.catnat.depuis.slice(0, 4)}`,
+    level: 'info',
+    detail: `La dernière : ${sentence(c.catnat.type).replace(/\.$/, '')}, à partir du ${frDate(c.catnat.dernier)}. Cette reconnaissance permet d’être indemnisé par son assurance.`,
+  });
+  return facts;
 };
 
 // Every [lon, lat] pair in any GeoJSON object (Point, Polygon, Feature, FeatureCollection…).
@@ -144,4 +190,55 @@ export const sitesItems = (ssp: any, icpe: any, point: { lat: number; lon: numbe
   }
   found.sort((a, b) => +b.seveso - +a.seveso || (a.distance ?? Infinity) - (b.distance ?? Infinity));
   return { items: found.slice(0, MAX_ITEMS).map(({ seveso, ...item }) => item), more: Math.max(0, found.length - MAX_ITEMS) };
+};
+
+/** Live calls, in the order of the block's requests: the name says what is missing. */
+export const LIVE = ['les argiles', 'les inondations', 'la sismicité', 'le radon', 'les sites pollués', 'les installations classées'];
+const EXPLANATION = 'Ces cartes officielles disent à quels risques connus le lieu est exposé. Elles ne décrivent pas l’état de votre logement.';
+
+/**
+ * Merges live answers (undefined when the call failed, in LIVE order) with the department file.
+ * Live wins for point-level facts; the commune file adds the GASPAR lists and fills a missing radon.
+ * Throws when neither answers.
+ */
+export const risquesView = (live: ({ value: any } | undefined)[], file: any, ctx: Context): BlockView => {
+  const c = communeOf(file, ctx);
+  if (!live.some(Boolean)) {
+    if (!c) throw new Error('Géorisques ne répond pas');
+    const gaspar = file._meta?.sources?.[0];
+    return {
+      facts: [...(c.radon ? [communeFact(undefined, undefined, c)] : []), ...gasparFacts(c)],
+      explanation: EXPLANATION,
+      items: [],
+      precision: 'à la commune',
+      source: { name: 'Géorisques (base GASPAR) et ASN (potentiel radon 2019)', url: gaspar?.url ?? rapportUrl(ctx), ...(gaspar?.date && { updated: frDate(gaspar.date) }) },
+      notes: ['Géorisques ne répond pas : informations à la commune seulement.'],
+    };
+  }
+  const ok = (i: number) => live[i] !== undefined;
+  const [rga, tri, sismique, radon, ssp, icpe] = LIVE.map((_, i) => live[i]?.value);
+  const facts: Fact[] = [];
+  if (ok(1)) facts.push(inondationFact(tri));
+  if (ok(0)) facts.push(argilesFact(rga, ctx));
+  if (ok(2) || ok(3) || c?.radon) facts.push(communeFact(sismique, radon, c));
+  facts.push(...gasparFacts(c));
+
+  // ponytail: page_size 50 per source, so a very dense area can list more sites than it counts; add paging if needed.
+  const { items, more } = sitesItems(ssp, icpe, ctx);
+  const notes: string[] = [];
+  if (more) notes.push(`${more} autre${more > 1 ? 's' : ''} site${more > 1 ? 's' : ''} dans un rayon de ${RAYON / 1000} km, visibles sur Géorisques.`);
+  if (!items.length && ok(4) && ok(5)) notes.push(`Aucun site pollué ni installation classée recensé dans un rayon de ${RAYON / 1000} km.`);
+  const missing = LIVE.filter((name, i) => !ok(i) && !(i === 3 && c?.radon));
+  if (missing.length) notes.push(`Géorisques n’a pas répondu pour ${missing.join(', ')}.`);
+
+  return {
+    facts,
+    explanation: EXPLANATION,
+    items,
+    precision: c
+      ? 'au point pour les argiles et les inondations, à la commune pour la sismicité, le radon et les risques recensés'
+      : 'au point pour les argiles et les inondations, à la commune pour la sismicité et le radon',
+    source: { name: 'Géorisques (BRGM, ministère de la Transition écologique)', url: rapportUrl(ctx) },
+    notes,
+  };
 };
