@@ -1,4 +1,6 @@
 ---
+import { url, absoluteUrl } from '../lib/url';
+
 interface Props {
   title?: string;
   description?: string;
@@ -9,6 +11,10 @@ const {
   description = 'Tapez une adresse en France : risques, eau du robinet, air, bruit, fibre, réseau mobile, prix de l’immobilier, écoles et santé, avec la source de chaque chiffre.',
 } = Astro.props;
 const fullTitle = title ? `${title} · ${SITE_NAME}` : SITE_NAME;
+// Directory-style URLs, as GitHub Pages serves them. Address sheets live in the #fragment,
+// so they all share the home page's canonical URL and are never indexed, on purpose.
+const canonical = absoluteUrl(Astro.url.pathname.slice(import.meta.env.BASE_URL.replace(/\/$/, '').length).replace(/\/?$/, '/'));
+const image = absoluteUrl('/og.png');
 ---
 <!doctype html>
 <html lang="fr">
@@ -17,9 +23,26 @@ const fullTitle = title ? `${title} · ${SITE_NAME}` : SITE_NAME;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={SITE_NAME} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:image" content={image} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Mon adresse en données : les données publiques sur votre adresse, avec leurs sources." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <!-- GoatCounter: no cookie; it counts the path only, never the #fragment that holds the place. -->
+    {import.meta.env.PROD && <script is:inline data-goatcounter="https://arimet.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>}
   </head>
   <body>
-    <header class="site"><a href={import.meta.env.BASE_URL} class="brand">Mon adresse en données</a></header>
+    <header class="site">
+      <a href={url('/')} class="brand">Mon adresse en données</a>
+      <a href={url('/sources/')}>Sources et méthodologie</a>
+    </header>
     <slot />
   </body>
 </html>
@@ -48,7 +71,7 @@ const fullTitle = title ? `${title} · ${SITE_NAME}` : SITE_NAME;
   :focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
   [hidden] { display: none !important; }
 
-  header.site { padding: 1rem; max-width: 60rem; margin: 0 auto; }
+  header.site { padding: 1rem; max-width: 60rem; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; justify-content: space-between; }
   .brand { font-weight: 700; text-decoration: none; color: var(--ink); }
   main { padding: 0 1rem 4rem; max-width: 60rem; margin: 0 auto; }
 
