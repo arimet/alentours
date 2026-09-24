@@ -1,0 +1,124 @@
+{
+ "75107": {
+  "type": "FeatureCollection",
+  "features": [
+   {
+    "type": "Feature",
+    "id": "ind_atmo_2021.fid--f1c2206_1a0d2b1afef_-1196",
+    "geometry": null,
+    "properties": {
+     "date_maj": "2026-09-23T14:01:35.775Z",
+     "code_no2": 1,
+     "code_o3": 2,
+     "code_pm10": 2,
+     "code_pm25": 1,
+     "code_qual": 2,
+     "code_so2": 1,
+     "code_zone": "75107",
+     "coul_qual": "#50CCAA",
+     "date_dif": "2026-09-23T02:00:00Z",
+     "date_ech": "2026-09-24",
+     "epsg_reg": "2154",
+     "lib_qual": "Moyen",
+     "lib_zone": "Paris 7e Arrondissement",
+     "source": "Airparif",
+     "type_zone": "commune"
+    }
+   }
+  ],
+  "totalFeatures": 1,
+  "numberMatched": 1,
+  "numberReturned": 1,
+  "timeStamp": "2026-09-24T09:20:10.284Z",
+  "crs": null
+ },
+ "95280": {
+  "type": "FeatureCollection",
+  "features": [
+   {
+    "type": "Feature",
+    "id": "ind_atmo_2021.fid--f1c2206_1a0d2b1afef_-1194",
+    "geometry": null,
+    "properties": {
+     "date_maj": "2026-09-23T14:01:35.775Z",
+     "code_no2": 1,
+     "code_o3": 2,
+     "code_pm10": 1,
+     "code_pm25": 1,
+     "code_qual": 2,
+     "code_so2": 1,
+     "code_zone": "95280",
+     "coul_qual": "#50CCAA",
+     "date_dif": "2026-09-23T02:00:00Z",
+     "date_ech": "2026-09-24",
+     "epsg_reg": "2154",
+     "lib_qual": "Moyen",
+     "lib_zone": "Goussainville",
+     "source": "Airparif",
+     "type_zone": "commune"
+    }
+   }
+  ],
+  "totalFeatures": 1,
+  "numberMatched": 1,
+  "numberReturned": 1,
+  "timeStamp": "2026-09-24T09:20:10.481Z",
+  "crs": null
+ },
+ "05157": {
+  "type": "FeatureCollection",
+  "features": [
+   {
+    "type": "Feature",
+    "id": "ind_atmo_2021.fid--f1c2206_1a0d2b1afef_-1192",
+    "geometry": null,
+    "properties": {
+     "date_maj": "2026-09-23T13:44:38.056Z",
+     "code_no2": 1,
+     "code_o3": 3,
+     "code_pm10": 1,
+     "code_pm25": 1,
+     "code_qual": 3,
+     "code_so2": 1,
+     "code_zone": "05157",
+     "coul_qual": "#F0E641",
+     "date_dif": "2026-09-23T02:00:00Z",
+     "date_ech": "2026-09-24",
+     "epsg_reg": "2154",
+     "lib_qual": "Dégradé",
+     "lib_zone": "Saint-Véran",
+     "source": "AtmoSud",
+     "type_zone": "commune"
+    }
+   },
+   {
+    "type": "Feature",
+    "id": "ind_atmo_2021.fid--f1c2206_1a0d2b1afef_-1191",
+    "geometry": null,
+    "properties": {
+     "date_maj": "2026-09-23T13:44:38.056Z",
+     "code_no2": 1,
+     "code_o3": 3,
+     "code_pm10": 1,
+     "code_pm25": 1,
+     "code_qual": 3,
+     "code_so2": 1,
+     "code_zone": "05157",
+     "coul_qual": "#F0E641",
+     "date_dif": "2026-09-23T02:00:00Z",
+     "date_ech": "2026-09-25",
+     "epsg_reg": "2154",
+     "lib_qual": "Dégradé",
+     "lib_zone": "Saint-Véran",
+     "source": "AtmoSud",
+     "type_zone": "commune"
+    }
+   }
+  ],
+  "totalFeatures": 2,
+  "numberMatched": 2,
+  "numberReturned": 2,
+  "timeStamp": "2026-09-24T09:20:10.666Z",
+  "crs": null
+ }
+}

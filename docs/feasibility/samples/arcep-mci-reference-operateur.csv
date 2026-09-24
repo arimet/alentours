@@ -1,0 +1,197 @@
+code;code_interop;nom
+EVIC;EVIC;EVICOM2000
+CCC;;Opérateurs: données en cours de collecte
+NETG;;VIDEOFUTUR
+ARNE;;Kiwi fibre
+ASFA;;FAImaison
+NUAT;;Numerisat
+AISN;AISN;AISNETHD
+NRJ;;Euro-Information Telecom 
+CARA;;CaribSat
+ANGU;;SPLANG
+TELW;;TELWAN
+RMEC;;ENES Creutzwald 
+CSBY;CSBY;Collectivité de Saint-Barthélémy
+AF21;CDOR;Altitude Fibre 21
+MILK;;MilkyWan
+BLNT;BLNT;Blue Networks Technologies
+FORM;;Operateur fictif ARCEP
+STAK;;Starlink
+XANK;;XANKOM
+GEFI;;Gefi
+??;;Inconnu
+QOTS;QOTS;Qotico Telecom
+RMET;RMET;Régie Talange
+ADSL;;Kiwi
+17N;;17-Numérique
+ADTI;ADTI;ADTIM
+ADTH;ADTH;Adtim FTTH
+AF40;LAND;Altitude Fibre 40
+AXTD;AXTD;Alliance Très Haut Débit
+ANFI;ANFI;Anjou Fibre
+ARTD;ARTD;Ariège Très Haut Débit
+ATHD;ATHD;Auvergne THD
+AXLI;;Axione Limousin
+BEFO;BEFO;Berry Fibre Optique
+BFCF;BFCF;BFC Fibre
+CAPS;CAPS;CAPS Très Haut Débit
+CMTD;CMTD;Charente-Maritime Très Haut Débit
+CNCT;SNMA;Connect 76
+CO92;SEQU;Covage 92
+COAG;COVT;Covage THD
+DETE;DEBI;Debitex Telecom
+SY79;SY79;Deux-Sèvres Numérique
+MENI;DOUB;Doubs THD
+BART;BART;Dunkerque grand littoral networks
+HISP;;Hispasat
+ENTH;ENTH;Essonne numérique Très Haut Débit
+EULH;EULH;Eure-et-Loir THD
+GERS;GERS;Gers numérique
+GTHD;GTHD;Gironde Très Haut Débit
+GOTE;GOTE;Go telecom
+GDHD;GDHD;Grand Dax Très Haut Débit
+GRNE;GRAV;Gravellines network
+INOL;INOL;Inolia
+IRIE;;Iris 64
+ISER;ISER;Isère THD
+AQTH;NATH;La Fibre Nouvelle-Aquitaine
+LTHD;LTHD;Laval Très Haut Débit
+LOSA;LOSA;Losange
+LOIR;LOIR;Lysseo (Loiret THD)
+MAFI;MNUM;MANCHE FIBRE
+MANC;MANC;Manche Telecom
+MART;MART;Martinique THD
+MTVC;;SFR Caraïbe
+MAYE;MAYE;Mayenne Fibre
+MONU;MONU;Moselle Numérique
+MOSL;;Moselle Telecom
+NET4;LOZE;NET 48
+NIVE;NIVE;Nivertel
+NORN;NORD;Nordnet
+ONUM;ONUM;Oise numérique
+OPTE;OPAL;Opalys Telecom
+OMTD;OMTD;Orne métropole Très Haut Débit
+OUTR;OUTR;SFR Caraïbe
+R135;OZON;Ozone
+PACT;PACT;Provence Alpes ConnecT
+NETP;RESO;RESOPTIC
+LOAN;LOAN;RIP 44
+ROSA;ROSA;Rosace
+SETR;SETH;Seine Essonne Très Haut Débit
+SMTH;SMTH;Seine-et-Marne THD 
+SETE;0SEQ;Sequantic Telecom
+UPCF;NUME;SFR Fibre SAS
+SFTT;SFMD;Xp Fibre
+SPTH;SPTH;Société Palloise du Très Haut Débit
+SRR;SRRA;SFR
+SOGA;SOGA;Solstice Grand Angoulême
+SYAN;0THS;Syndicat des Energies et de l’Aménagement Numérique de la Haute-Savoie (SYANE)
+TELO;;TELOISE
+THD6;LAFI;THD 06
+THD5;NPDC;THD 59-62
+THD7;SAVO;THD 73
+THDB;THDB;THD Bretagne
+THD4;SIEL;THD42 Exploitation
+TDSP;0T2S;Tutor 2 Sarres
+DSP1;0TCA;Tutor Calvados
+TUTO;04CF;Tutor Côte Fleurie
+TEES;0TE2;Tutor Europ'Essonne
+TUMO;0MLM;Tutor Moulins-Les-Mets
+TTNY;0GNY;Tutor Nancy
+SMSM;0TSO;Tutor Somme
+VOFI;VOFI;Val d'Oise Fibre
+VDLF;VDLF;Val-de-Loire Fibre
+VALO;VALO;Valofibre
+VANN;REVA;Vannes Agglo Numérique
+VANU;VAUC;Vaucluse Numérique
+VENU;VENU;Vendée numérique
+IPAR;;Wibox
+WSGU;;SFR Caraïbe
+YVFI;YVFI;Yvelines Fibre
+ZEOP;;Zeop
+WIGA;WIGA;Wigard
+EMER;AUDE;Emeraude THD
+LRCA;LRCA;La Rochelle THD
+FI31;FI31;La Fibre 31
+HD66;NU66;THD66
+VTHD;VTHD;Var Très Haut Débit
+VIEN;VIEN;Vienne Numérique
+CORF;CORS;Corsica Fibra
+THDD;THDD;THD64
+OCFI;OCTO;Octogone Fibre
+TARN;TARN;Tarn Fibre
+RRTH;RRTH;Régie Réunion THD
+REME;;ENES Hombourg-Haut 
+EURE;EURE;Eure Normandie THD
+DSDH;COSL;Covage Saône-et-Loire
+GUDI;GUAD;Guadeloupe Digital
+DSP3;SACO;Savoie Connectée
+KOUR;KFIB;Kourou Fibre
+LOFI;LOFI;Loiret Fibre
+VCMB;VCMB;Vallée de Chamonix Mont-Blanc connectée
+DSPT;HTHD;Hérault THD
+LETR;SART;Sarthe Numérique
+YCON;YCON;Yconik
+BTHD;BTHD;Bretagne Très Haut Débit
+FI44;FI44;Fibre44
+HASF;HASF;Haute Saône Fibre
+JURA;JURA;Altitude Fibre 39
+NIED;NIED;Niederbronn THD
+CCCC;CCCC;Opérateurs: données en cours de collecte
+R012;;Alsatis
+CPOD;ALTI;Altitude Infrasturcture
+ARCEP;;ARCEP
+AVSC;AVSC;Audio Visuel et Systèmes de Communication (ASC) 
+AXIO;;Axione
+BOUY;BOUY;Bouygues Telecom
+MIAS;;CANAL+ TÉLÉCOM
+CMIN;CMIN;Chartres métropole innovations numériques
+COMC;;Comcable
+CORI;;Coriolis Telecom
+AXAF;COVA;Covage
+DAUF;DAUF;Dauphin Telecom
+DP71;DPSL;Département de Saône-et-Loire
+EUTS;;Eutelsat SA
+FAFO;FIBA;FIBRagglo
+FIBR;FIBR;Fibreso
+FREE;FREE;Free
+GUYA;GUYA;Guyacom
+SHSN;SHSN;Haute-Saône Numérique
+KWAO;KNET;K-Net
+VIAL;;Vialis
+YANA;YANA;Yana Fibre
+FAGL;FAGL;Faucigny Glières Fibre
+GLCS;GLCS;Glaucos
+RTHD;VENU;La fibre 85
+TUHS;0THS;Tutor Haute-Savoie
+YCNK;YCON;Yconik
+LFPA;SPTH;La fibre paloise
+DLFE;DOUB;Menippe
+TUD6;0TSO;Tutor Somme
+MNUM;MNUM;Manche Numérique
+MTHD1;;Mission Très Haut Débit
+R130;;Nomotech
+FRTE;FTEL;Orange
+RC08;RC08;Régie Communale des Communications Electroniques de Chooz
+REFO;REFO;Régie d’Exploitation de la Fibre Optique de Saint-Quentin-en-Yvelines (Quentiop)
+REFH;REFH;Régie fibre optique de Falck et Hargarten
+GAEL;GAEL;Régie gaz et électricité de Bonneville
+GAZE;GAZE;Régie gaz et électricité de Sallanches (RGES)
+REUN;REUN;Réunicable
+TECM;;SES TechCom S.A
+SFR0;SFRA;SFR
+TERA;TERA;Société d'économie mixte e-téra
+SPLS;SPLS;SPL Sainte-Anne 2.0
+CCPB;CCPB;Syndicat des communes du pays de Bitche
+SIEA;SIEA;Syndicat intercommunal d'énergie et de e-communication de l'Ain
+TDFF;;TDF Fibre
+THDT;THDT;THDtel
+VITS;;VITIS
+WAFI;WAFI;Warndt Fibre
+INFS;;Weaccess
+LGTE;;LGTEL
+LGNM;;Lot-et-Garonne Numérique
+WFLD;;Xilan
+MWSP;;OWI TEL
+APNT;;Apinet
+OTHD;;Orne THD

@@ -1,0 +1,50 @@
+{
+ "total_count": 11,
+ "results": [
+  {
+   "identifiant_de_l_etablissement": "0050013M",
+   "nom_etablissement": "Collège des Hautes Vallées",
+   "type_etablissement": "Collège",
+   "statut_public_prive": "Public",
+   "libelle_nature": "COLLEGE",
+   "adresse_1": "310 chemin du Queyron",
+   "code_postal": "05600",
+   "nom_commune": "Guillestre",
+   "etat": "OUVERT",
+   "latitude": 44.662056226008666,
+   "longitude": 6.654170315748365,
+   "precision_localisation": "BATIMENT",
+   "dist": 17013.965850954704
+  },
+  {
+   "identifiant_de_l_etablissement": "0050409T",
+   "nom_etablissement": "Collège Les Giraudes",
+   "type_etablissement": "Collège",
+   "statut_public_prive": "Public",
+   "libelle_nature": "COLLEGE",
+   "adresse_1": "Rue des Écoles",
+   "code_postal": "05120",
+   "nom_commune": "L'Argentière-la-Bessée",
+   "etat": "OUVERT",
+   "latitude": 44.793827501956464,
+   "longitude": 6.5611896701809975,
+   "precision_localisation": "Numéro de rue",
+   "dist": 25696.157161978255
+  },
+  {
+   "identifiant_de_l_etablissement": "0050525U",
+   "nom_etablissement": "Section d'enseignement général et professionnel adapté du Collège Les Garcins",
+   "type_etablissement": "Collège",
+   "statut_public_prive": "Public",
+   "libelle_nature": "SECTION ENSEIGNT GEN. ET PROF. ADAPTE",
+   "adresse_1": "RUE A BOURGES",
+   "code_postal": "05100",
+   "nom_commune": "Briançon",
+   "etat": "OUVERT",
+   "latitude": 44.8879681446246,
+   "longitude": 6.637020001312041,
+   "precision_localisation": "Numéro de rue",
+   "dist": 27025.578546459292
+  }
+ ]
+}

@@ -1,0 +1,100 @@
+{
+ "data": [
+  {
+   "finess": "750013724",
+   "rs": "PHARMACIE MESNARD",
+   "categ_code": 620,
+   "categ_lib": "Pharmacie d'Officine",
+   "adresse_num_voie": "42",
+   "adresse_type_voie": "AV",
+   "adresse_nom_voie": "DE BRETEUIL",
+   "adresse_code_postal": "75007",
+   "com_code": "75107",
+   "san_urg": false,
+   "geoloc_4326_lat": 48.850535,
+   "geoloc_4326_long": 2.311517,
+   "geoloc_precision": "1-Précision parcelle, housenumber",
+   "date_extract_finess": "2026-05-04",
+   "_dist_m": 212
+  },
+  {
+   "finess": "750014011",
+   "rs": "SELAS PHARMACIE DE SAXE-PARIS",
+   "categ_code": 620,
+   "categ_lib": "Pharmacie d'Officine",
+   "adresse_num_voie": "2",
+   "adresse_type_voie": "R",
+   "adresse_nom_voie": "LEON VAUDOYER",
+   "adresse_code_postal": "75007",
+   "com_code": "75107",
+   "san_urg": false,
+   "geoloc_4326_lat": 48.848412,
+   "geoloc_4326_long": 2.308706,
+   "geoloc_precision": "1-Précision parcelle, housenumber",
+   "date_extract_finess": "2026-05-04",
+   "_dist_m": 254
+  },
+  {
+   "finess": "750025306",
+   "rs": "SELARL PHARMACIE DE BRETEUIL",
+   "categ_code": 620,
+   "categ_lib": "Pharmacie d'Officine",
+   "adresse_num_voie": "6",
+   "adresse_type_voie": "PL",
+   "adresse_nom_voie": "DE BRETEUIL",
+   "adresse_code_postal": "75015",
+   "com_code": "75115",
+   "san_urg": false,
+   "geoloc_4326_lat": 48.847235,
+   "geoloc_4326_long": 2.310734,
+   "geoloc_precision": "1-Précision parcelle, housenumber",
+   "date_extract_finess": "2026-05-04",
+   "_dist_m": 415
+  },
+  {
+   "finess": "750014425",
+   "rs": "PHARMACIE DE L'ÉCOLE MILITAIRE",
+   "categ_code": 620,
+   "categ_lib": "Pharmacie d'Officine",
+   "adresse_num_voie": "26",
+   "adresse_type_voie": "AV",
+   "adresse_nom_voie": "DE TOURVILLE",
+   "adresse_code_postal": "75007",
+   "com_code": "75107",
+   "san_urg": false,
+   "geoloc_4326_lat": 48.85427,
+   "geoloc_4326_long": 2.30674,
+   "geoloc_precision": "1-Précision parcelle, housenumber",
+   "date_extract_finess": "2026-05-04",
+   "_dist_m": 420
+  },
+  {
+   "finess": "750027070",
+   "rs": "PHARMACIE JOUSSAIN",
+   "categ_code": 620,
+   "categ_lib": "Pharmacie d'Officine",
+   "adresse_num_voie": "15",
+   "adresse_type_voie": "R",
+   "adresse_nom_voie": "VALENTIN HAUY",
+   "adresse_code_postal": "75015",
+   "com_code": "75115",
+   "san_urg": false,
+   "geoloc_4326_lat": 48.846557,
+   "geoloc_4326_long": 2.309033,
+   "geoloc_precision": "1-Précision parcelle, housenumber",
+   "date_extract_finess": "2026-05-04",
+   "_dist_m": 462
+  }
+ ],
+ "links": {
+  "profile": "https://tabular-api.data.gouv.fr/api/resources/796dfff7-cf54-493a-a0a7-ba3c2024c6f3/profile/",
+  "swagger": "https://tabular-api.data.gouv.fr/api/resources/796dfff7-cf54-493a-a0a7-ba3c2024c6f3/swagger/",
+  "next": null,
+  "prev": null
+ },
+ "meta": {
+  "page": 1,
+  "page_size": 50,
+  "total": 14
+ }
+}

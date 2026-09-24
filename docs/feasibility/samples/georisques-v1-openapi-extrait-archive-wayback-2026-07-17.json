@@ -1,0 +1,382 @@
+{
+ "_note": "Extrait (info + paths, parametres) de la spec OpenAPI v1 archivee par Wayback le 2026-07-17 ; API live en 503 le 2026-09-24",
+ "info": {
+  "title": "Services API Géorisques V1",
+  "description": "Les API de Géorisques évoluent. <br/>Les nouveaux [endpoints api/v2/](/doc-api?urls.primaryName=Services%20API%20Géorisques%20V2) offrent des nouvelles capacités de filtres en fonction de la thématique métier, mais également des nouveaux critères de recherche géographique. <br/><br/> Limitations des appels API V1 : <ul> <li>1 appel/s pour <b>api/v1/resultats_rapport_risque</b></li> <li>1 appel/s pour <b>api/v1/rapport_pdf</b></li> <li>5 appels/s pour <b>api/v1/**</b></li> </ul>",
+  "version": "1.12.2"
+ },
+ "servers": [
+  {
+   "url": "https://www.georisques.gouv.fr"
+  }
+ ],
+ "paths": {
+  "/api/v1/zonage_sismique": {
+   "get": {
+    "summary": "Lister les zonages sismiques",
+    "params": [
+     "rayon",
+     "latlon",
+     "code_insee",
+     "page",
+     "page_size"
+    ]
+   }
+  },
+  "/api/v1/tri_zonage": {
+   "get": {
+    "summary": "Lister les Territoires à  Risques importants d'Inondation (TRI) recensés sur l'adresse concernée",
+    "params": [
+     "latlon",
+     "code"
+    ]
+   }
+  },
+  "/api/v1/ssp": {
+   "get": {
+    "summary": "Lister les données CASIAS, ex-BASOL, SIS et SUP.",
+    "params": [
+     "rayon",
+     "latlon",
+     "code_insee",
+     "page",
+     "page_size",
+     "code_region",
+     "code_departement",
+     "date_maj"
+    ]
+   }
+  },
+  "/api/v1/ssp/instructions": {
+   "get": {
+    "summary": "Lister les informations de l'administration concernant une pollution suspectée ou avérée (ex-BASOL)",
+    "params": [
+     "rayon",
+     "latlon",
+     "code_insee",
+     "page",
+     "page_size",
+     "code_region",
+     "code_departement",
+     "date_maj"
+    ]
+   }
+  },
+  "/api/v1/ssp/conclusions_sup": {
+   "get": {
+    "summary": "Lister les Servitudes d'Utilité Publique",
+    "params": [
+     "rayon",
+     "latlon",
+     "code_insee",
+     "page",
+     "page_size",
+     "code_region",
+     "code_departement",
+     "date_maj"
+    ]
+   }
+  },
+  "/api/v1/ssp/conclusions_sis": {
+   "get": {
+    "summary": "Lister les Secteurs d'Information sur les Sols",
+    "params": [
+     "rayon",
+     "latlon",
+     "code_insee",
+     "page",
+     "page_size",
+     "code_region",
+     "code_departement",
+     "date_maj"
+    ]
+   }
+  },
+  "/api/v1/ssp/casias": {
+   "get": {
+    "summary": "Lister les Cartes des Anciens Sites Industriels et Activités de Services",
+    "params": [
+     "rayon",
+     "latlon",
+     "code_insee",
+     "page",
+     "page_size",
+     "code_region",
+     "code_departement",
+     "date_maj"
+    ]
+   }
+  },
+  "/api/v1/rga": {
+   "get": {
+    "summary": "Cette interface est conçue pour diffuser les données sur le retrait / gonflement des sols argileux.",
+    "params": [
+     "latlon"
+    ]
+   }
+  },
+  "/api/v1/resultats_rapport_risque": {
+   "get": {
+    "summary": "Résultats du rapport des risques près de chez moi",
+    "params": [
+     "code_insee",
+     "latlon",
+     "adresse"
+    ]
+   }
+  },
+  "/api/v1/rapport_pdf": {
+   "get": {
+    "summary": "Cette interface est conçue pour generer un rapport de risque : adresse ou latlon génèrent un rapport à l'adresse. code_insee génère un rapport à la commune.",
+    "params": [
+     "code_insee",
+     "latlon",
+     "adresse"
+    ]
+   }
+  },
+  "/api/v1/radon": {
+   "get": {
+    "summary": "Rechercher les potentiels radon des communes",
+    "params": [
+     "code_insee",
+     "page",
+     "page_size"
+    ]
+   }
+  },
+  "/api/v1/old": {
+   "get": {
+    "summary": "Liste des Obligations Légales de Débroussaillement",
+    "params": [
+     "latlon",
+     "code_insee"
+    ]
+   }
+  },
+  "/api/v1/mvt": {
+   "get": {
+    "summary": "Cette interface est conçue pour diffuser les données sur le mouvement de terrain.",
+    "params": [
+     "rayon",
+     "latlon",
+     "code_insee",
+     "page",
+     "page_size",
+     "region",
+     "departement",
+     "identifiant",
+     "type",
+     "fiabilite"
+    ]
+   }
+  },
+  "/api/v1/installations_nucleaires": {
+   "get": {
+    "summary": "Liste des installations nucléaires à proximité selon le plan particulier d'intervention",
+    "params": [
+     "longitude",
+     "latitude",
+     "code_insee"
+    ]
+   }
+  },
+  "/api/v1/installations_classees": {
+   "get": {
+    "summary": "Cette interface est conçue pour diffuser les données installations classées de Gun Env à destination de Géorisques.",
+    "params": [
+     "code_insee",
+     "siret",
+     "codeAIOT",
+     "latlon",
+     "rayon",
+     "page",
+     "page_size",
+     "debutInspection",
+     "finInspection",
+     "raisonSociale",
+     "region",
+     "departement",
+     "activite",
+     "nomenclature",
+     "regime",
+     "statutSeveso",
+     "prioriteNationale",
+     "ied",
+     "dateMaj"
+    ]
+   }
+  },
+  "/api/v1/gaspar/tri": {
+   "get": {
+    "summary": "Lister les Territoires à  Risques importants d'Inondation (TRI) recensés sur le territoire concerné",
+    "params": [
+     "rayon",
+     "latlon",
+     "code_insee",
+     "page",
+     "page_size"
+    ]
+   }
+  },
+  "/api/v1/gaspar/tim": {
+   "get": {
+    "summary": "Lister les dossier de Transmission d'Information au Maire (TIM) recensés sur le territoire concerné",
+    "params": [
+     "rayon",
+     "latlon",
+     "code_insee",
+     "page",
+     "page_size"
+    ]
+   }
+  },
+  "/api/v1/gaspar/risques": {
+   "get": {
+    "summary": "Lister les types de risques recensés sur le territoire concerné",
+    "params": [
+     "rayon",
+     "latlon",
+     "code_insee",
+     "page",
+     "page_size"
+    ]
+   }
+  },
+  "/api/v1/gaspar/pprt": {
+   "get": {
+    "summary": "Recherche paginée des procédures Gaspar sur les Plans de Prévention des Risques Technologiques",
+    "params": [
+     "codeInsee",
+     "longitude",
+     "latitude",
+     "page",
+     "page_size"
+    ]
+   }
+  },
+  "/api/v1/gaspar/pprt/{idGaspar}": {
+   "get": {
+    "summary": "Recherche des détails d'une procédure Gaspar sur les Plans de Prévention des Risques Technologiques (sans documents)",
+    "params": [
+     "idGaspar"
+    ]
+   }
+  },
+  "/api/v1/gaspar/pprn": {
+   "get": {
+    "summary": "Recherche paginée des procédures Gaspar sur les Plans de Prévention des Risques Naturels",
+    "params": [
+     "codeInsee",
+     "longitude",
+     "latitude",
+     "page",
+     "page_size"
+    ]
+   }
+  },
+  "/api/v1/gaspar/pprn/{idGaspar}": {
+   "get": {
+    "summary": "Recherche des détails d'une procédure Gaspar sur les Plans de Prévention des Risques Naturels (sans documents)",
+    "params": [
+     "idGaspar"
+    ]
+   }
+  },
+  "/api/v1/gaspar/pprm": {
+   "get": {
+    "summary": "Recherche paginée des procédures Gaspar sur les Plans de Prévention des Risques Miniers",
+    "params": [
+     "codeInsee",
+     "longitude",
+     "latitude",
+     "page",
+     "page_size"
+    ]
+   }
+  },
+  "/api/v1/gaspar/pprm/{idGaspar}": {
+   "get": {
+    "summary": "Recherche des détails d'une procédure Gaspar sur les Plans de Prévention des Risques Miniers (sans documents)",
+    "params": [
+     "idGaspar"
+    ]
+   }
+  },
+  "/api/v1/gaspar/papi": {
+   "get": {
+    "summary": "Lister les Programmes d'Actions de Prévention des Inondations (PAPI) recensés sur le territoire concerné",
+    "params": [
+     "rayon",
+     "latlon",
+     "code_insee",
+     "page",
+     "page_size"
+    ]
+   }
+  },
+  "/api/v1/gaspar/dicrim": {
+   "get": {
+    "summary": "Lister les Documents d'Information Communale sur les Risques Majeurs (DICRIM) sur le territoire concerné",
+    "params": [
+     "rayon",
+     "latlon",
+     "code_insee",
+     "page",
+     "page_size"
+    ]
+   }
+  },
+  "/api/v1/gaspar/catnat": {
+   "get": {
+    "summary": "Lister les arrêtés de catastrophe naturelle",
+    "params": [
+     "rayon",
+     "latlon",
+     "code_insee",
+     "page",
+     "page_size"
+    ]
+   }
+  },
+  "/api/v1/gaspar/azi": {
+   "get": {
+    "summary": "Lister les Atlas de Zones Inondables (AZI) recensés sur le territoire concerné",
+    "params": [
+     "rayon",
+     "latlon",
+     "code_insee",
+     "page",
+     "page_size"
+    ]
+   }
+  },
+  "/api/v1/csv/installations_classees": {
+   "get": {
+    "summary": "Cette interface est conçue pour diffuser les données installations classées de Gun Env à destination de Géorisques.",
+    "params": [
+     "page_size",
+     "page",
+     "departement",
+     "region"
+    ]
+   }
+  },
+  "/api/v1/cavites": {
+   "get": {
+    "summary": "Cette interface est conçue pour diffuser les données sur les cavités souterraines.",
+    "params": [
+     "rayon",
+     "latlon",
+     "code_insee",
+     "page",
+     "page_size",
+     "region",
+     "departement",
+     "identifiant",
+     "type"
+    ]
+   }
+  }
+ }
+}

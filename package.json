@@ -1,0 +1,22 @@
+{
+  "name": "mon-adresse-en-donnees",
+  "description": "Type a French address, get a clear and sourced sheet about the place: risks, tap water, air, noise, fibre and mobile coverage, property prices, schools and health services.",
+  "license": "MIT",
+  "author": "Anthony Rimet (https://github.com/arimet)",
+  "homepage": "https://arimet.github.io/mon-adresse-en-donnees/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/arimet/mon-adresse-en-donnees.git"
+  },
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "test": "node --test"
+  },
+  "dependencies": {
+    "astro": "^7.3.5"
+  }
+}

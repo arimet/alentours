@@ -1,0 +1,69 @@
+{
+ "data": [
+  {
+   "Identifiant PP": 10000207455,
+   "Libellé civilité d'exercice": "Docteur",
+   "Nom d'exercice": "MARES",
+   "Prénom d'exercice": "MICHEL",
+   "Libellé profession": "Médecin",
+   "Code savoir-faire": "SM53",
+   "Libellé savoir-faire": "Spécialiste en Médecine Générale",
+   "Libellé mode exercice": "Lib,indép,artis,com",
+   "Raison sociale site": "CABINET DU DR MICHEL MARES",
+   "Numéro Voie (coord. structure)": "19",
+   "Libellé type de voie (coord. structure)": null,
+   "Libellé Voie (coord. structure)": "RUE MONSIEUR",
+   "Code postal (coord. structure)": "75007",
+   "Code commune (coord. structure)": "75056",
+   "Libellé commune (coord. structure)": "Paris",
+   "Libellé genre activité": "Activité standard de soin ou de pharmacien"
+  },
+  {
+   "Identifiant PP": 10000455963,
+   "Libellé civilité d'exercice": "Docteur",
+   "Nom d'exercice": "MANODRITTA",
+   "Prénom d'exercice": "PASCALE",
+   "Libellé profession": "Médecin",
+   "Code savoir-faire": "SM53",
+   "Libellé savoir-faire": "Spécialiste en Médecine Générale",
+   "Libellé mode exercice": "Lib,indép,artis,com",
+   "Raison sociale site": "CABINET DU DR PASCALE MANODRITTA",
+   "Numéro Voie (coord. structure)": "2",
+   "Libellé type de voie (coord. structure)": null,
+   "Libellé Voie (coord. structure)": "RUE BOUGAINVILLE",
+   "Code postal (coord. structure)": "75007",
+   "Code commune (coord. structure)": "75056",
+   "Libellé commune (coord. structure)": "Paris",
+   "Libellé genre activité": "Activité standard de soin ou de pharmacien"
+  },
+  {
+   "Identifiant PP": 10002145042,
+   "Libellé civilité d'exercice": "Docteur",
+   "Nom d'exercice": "ROMAIN",
+   "Prénom d'exercice": "PIERRE",
+   "Libellé profession": "Médecin",
+   "Code savoir-faire": "SM53",
+   "Libellé savoir-faire": "Spécialiste en Médecine Générale",
+   "Libellé mode exercice": "Bénévole",
+   "Raison sociale site": "SECOURS CATHOLIQUE",
+   "Numéro Voie (coord. structure)": "106",
+   "Libellé type de voie (coord. structure)": null,
+   "Libellé Voie (coord. structure)": "RUE DU BAC",
+   "Code postal (coord. structure)": "75007",
+   "Code commune (coord. structure)": "75107",
+   "Libellé commune (coord. structure)": "Paris 7e  Arrondissement",
+   "Libellé genre activité": "Activité standard de soin ou de pharmacien"
+  }
+ ],
+ "links": {
+  "profile": "https://tabular-api.data.gouv.fr/api/resources/fffda7e9-0ea2-4c35-bba0-4496f3af935d/profile/",
+  "swagger": "https://tabular-api.data.gouv.fr/api/resources/fffda7e9-0ea2-4c35-bba0-4496f3af935d/swagger/",
+  "next": "https://tabular-api.data.gouv.fr/api/resources/fffda7e9-0ea2-4c35-bba0-4496f3af935d/data/?Code postal (coord. structure)__exact=75007&Code savoir-faire__in=SM53,SM54&Code profession__exact=10&page=2&page_size=50",
+  "prev": null
+ },
+ "meta": {
+  "page": 1,
+  "page_size": 50,
+  "total": 77
+ }
+}

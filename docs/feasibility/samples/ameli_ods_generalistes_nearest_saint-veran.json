@@ -1,0 +1,84 @@
+{
+ "total_count": 693,
+ "results": [
+  {
+   "nom": "PIERRE MORDACQ",
+   "adresse": "SELARL CABINET MEDICAL DU QUEYRAS CABINET MEDICAL 227 RUE SAINT JACQUES  05470 AIGUILLES",
+   "code_postal": "05470",
+   "code_commune": "05003",
+   "convention": "Secteur 1 ou conventionné",
+   "nature_exercice": "Libéral intégral",
+   "coordonnees": {
+    "lon": 6.86749,
+    "lat": 44.780759
+   },
+   "dist": 8534.823330475398
+  },
+  {
+   "nom": "FIONA LATTO",
+   "adresse": "SELARL CABINET MEDICAL DU QUEYRAS CABINET MEDICAL 227 RUE SAINT JACQUES  05470 AIGUILLES",
+   "code_postal": "05470",
+   "code_commune": "05003",
+   "convention": "Secteur 1 ou conventionné",
+   "nature_exercice": "Libéral intégral",
+   "coordonnees": {
+    "lon": 6.86749,
+    "lat": 44.780759
+   },
+   "dist": 8534.823330475398
+  },
+  {
+   "nom": "RACHEL PORTIGLIATTI",
+   "adresse": "ROUTE DE QUEYRAS  05600 GUILLESTRE",
+   "code_postal": "05600",
+   "code_commune": "05065",
+   "convention": "Secteur 1 ou conventionné",
+   "nature_exercice": "Libéral intégral",
+   "coordonnees": {
+    "lon": 6.654583,
+    "lat": 44.65875
+   },
+   "dist": 17088.00179705036
+  },
+  {
+   "nom": "CHLOE DEREIX",
+   "adresse": "CABINET DU DR VICTOR FERMENT CABINET MEDICAL 8 RUE DES CADUCEES  05600 GUILLESTRE",
+   "code_postal": "05600",
+   "code_commune": "05065",
+   "convention": "Secteur 1 ou conventionné",
+   "nature_exercice": "Libéral intégral",
+   "coordonnees": {
+    "lon": 6.648007,
+    "lat": 44.661147
+   },
+   "dist": 17510.425273166307
+  },
+  {
+   "nom": "DIMITRI PERRIN FROIDUROT",
+   "adresse": "8 RUE DES CADUCEES  05600 GUILLESTRE",
+   "code_postal": "05600",
+   "code_commune": "05065",
+   "convention": "Secteur 1 ou conventionné",
+   "nature_exercice": "Libéral activité salariée",
+   "coordonnees": {
+    "lon": 6.646823,
+    "lat": 44.661295
+   },
+   "dist": 17596.008723162307
+  },
+  {
+   "nom": "STEPHANIE GALLOT",
+   "adresse": "8 CHEMIN DES CADUCEES  05600 GUILLESTRE",
+   "code_postal": "05600",
+   "code_commune": "05065",
+   "convention": "Secteur 1 ou conventionné",
+   "nature_exercice": "Libéral intégral",
+   "coordonnees": {
+    "lon": 6.646823,
+    "lat": 44.661295
+   },
+   "dist": 17596.008723162307
+  }
+ ],
+ "_note": "dédupliqué (nom,adresse) sur 40 premiers enregistrements"
+}

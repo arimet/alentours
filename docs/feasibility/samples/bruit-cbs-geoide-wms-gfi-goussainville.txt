@@ -1,0 +1,5 @@
+GetFeatureInfo results:
+
+Layer 'N_BRUIT_ZBR_INFRA_F_SNCF_B_95'
+  Feature 0: 
+    FID = '0'

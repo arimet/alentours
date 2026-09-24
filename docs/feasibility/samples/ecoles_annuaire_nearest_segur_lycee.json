@@ -1,0 +1,50 @@
+{
+ "total_count": 988,
+ "results": [
+  {
+   "identifiant_de_l_etablissement": "0750662M",
+   "nom_etablissement": "Lycée Victor Duruy",
+   "type_etablissement": "Lycée",
+   "statut_public_prive": "Public",
+   "libelle_nature": "LYCEE D ENSEIGNEMENT GENERAL",
+   "adresse_1": "33 boulevard des Invalides",
+   "code_postal": "75007",
+   "nom_commune": "Paris",
+   "etat": "OUVERT",
+   "latitude": 48.85230029234186,
+   "longitude": 2.3148477839827657,
+   "precision_localisation": "Numéro de rue",
+   "dist": 488.67551872785253
+  },
+  {
+   "identifiant_de_l_etablissement": "0753852E",
+   "nom_etablissement": "Lycée privé Sainte-Jeanne-Élisabeth",
+   "type_etablissement": "Lycée",
+   "statut_public_prive": "Privé",
+   "libelle_nature": "LYCEE ENSEIGNT GENERAL ET TECHNOLOGIQUE",
+   "adresse_1": "8 rue Maurice de la Sizeranne",
+   "code_postal": "75007",
+   "nom_commune": "Paris",
+   "etat": "OUVERT",
+   "latitude": 48.84737880361758,
+   "longitude": 2.3146576650777937,
+   "precision_localisation": "Numéro de rue",
+   "dist": 575.2865040257998
+  },
+  {
+   "identifiant_de_l_etablissement": "0753915Y",
+   "nom_etablissement": "Lycée privé Blomet",
+   "type_etablissement": "Lycée",
+   "statut_public_prive": "Privé",
+   "libelle_nature": "LYCEE D ENSEIGNEMENT GENERAL",
+   "adresse_1": "5 rue Blomet",
+   "code_postal": "75015",
+   "nom_commune": "Paris",
+   "etat": "OUVERT",
+   "latitude": 48.843940309447134,
+   "longitude": 2.3088341376585864,
+   "precision_localisation": "Numéro de rue",
+   "dist": 751.6864560143136
+  }
+ ]
+}

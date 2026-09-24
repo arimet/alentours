@@ -1,0 +1,174 @@
+{
+ "type": "FeatureCollection",
+ "features": [
+  {
+   "type": "Feature",
+   "properties": {
+    "dataset_id": 1075,
+    "resource_id": 82136,
+    "dataset_title": "Réseau scolaire interurbain ZOU !",
+    "stop_id": "ZOS:10393-0515700",
+    "data_import_id": 576586,
+    "resource_title": "ZOU_Réseau Scolaire GTFS.Zip",
+    "stop_name": "La Madeleine",
+    "location_type": 0,
+    "_dist_m": 38
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     6.86079,
+     44.70442
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "dataset_id": 1075,
+    "resource_id": 82136,
+    "dataset_title": "Réseau scolaire interurbain ZOU !",
+    "stop_id": "ZOS:10393-0515700C",
+    "data_import_id": 576586,
+    "resource_title": "ZOU_Réseau Scolaire GTFS.Zip",
+    "stop_name": "La Madeleine",
+    "location_type": 1,
+    "_dist_m": 38
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     6.86079,
+     44.70442
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "dataset_id": 1177,
+    "resource_id": 82604,
+    "dataset_title": "Navettes saisonnières de la CC du Guillestrois et du Queyras",
+    "stop_id": "05157AP000009",
+    "data_import_id": 568102,
+    "resource_title": "gtfs.zip",
+    "stop_name": "La Madeleine",
+    "location_type": 0,
+    "_dist_m": 42
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     6.86070264971717,
+     44.70440470176736
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "dataset_id": 1177,
+    "resource_id": 82604,
+    "dataset_title": "Navettes saisonnières de la CC du Guillestrois et du Queyras",
+    "stop_id": "05157AP000005",
+    "data_import_id": 568102,
+    "resource_title": "gtfs.zip",
+    "stop_name": "Saint Ouen",
+    "location_type": 0,
+    "_dist_m": 329
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     6.85727413793064,
+     44.70292337307849
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "dataset_id": 1177,
+    "resource_id": 82604,
+    "dataset_title": "Navettes saisonnières de la CC du Guillestrois et du Queyras",
+    "stop_id": "05157AP000004",
+    "data_import_id": 568102,
+    "resource_title": "gtfs.zip",
+    "stop_name": "Saint Ouen",
+    "location_type": 0,
+    "_dist_m": 330
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     6.857353310194648,
+     44.70279680943194
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "dataset_id": 1075,
+    "resource_id": 82136,
+    "dataset_title": "Réseau scolaire interurbain ZOU !",
+    "stop_id": "ZOS:12483-0515700",
+    "data_import_id": 576586,
+    "resource_title": "ZOU_Réseau Scolaire GTFS.Zip",
+    "stop_name": "Saint-Ouen",
+    "location_type": 0,
+    "_dist_m": 333
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     6.85728,
+     44.70284
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "dataset_id": 1075,
+    "resource_id": 82136,
+    "dataset_title": "Réseau scolaire interurbain ZOU !",
+    "stop_id": "ZOS:10397-0515700",
+    "data_import_id": 576586,
+    "resource_title": "ZOU_Réseau Scolaire GTFS.Zip",
+    "stop_name": "Saint-Ouen",
+    "location_type": 0,
+    "_dist_m": 335
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     6.85719,
+     44.70292
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "dataset_id": 1075,
+    "resource_id": 82136,
+    "dataset_title": "Réseau scolaire interurbain ZOU !",
+    "stop_id": "ZOS:10397-0515700C",
+    "data_import_id": 576586,
+    "resource_title": "ZOU_Réseau Scolaire GTFS.Zip",
+    "stop_name": "Saint-Ouen",
+    "location_type": 1,
+    "_dist_m": 335
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     6.85719,
+     44.70292
+    ]
+   }
+  }
+ ],
+ "_note": "trié par distance et tronqué à 8"
+}

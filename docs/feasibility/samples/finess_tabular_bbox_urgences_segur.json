@@ -1,0 +1,83 @@
+{
+ "data": [
+  {
+   "finess": "750100208",
+   "rs": "GHU CUP SITE NECKER ENFANTS MALADES",
+   "categ_code": 101,
+   "categ_lib": "Centre Hospitalier Régional (C.H.R.)",
+   "adresse_num_voie": "149",
+   "adresse_type_voie": "R",
+   "adresse_nom_voie": "DE SEVRES",
+   "adresse_code_postal": "75743",
+   "com_code": "75115",
+   "san_urg": true,
+   "geoloc_4326_lat": 48.846348,
+   "geoloc_4326_long": 2.31543,
+   "geoloc_precision": "1-Précision parcelle, housenumber",
+   "date_extract_finess": "2026-05-04",
+   "_dist_m": 694
+  },
+  {
+   "finess": "750000523",
+   "rs": "GH PARIS SITE SAINT JOSEPH",
+   "categ_code": 365,
+   "categ_lib": "Etablissement de Soins Pluridisciplinaire",
+   "adresse_num_voie": "185",
+   "adresse_type_voie": "R",
+   "adresse_nom_voie": "RAYMOND LOSSERAND",
+   "adresse_code_postal": "75674",
+   "com_code": "75114",
+   "san_urg": true,
+   "geoloc_4326_lat": 48.829796,
+   "geoloc_4326_long": 2.310073,
+   "geoloc_precision": "1-Précision parcelle, housenumber",
+   "date_extract_finess": "2026-05-04",
+   "_dist_m": 2327
+  },
+  {
+   "finess": "750100166",
+   "rs": "GHU APHP CUP SITE COCHIN PORT ROYAL",
+   "categ_code": 101,
+   "categ_lib": "Centre Hospitalier Régional (C.H.R.)",
+   "adresse_num_voie": "27",
+   "adresse_type_voie": "R",
+   "adresse_nom_voie": "DU FAUBOURG SAINT JACQUES",
+   "adresse_code_postal": "75679",
+   "com_code": "75114",
+   "san_urg": true,
+   "geoloc_4326_lat": 48.837345,
+   "geoloc_4326_long": 2.338837,
+   "geoloc_precision": "1-Précision parcelle, housenumber",
+   "date_extract_finess": "2026-05-04",
+   "_dist_m": 2663
+  },
+  {
+   "finess": "750803447",
+   "rs": "GHU APHP CUP SITE G POMPIDOU HEGP",
+   "categ_code": 101,
+   "categ_lib": "Centre Hospitalier Régional (C.H.R.)",
+   "adresse_num_voie": "20",
+   "adresse_type_voie": "R",
+   "adresse_nom_voie": "LEBLANC",
+   "adresse_code_postal": "75908",
+   "com_code": "75115",
+   "san_urg": true,
+   "geoloc_4326_lat": 48.839637,
+   "geoloc_4326_long": 2.273756,
+   "geoloc_precision": "1-Précision parcelle, housenumber",
+   "date_extract_finess": "2026-05-04",
+   "_dist_m": 2833
+  }
+ ],
+ "links": {
+  "profile": "https://tabular-api.data.gouv.fr/api/resources/796dfff7-cf54-493a-a0a7-ba3c2024c6f3/profile/",
+  "swagger": "https://tabular-api.data.gouv.fr/api/resources/796dfff7-cf54-493a-a0a7-ba3c2024c6f3/swagger/",
+  "next": null,
+  "prev": null
+ },
+ "meta": {
+  "page": 1,
+  "page_size": 50,
+  "total": 4
+ }
+}

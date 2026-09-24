@@ -1,0 +1,25 @@
+# curl -sIL -H 'Origin: https://example.github.io' https://data.arcep.fr/fixe/maconnexioninternet/base_imb/last/departement/base_imb_48.csv.gz (2026-09-24) — redirection S3 OVH, pas d'en-tête CORS
+HTTP/1.1 302 Found
+Date: Thu, 24 Sep 2026 09:28:16 GMT
+Server: Apache
+Strict-Transport-Security: max-age=63072000; preload
+Location: https://arcep.s3.rbx.io.cloud.ovh.net/fixe/maconnexioninternet/base_imb/2026_T2/departement/base_imb_48.csv.gz
+Content-Type: text/html; charset=iso-8859-1
+
+HTTP/1.1 200 OK
+Content-Type: application/x-gzip
+Content-Length: 2923192
+x-amz-meta-mtime: 1789056682.5698504
+ETag: "bae00472a571da39517501205f049153"
+x-amz-version-id: 1789401636.741354
+Last-Modified: Mon, 14 Sep 2026 16:00:37 GMT
+Accept-Ranges: bytes
+x-amz-id-2: tx0fec92109e0741fb94f3e-006ab4ed30
+x-amz-request-id: tx0fec92109e0741fb94f3e-006ab4ed30
+Date: Thu, 24 Sep 2026 09:28:16 GMT
+
+# curl -sI https://maconnexioninternet.arcep.fr/
+HTTP/2 503 
+cache-control: no-cache
+content-type: text/html
+

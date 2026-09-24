@@ -1,0 +1,153 @@
+{
+ "type": "FeatureCollection",
+ "features": [
+  {
+   "type": "Feature",
+   "properties": {
+    "dataset_id": 668,
+    "resource_id": 80921,
+    "dataset_title": "Réseaux urbains et interurbains d'Île-de-France Mobilités (IDFM)",
+    "stop_id": "IDFM:26349",
+    "data_import_id": 576587,
+    "resource_title": "Horaires au format GTFS",
+    "stop_name": "Breteuil",
+    "location_type": 0,
+    "_dist_m": 186
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     2.310833457472685,
+     48.85153702571324
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "dataset_id": 668,
+    "resource_id": 80921,
+    "dataset_title": "Réseaux urbains et interurbains d'Île-de-France Mobilités (IDFM)",
+    "stop_id": "IDFM:71194",
+    "data_import_id": 576587,
+    "resource_title": "Horaires au format GTFS",
+    "stop_name": "Breteuil / El Salvador",
+    "location_type": 1,
+    "_dist_m": 190
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     2.3111245584804814,
+     48.8511654679281
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "dataset_id": 668,
+    "resource_id": 80921,
+    "dataset_title": "Réseaux urbains et interurbains d'Île-de-France Mobilités (IDFM)",
+    "stop_id": "IDFM:26353",
+    "data_import_id": 576587,
+    "resource_title": "Horaires au format GTFS",
+    "stop_name": "Duquesne - Lowendal",
+    "location_type": 0,
+    "_dist_m": 193
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     2.3087773579477173,
+     48.852433517832935
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "dataset_id": 668,
+    "resource_id": 80921,
+    "dataset_title": "Réseaux urbains et interurbains d'Île-de-France Mobilités (IDFM)",
+    "stop_id": "IDFM:26348",
+    "data_import_id": 576587,
+    "resource_title": "Horaires au format GTFS",
+    "stop_name": "El Salvador",
+    "location_type": 0,
+    "_dist_m": 196
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     2.3113066408024037,
+     48.8507932818706
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "dataset_id": 668,
+    "resource_id": 80921,
+    "dataset_title": "Réseaux urbains et interurbains d'Île-de-France Mobilités (IDFM)",
+    "stop_id": "IDFM:27073",
+    "data_import_id": 576587,
+    "resource_title": "Horaires au format GTFS",
+    "stop_name": "El Salvador",
+    "location_type": 0,
+    "_dist_m": 207
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     2.311412327960183,
+     48.85104571087573
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "dataset_id": 668,
+    "resource_id": 80921,
+    "dataset_title": "Réseaux urbains et interurbains d'Île-de-France Mobilités (IDFM)",
+    "stop_id": "IDFM:71207",
+    "data_import_id": 576587,
+    "resource_title": "Horaires au format GTFS",
+    "stop_name": "Duquesne - Lowendal",
+    "location_type": 1,
+    "_dist_m": 225
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     2.3085009942063275,
+     48.85271971573548
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "dataset_id": 668,
+    "resource_id": 80921,
+    "dataset_title": "Réseaux urbains et interurbains d'Île-de-France Mobilités (IDFM)",
+    "stop_id": "IDFM:26361",
+    "data_import_id": 576587,
+    "resource_title": "Horaires au format GTFS",
+    "stop_name": "Duquesne - Lowendal",
+    "location_type": 0,
+    "_dist_m": 258
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     2.3082246274291642,
+     48.85300591292606
+    ]
+   }
+  }
+ ],
+ "_note": "trié par distance et tronqué à 8"
+}

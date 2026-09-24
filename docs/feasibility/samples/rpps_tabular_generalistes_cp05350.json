@@ -1,0 +1,14 @@
+{
+ "data": [],
+ "links": {
+  "profile": "https://tabular-api.data.gouv.fr/api/resources/fffda7e9-0ea2-4c35-bba0-4496f3af935d/profile/",
+  "swagger": "https://tabular-api.data.gouv.fr/api/resources/fffda7e9-0ea2-4c35-bba0-4496f3af935d/swagger/",
+  "next": null,
+  "prev": null
+ },
+ "meta": {
+  "page": 1,
+  "page_size": 50,
+  "total": 0
+ }
+}

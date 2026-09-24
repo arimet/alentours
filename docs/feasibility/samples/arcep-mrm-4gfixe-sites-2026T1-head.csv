@@ -1,0 +1,15 @@
+﻿num_arrete;date_publication_arrete;numero_site;nom_site_arrete;id_dossier;nom_de_la_zone;region;departement;insee_dep;x_lambert_93;y_lambert_93;20801;20810;sites_demandes;sites_mes;sites_6_mois;sites_6_24_mois;sites_attente_deploiement
+4GF-1;28-déc-19;1;4GFIXE_A1_01_O_01;1;;Auvergne-Rhône-Alpes;Ain;01;849256;6584013;1;0;1;1;0;0;0
+4GF-1;28-déc-19;2;4GFIXE_A1_01_O_03;2;;Auvergne-Rhône-Alpes;Ain;01;879678;6563288;1;0;1;1;0;0;0
+4GF-1;28-déc-19;3;4GFIXE_A1_02_O_01;3;;Hauts-de-France;Aisne;02;755161;6972295;1;0;1;1;0;0;0
+4GF-1;28-déc-19;4;4GFIXE_A1_02_O_02;4;;Hauts-de-France;Aisne;02;760813;6948602;1;0;1;1;0;0;0
+4GF-1;28-déc-19;5;4GFIXE_A1_02_O_03;5;;Hauts-de-France;Aisne;02;722585;6981069;1;0;1;1;0;0;0
+4GF-1;28-déc-19;6;4GFIXE_A1_02_O_04;6;;Hauts-de-France;Aisne;02;770695;6929855;1;0;1;1;0;0;0
+4GF-1;28-déc-19;7;4GFIXE_A1_02_O_05;7;;Hauts-de-France;Aisne;02;739886;6987402;1;0;1;1;0;0;0
+4GF-1;28-déc-19;8;4GFIXE_A1_02_O_08;8;;Hauts-de-France;Aisne;02;710928;6952976;1;0;1;1;0;0;0
+4GF-1;28-déc-19;9;4GFIXE_A1_02_O_09;9;;Hauts-de-France;Aisne;02;735795;6974463;1;0;1;1;0;0;0
+4GF-1;28-déc-19;10;4GFIXE_A1_02_O_10;10;;Hauts-de-France;Aisne;02;761421;6933351;1;0;1;1;0;0;0
+4GF-1;28-déc-19;11;4GFIXE_A1_02_O_11;11;;Hauts-de-France;Aisne;02;763093;6953004;1;0;1;1;0;0;0
+4GF-1;28-déc-19;12;4GFIXE_A1_02_O_12;12;;Hauts-de-France;Aisne;02;715069;6990214;1;0;1;1;0;0;0
+4GF-1;28-déc-19;13;4GFIXE_A1_02_O_13;13;;Hauts-de-France;Aisne;02;760875;6917801;1;0;1;1;0;0;0
+4GF-1;28-déc-19;14;4GFIXE_A1_02_O_14;14;;Hauts-de-France;Aisne;02;731760;6950012;1;0;1;1;0;0;0

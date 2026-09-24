@@ -1,0 +1,50 @@
+{
+ "total_count": 96,
+ "results": [
+  {
+   "identifiant_de_l_etablissement": "0050057K",
+   "nom_etablissement": "ECOLE ELEMENTAIRE PUBLIQUE ST VERAN",
+   "type_etablissement": "Ecole",
+   "statut_public_prive": "Public",
+   "libelle_nature": "ECOLE DE NIVEAU ELEMENTAIRE",
+   "adresse_1": "Route",
+   "code_postal": "05350",
+   "nom_commune": "Saint-Véran",
+   "etat": "OUVERT",
+   "latitude": 44.70083390239714,
+   "longitude": 6.868560481560471,
+   "precision_localisation": "Ville",
+   "dist": 696.5989924027726
+  },
+  {
+   "identifiant_de_l_etablissement": "0050205W",
+   "nom_etablissement": "Ecole primaire MOLINES EN QUEYRAS",
+   "type_etablissement": "Ecole",
+   "statut_public_prive": "Public",
+   "libelle_nature": "ECOLE DE NIVEAU ELEMENTAIRE",
+   "adresse_1": "265 rue du Serre",
+   "code_postal": "05350",
+   "nom_commune": "Molines-en-Queyras",
+   "etat": "OUVERT",
+   "latitude": 44.7306503235053,
+   "longitude": 6.8431556910783,
+   "precision_localisation": "Numéro de rue",
+   "dist": 3270.248154811427
+  },
+  {
+   "identifiant_de_l_etablissement": "0050335M",
+   "nom_etablissement": "Ecole primaire CEILLAC",
+   "type_etablissement": "Ecole",
+   "statut_public_prive": "Public",
+   "libelle_nature": "ECOLE DE NIVEAU ELEMENTAIRE",
+   "adresse_1": "LEBOURG",
+   "code_postal": "05600",
+   "nom_commune": "Ceillac",
+   "etat": "OUVERT",
+   "latitude": 44.666367479446635,
+   "longitude": 6.777434285290649,
+   "precision_localisation": "BATIMENT",
+   "dist": 7833.406584540326
+  }
+ ]
+}

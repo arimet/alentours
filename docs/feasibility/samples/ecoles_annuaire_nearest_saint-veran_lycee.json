@@ -1,0 +1,50 @@
+{
+ "total_count": 7,
+ "results": [
+  {
+   "identifiant_de_l_etablissement": "0050600A",
+   "nom_etablissement": "Section d'enseignement professionnel du Lycée polyvalent d'altitude Suzanne Joulié Roos ex CLIMATIQUE D'ALTITUDE",
+   "type_etablissement": "Lycée",
+   "statut_public_prive": "Public",
+   "libelle_nature": "SECTION D ENSEIGNEMENT PROFESSIONNEL",
+   "adresse_1": "2 RUE MARIUS CHANCEL",
+   "code_postal": "05105",
+   "nom_commune": "Briançon",
+   "etat": "OUVERT",
+   "latitude": 44.89927872781619,
+   "longitude": 6.6400132892139005,
+   "precision_localisation": "Numéro de rue",
+   "dist": 27839.2628508252
+  },
+  {
+   "identifiant_de_l_etablissement": "0050003B",
+   "nom_etablissement": "Lycée polyvalent d'altitude - Suzanne Joulié Roos",
+   "type_etablissement": "Lycée",
+   "statut_public_prive": "Public",
+   "libelle_nature": "LYCEE POLYVALENT",
+   "adresse_1": "2 rue Marius Chancel",
+   "code_postal": "05105",
+   "nom_commune": "Briançon",
+   "etat": "OUVERT",
+   "latitude": 44.89972590324557,
+   "longitude": 6.639239590096141,
+   "precision_localisation": "Numéro de rue",
+   "dist": 27916.22609323926
+  },
+  {
+   "identifiant_de_l_etablissement": "0050004C",
+   "nom_etablissement": "Lycée Honoré Romane",
+   "type_etablissement": "Lycée",
+   "statut_public_prive": "Public",
+   "libelle_nature": "LYCEE CLIMATIQUE",
+   "adresse_1": "Route de Caleyère",
+   "code_postal": "05202",
+   "nom_commune": "Embrun",
+   "etat": "OUVERT",
+   "latitude": 44.56908507085061,
+   "longitude": 6.496330032867039,
+   "precision_localisation": "Numéro de rue",
+   "dist": 32533.217245526303
+  }
+ ]
+}

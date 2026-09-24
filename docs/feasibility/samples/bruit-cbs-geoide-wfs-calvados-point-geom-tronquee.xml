@@ -1,0 +1,956 @@
+<?xml version='1.0' encoding="UTF-8" ?>
+<wfs:FeatureCollection
+   xmlns:ms="http://mapserver.gis.umn.edu/mapserver"
+   xmlns:gml="http://www.opengis.net/gml"
+   xmlns:wfs="http://www.opengis.net/wfs"
+   xmlns:ogc="http://www.opengis.net/ogc"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="http://mapserver.gis.umn.edu/mapserver https://ogc.geo-ide.developpement-durable.gouv.fr/wxs?map=/opt/data/carto/geoide-catalogue/1.4/org_37968/671d20a1-b41a-4a7c-94bc-ea69d446654e.internet.map&amp;SERVICE=WFS&amp;VERSION=1.1.0&amp;REQUEST=DescribeFeatureType&amp;TYPENAME=ms:N_BRUIT_ZBR_R_A_LD_4EME_ECH_S_014&amp;OUTPUTFORMAT=text/xml;%20subtype=gml/3.1.1  http://www.opengis.net/wfs http://schemas.opengis.net/wfs/1.1.0/wfs.xsd">
+      <gml:boundedBy>
+      	<gml:Envelope srsName="EPSG:4326">
+      		<gml:lowerCorner>49.320019 0.212770</gml:lowerCorner>
+      		<gml:upperCorner>49.417229 0.310560</gml:upperCorner>
+      	</gml:Envelope>
+      </gml:boundedBy>
+    <gml:featureMember>
+      <ms:N_BRUIT_ZBR_R_A_LD_4EME_ECH_S_014>
+        <gml:boundedBy>
+        	<gml:Envelope srsName="EPSG:4326">
+        		<gml:lowerCorner>49.320019 0.212770</gml:lowerCorner>
+        		<gml:upperCorner>49.417229 0.310560</gml:upperCorner>
+        	</gml:Envelope>
+        </gml:boundedBy>
+        <ms:geometry>
+          <gml:MultiSurface srsName="EPSG:4326">
+            <gml:surfaceMember>
+              <gml:Polygon>
+                <gml:exterior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:exterior>
+              </gml:Polygon>
+            </gml:surfaceMember>
+            <gml:surfaceMember>
+              <gml:Polygon>
+                <gml:exterior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:exterior>
+              </gml:Polygon>
+            </gml:surfaceMember>
+            <gml:surfaceMember>
+              <gml:Polygon>
+                <gml:exterior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:exterior>
+              </gml:Polygon>
+            </gml:surfaceMember>
+            <gml:surfaceMember>
+              <gml:Polygon>
+                <gml:exterior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:exterior>
+                <gml:interior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:interior>
+              </gml:Polygon>
+            </gml:surfaceMember>
+            <gml:surfaceMember>
+              <gml:Polygon>
+                <gml:exterior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:exterior>
+                <gml:interior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:interior>
+                <gml:interior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:interior>
+              </gml:Polygon>
+            </gml:surfaceMember>
+            <gml:surfaceMember>
+              <gml:Polygon>
+                <gml:exterior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:exterior>
+              </gml:Polygon>
+            </gml:surfaceMember>
+            <gml:surfaceMember>
+              <gml:Polygon>
+                <gml:exterior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:exterior>
+              </gml:Polygon>
+            </gml:surfaceMember>
+            <gml:surfaceMember>
+              <gml:Polygon>
+                <gml:exterior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:exterior>
+              </gml:Polygon>
+            </gml:surfaceMember>
+            <gml:surfaceMember>
+              <gml:Polygon>
+                <gml:exterior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:exterior>
+              </gml:Polygon>
+            </gml:surfaceMember>
+            <gml:surfaceMember>
+              <gml:Polygon>
+                <gml:exterior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:exterior>
+              </gml:Polygon>
+            </gml:surfaceMember>
+            <gml:surfaceMember>
+              <gml:Polygon>
+                <gml:exterior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:exterior>
+              </gml:Polygon>
+            </gml:surfaceMember>
+            <gml:surfaceMember>
+              <gml:Polygon>
+                <gml:exterior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:exterior>
+              </gml:Polygon>
+            </gml:surfaceMember>
+            <gml:surfaceMember>
+              <gml:Polygon>
+                <gml:exterior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:exterior>
+              </gml:Polygon>
+            </gml:surfaceMember>
+            <gml:surfaceMember>
+              <gml:Polygon>
+                <gml:exterior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:exterior>
+              </gml:Polygon>
+            </gml:surfaceMember>
+            <gml:surfaceMember>
+              <gml:Polygon>
+                <gml:exterior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:exterior>
+              </gml:Polygon>
+            </gml:surfaceMember>
+            <gml:surfaceMember>
+              <gml:Polygon>
+                <gml:exterior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:exterior>
+              </gml:Polygon>
+            </gml:surfaceMember>
+            <gml:surfaceMember>
+              <gml:Polygon>
+                <gml:exterior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:exterior>
+              </gml:Polygon>
+            </gml:surfaceMember>
+            <gml:surfaceMember>
+              <gml:Polygon>
+                <gml:exterior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:exterior>
+              </gml:Polygon>
+            </gml:surfaceMember>
+            <gml:surfaceMember>
+              <gml:Polygon>
+                <gml:exterior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:exterior>
+              </gml:Polygon>
+            </gml:surfaceMember>
+            <gml:surfaceMember>
+              <gml:Polygon>
+                <gml:exterior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:exterior>
+              </gml:Polygon>
+            </gml:surfaceMember>
+            <gml:surfaceMember>
+              <gml:Polygon>
+                <gml:exterior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:exterior>
+              </gml:Polygon>
+            </gml:surfaceMember>
+            <gml:surfaceMember>
+              <gml:Polygon>
+                <gml:exterior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:exterior>
+              </gml:Polygon>
+            </gml:surfaceMember>
+            <gml:surfaceMember>
+              <gml:Polygon>
+                <gml:exterior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:exterior>
+              </gml:Polygon>
+            </gml:surfaceMember>
+            <gml:surfaceMember>
+              <gml:Polygon>
+                <gml:exterior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:exterior>
+              </gml:Polygon>
+            </gml:surfaceMember>
+            <gml:surfaceMember>
+              <gml:Polygon>
+                <gml:exterior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:exterior>
+              </gml:Polygon>
+            </gml:surfaceMember>
+            <gml:surfaceMember>
+              <gml:Polygon>
+                <gml:exterior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:exterior>
+              </gml:Polygon>
+            </gml:surfaceMember>
+            <gml:surfaceMember>
+              <gml:Polygon>
+                <gml:exterior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:exterior>
+                <gml:interior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:interior>
+              </gml:Polygon>
+            </gml:surfaceMember>
+            <gml:surfaceMember>
+              <gml:Polygon>
+                <gml:exterior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:exterior>
+              </gml:Polygon>
+            </gml:surfaceMember>
+            <gml:surfaceMember>
+              <gml:Polygon>
+                <gml:exterior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:exterior>
+              </gml:Polygon>
+            </gml:surfaceMember>
+            <gml:surfaceMember>
+              <gml:Polygon>
+                <gml:exterior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:exterior>
+              </gml:Polygon>
+            </gml:surfaceMember>
+            <gml:surfaceMember>
+              <gml:Polygon>
+                <gml:exterior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:exterior>
+                <gml:interior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:interior>
+                <gml:interior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:interior>
+                <gml:interior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:interior>
+                <gml:interior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:interior>
+                <gml:interior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:interior>
+                <gml:interior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:interior>
+                <gml:interior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:interior>
+                <gml:interior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:interior>
+                <gml:interior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:interior>
+                <gml:interior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:interior>
+                <gml:interior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:interior>
+                <gml:interior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:interior>
+                <gml:interior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:interior>
+                <gml:interior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:interior>
+                <gml:interior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:interior>
+                <gml:interior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:interior>
+                <gml:interior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:interior>
+                <gml:interior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:interior>
+                <gml:interior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:interior>
+                <gml:interior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:interior>
+                <gml:interior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:interior>
+                <gml:interior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:interior>
+                <gml:interior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:interior>
+                <gml:interior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:interior>
+                <gml:interior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:interior>
+                <gml:interior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:interior>
+                <gml:interior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:interior>
+                <gml:interior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:interior>
+                <gml:interior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:interior>
+                <gml:interior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:interior>
+                <gml:interior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:interior>
+                <gml:interior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:interior>
+                <gml:interior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:interior>
+                <gml:interior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:interior>
+                <gml:interior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:interior>
+                <gml:interior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:interior>
+                <gml:interior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:interior>
+                <gml:interior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:interior>
+                <gml:interior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:interior>
+                <gml:interior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:interior>
+                <gml:interior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:interior>
+                <gml:interior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:interior>
+                <gml:interior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:interior>
+                <gml:interior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:interior>
+                <gml:interior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:interior>
+                <gml:interior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:interior>
+                <gml:interior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:interior>
+                <gml:interior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:interior>
+                <gml:interior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:interior>
+                <gml:interior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:interior>
+                <gml:interior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:interior>
+                <gml:interior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:interior>
+                <gml:interior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:interior>
+                <gml:interior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:interior>
+                <gml:interior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:interior>
+                <gml:interior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:interior>
+              </gml:Polygon>
+            </gml:surfaceMember>
+            <gml:surfaceMember>
+              <gml:Polygon>
+                <gml:exterior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:exterior>
+              </gml:Polygon>
+            </gml:surfaceMember>
+            <gml:surfaceMember>
+              <gml:Polygon>
+                <gml:exterior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:exterior>
+              </gml:Polygon>
+            </gml:surfaceMember>
+            <gml:surfaceMember>
+              <gml:Polygon>
+                <gml:exterior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:exterior>
+              </gml:Polygon>
+            </gml:surfaceMember>
+            <gml:surfaceMember>
+              <gml:Polygon>
+                <gml:exterior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:exterior>
+              </gml:Polygon>
+            </gml:surfaceMember>
+            <gml:surfaceMember>
+              <gml:Polygon>
+                <gml:exterior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:exterior>
+              </gml:Polygon>
+            </gml:surfaceMember>
+            <gml:surfaceMember>
+              <gml:Polygon>
+                <gml:exterior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:exterior>
+              </gml:Polygon>
+            </gml:surfaceMember>
+            <gml:surfaceMember>
+              <gml:Polygon>
+                <gml:exterior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:exterior>
+              </gml:Polygon>
+            </gml:surfaceMember>
+            <gml:surfaceMember>
+              <gml:Polygon>
+                <gml:exterior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:exterior>
+              </gml:Polygon>
+            </gml:surfaceMember>
+            <gml:surfaceMember>
+              <gml:Polygon>
+                <gml:exterior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:exterior>
+              </gml:Polygon>
+            </gml:surfaceMember>
+            <gml:surfaceMember>
+              <gml:Polygon>
+                <gml:exterior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:exterior>
+              </gml:Polygon>
+            </gml:surfaceMember>
+            <gml:surfaceMember>
+              <gml:Polygon>
+                <gml:exterior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:exterior>
+              </gml:Polygon>
+            </gml:surfaceMember>
+            <gml:surfaceMember>
+              <gml:Polygon>
+                <gml:exterior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:exterior>
+              </gml:Polygon>
+            </gml:surfaceMember>
+            <gml:surfaceMember>
+              <gml:Polygon>
+                <gml:exterior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:exterior>
+              </gml:Polygon>
+            </gml:surfaceMember>
+            <gml:surfaceMember>
+              <gml:Polygon>
+                <gml:exterior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:exterior>
+              </gml:Polygon>
+            </gml:surfaceMember>
+            <gml:surfaceMember>
+              <gml:Polygon>
+                <gml:exterior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:exterior>
+                <gml:interior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:interior>
+              </gml:Polygon>
+            </gml:surfaceMember>
+            <gml:surfaceMember>
+              <gml:Polygon>
+                <gml:exterior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:exterior>
+              </gml:Polygon>
+            </gml:surfaceMember>
+            <gml:surfaceMember>
+              <gml:Polygon>
+                <gml:exterior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:exterior>
+              </gml:Polygon>
+            </gml:surfaceMember>
+            <gml:surfaceMember>
+              <gml:Polygon>
+                <gml:exterior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:exterior>
+              </gml:Polygon>
+            </gml:surfaceMember>
+            <gml:surfaceMember>
+              <gml:Polygon>
+                <gml:exterior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:exterior>
+                <gml:interior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:interior>
+              </gml:Polygon>
+            </gml:surfaceMember>
+            <gml:surfaceMember>
+              <gml:Polygon>
+                <gml:exterior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:exterior>
+              </gml:Polygon>
+            </gml:surfaceMember>
+            <gml:surfaceMember>
+              <gml:Polygon>
+                <gml:exterior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:exterior>
+                <gml:interior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:interior>
+                <gml:interior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:interior>
+              </gml:Polygon>
+            </gml:surfaceMember>
+            <gml:surfaceMember>
+              <gml:Polygon>
+                <gml:exterior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:exterior>
+              </gml:Polygon>
+            </gml:surfaceMember>
+            <gml:surfaceMember>
+              <gml:Polygon>
+                <gml:exterior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:exterior>
+              </gml:Polygon>
+            </gml:surfaceMember>
+            <gml:surfaceMember>
+              <gml:Polygon>
+                <gml:exterior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:exterior>
+              </gml:Polygon>
+            </gml:surfaceMember>
+            <gml:surfaceMember>
+              <gml:Polygon>
+                <gml:exterior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:exterior>
+              </gml:Polygon>
+            </gml:surfaceMember>
+            <gml:surfaceMember>
+              <gml:Polygon>
+                <gml:exterior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:exterior>
+              </gml:Polygon>
+            </gml:surfaceMember>
+            <gml:surfaceMember>
+              <gml:Polygon>
+                <gml:exterior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:exterior>
+              </gml:Polygon>
+            </gml:surfaceMember>
+            <gml:surfaceMember>
+              <gml:Polygon>
+                <gml:exterior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:exterior>
+                <gml:interior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:interior>
+              </gml:Polygon>
+            </gml:surfaceMember>
+            <gml:surfaceMember>
+              <gml:Polygon>
+                <gml:exterior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:exterior>
+              </gml:Polygon>
+            </gml:surfaceMember>
+            <gml:surfaceMember>
+              <gml:Polygon>
+                <gml:exterior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:exterior>
+                <gml:interior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:interior>
+              </gml:Polygon>
+            </gml:surfaceMember>
+            <gml:surfaceMember>
+              <gml:Polygon>
+                <gml:exterior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:exterior>
+              </gml:Polygon>
+            </gml:surfaceMember>
+            <gml:surfaceMember>
+              <gml:Polygon>
+                <gml:exterior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:exterior>
+                <gml:interior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:interior>
+              </gml:Polygon>
+            </gml:surfaceMember>
+            <gml:surfaceMember>
+              <gml:Polygon>
+                <gml:exterior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2"> [geometrie tronquee pour l echantillon]</gml:posList>
+                  </gml:LinearRing>
+                </gml:exterior>
+              </gml:Polygon>
+            </gml:surfaceMember>
+          </gml:MultiSurface>
+        </ms:geometry>
+        <ms:IDZONBRUIT>CBS2022014392367041.R-A29-A-LD55</ms:IDZONBRUIT>
+        <ms:IDCBS>CBS2022014392367041.R-A29-A-LD</ms:IDCBS>
+        <ms:UUEID>000</ms:UUEID>
+        <ms:ANNEE>2022</ms:ANNEE>
+        <ms:CODEDEPT>014</ms:CODEDEPT>
+        <ms:TYPETERR>INFRA</ms:TYPETERR>
+        <ms:PRODUCTEUR>392367041</ms:PRODUCTEUR>
+        <ms:CODINFRA>A29</ms:CODINFRA>
+        <ms:TYPESOURCE>R</ms:TYPESOURCE>
+        <ms:CBSTYPE>A</ms:CBSTYPE>
+        <ms:ZONEDEF>01</ms:ZONEDEF>
+        <ms:LEGENDE>55</ms:LEGENDE>
+        <ms:INDICETYPE>LD</ms:INDICETYPE>
+        <ms:VALIDEDEB>2023-01-00T00:00:00Z</ms:VALIDEDEB>
+        <ms:VALIDEFIN></ms:VALIDEFIN>
+      </ms:N_BRUIT_ZBR_R_A_LD_4EME_ECH_S_014>
+    </gml:featureMember>
+</wfs:FeatureCollection>
+

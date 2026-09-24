@@ -1,0 +1,50 @@
+{
+ "total_count": 1507,
+ "results": [
+  {
+   "identifiant_de_l_etablissement": "0752528R",
+   "nom_etablissement": "Collège Victor Duruy",
+   "type_etablissement": "Collège",
+   "statut_public_prive": "Public",
+   "libelle_nature": "COLLEGE",
+   "adresse_1": "33 boulevard des Invalides",
+   "code_postal": "75007",
+   "nom_commune": "Paris",
+   "etat": "OUVERT",
+   "latitude": 48.85230029234186,
+   "longitude": 2.3148477839827657,
+   "precision_localisation": "Numéro de rue",
+   "dist": 488.67551872785253
+  },
+  {
+   "identifiant_de_l_etablissement": "0752894N",
+   "nom_etablissement": "Collège privé Sainte-Jeanne-Élisabeth",
+   "type_etablissement": "Collège",
+   "statut_public_prive": "Privé",
+   "libelle_nature": "COLLEGE",
+   "adresse_1": "8 rue Maurice de la Sizeranne",
+   "code_postal": "75007",
+   "nom_commune": "Paris",
+   "etat": "OUVERT",
+   "latitude": 48.84737880361758,
+   "longitude": 2.3146576650777937,
+   "precision_localisation": "Numéro de rue",
+   "dist": 575.2865040257998
+  },
+  {
+   "identifiant_de_l_etablissement": "0752843H",
+   "nom_etablissement": "Collège privé Blomet",
+   "type_etablissement": "Collège",
+   "statut_public_prive": "Privé",
+   "libelle_nature": "COLLEGE",
+   "adresse_1": "5 rue Blomet",
+   "code_postal": "75015",
+   "nom_commune": "Paris",
+   "etat": "OUVERT",
+   "latitude": 48.843940309447134,
+   "longitude": 2.3088341376585864,
+   "precision_localisation": "Numéro de rue",
+   "dist": 751.6864560143136
+  }
+ ]
+}

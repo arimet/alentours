@@ -1,0 +1,20 @@
+# curl -s -D - -H 'Origin: https://example.github.io' 'https://monreseaumobile.arcep.fr/api/data_geolocalisation/?coords=2.3083,48.8497'  (2026-09-24) — aucun en-tête Access-Control-Allow-Origin
+HTTP/2 200 
+strict-transport-security: max-age=63072000; includeSubDomains; preload
+x-frame-options: DENY
+x-content-type-options: nosniff
+referrer-policy: strict-origin-when-cross-origin
+permissions-policy: microphone=(), camera=(), payment=()
+server: gunicorn
+date: Thu, 24 Sep 2026 09:28:16 GMT
+content-type: application/json
+vary: Accept,origin,Cookie
+allow: GET, HEAD, OPTIONS
+x-frame-options: DENY
+content-length: 352
+x-content-type-options: nosniff
+referrer-policy: same-origin
+cross-origin-opener-policy: same-origin
+via: 2.0 monreseaumobile.arcep.fr (Apache/2.4.68)
+
+[{"entite": "Localisation", "properties": {"id": "75107_8866_00007_b", "nom": "2.3083, 48.8497", "label_adress": "2.3083, 48.8497", "insee_com": false, "post_code": "75007", "type": "housenumber", "city": "Paris"}, "coordinates": {"xmin": 2.3083, "ymin": 48.8497, "xmax": 2.3083, "ymax": 48.8497}, "nomDep": "Paris", "insee_dep": "75", "ariane": null}]

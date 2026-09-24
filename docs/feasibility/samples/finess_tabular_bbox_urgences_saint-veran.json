@@ -1,0 +1,100 @@
+{
+ "data": [
+  {
+   "finess": "050000231",
+   "rs": "CH LES ESCARTONS A BRIANCON",
+   "categ_code": 355,
+   "categ_lib": "Centre Hospitalier (C.H.)",
+   "adresse_num_voie": "24",
+   "adresse_type_voie": "AV",
+   "adresse_nom_voie": "ADRIEN DAURELLE",
+   "adresse_code_postal": "05105",
+   "com_code": "05023",
+   "san_urg": true,
+   "geoloc_4326_lat": 44.906366,
+   "geoloc_4326_long": 6.632952,
+   "geoloc_precision": "1-Précision parcelle, housenumber",
+   "date_extract_finess": "2026-05-04",
+   "_dist_m": 28822
+  },
+  {
+   "finess": "050000256",
+   "rs": "CENTRE HOSPITALIER D'EMBRUN",
+   "categ_code": 355,
+   "categ_lib": "Centre Hospitalier (C.H.)",
+   "adresse_num_voie": "8",
+   "adresse_type_voie": "R",
+   "adresse_nom_voie": "PIERRE ET MARIE CURIE",
+   "adresse_code_postal": "05200",
+   "com_code": "05046",
+   "san_urg": true,
+   "geoloc_4326_lat": 44.561335,
+   "geoloc_4326_long": 6.492721,
+   "geoloc_precision": "1-Précision parcelle, housenumber",
+   "date_extract_finess": "2026-05-04",
+   "_dist_m": 33161
+  },
+  {
+   "finess": "730010477",
+   "rs": "ANTENNE SMUR MODANE",
+   "categ_code": 355,
+   "categ_lib": "Centre Hospitalier (C.H.)",
+   "adresse_num_voie": "540",
+   "adresse_type_voie": "AV",
+   "adresse_nom_voie": "EMILE CHARVOZ",
+   "adresse_code_postal": "73500",
+   "com_code": "73157",
+   "san_urg": true,
+   "geoloc_4326_lat": 45.201001,
+   "geoloc_4326_long": 6.666362,
+   "geoloc_precision": "2-Précision rue",
+   "date_extract_finess": "2026-05-04",
+   "_dist_m": 57352
+  },
+  {
+   "finess": "050000348",
+   "rs": "CHI DES ALPES DU SUD SITE DE GAP",
+   "categ_code": 355,
+   "categ_lib": "Centre Hospitalier (C.H.)",
+   "adresse_num_voie": "1",
+   "adresse_type_voie": "PL",
+   "adresse_nom_voie": "AUGUSTE MURET",
+   "adresse_code_postal": "05007",
+   "com_code": "05061",
+   "san_urg": true,
+   "geoloc_4326_lat": 44.556394347,
+   "geoloc_4326_long": 6.073268087,
+   "geoloc_precision": "2-Précision rue",
+   "date_extract_finess": "2026-05-04",
+   "_dist_m": 64392
+  },
+  {
+   "finess": "730000080",
+   "rs": "CH DE SAINT JEAN DE MAURIENNE",
+   "categ_code": 355,
+   "categ_lib": "Centre Hospitalier (C.H.)",
+   "adresse_num_voie": "179",
+   "adresse_type_voie": "R",
+   "adresse_nom_voie": "DU DOCTEUR GRANGE",
+   "adresse_code_postal": "73302",
+   "com_code": "73248",
+   "san_urg": true,
+   "geoloc_4326_lat": 45.278658,
+   "geoloc_4326_long": 6.341916,
+   "geoloc_precision": "1-Précision parcelle, housenumber",
+   "date_extract_finess": "2026-05-04",
+   "_dist_m": 75925
+  }
+ ],
+ "links": {
+  "profile": "https://tabular-api.data.gouv.fr/api/resources/796dfff7-cf54-493a-a0a7-ba3c2024c6f3/profile/",
+  "swagger": "https://tabular-api.data.gouv.fr/api/resources/796dfff7-cf54-493a-a0a7-ba3c2024c6f3/swagger/",
+  "next": null,
+  "prev": null
+ },
+ "meta": {
+  "page": 1,
+  "page_size": 50,
+  "total": 6
+ }
+}

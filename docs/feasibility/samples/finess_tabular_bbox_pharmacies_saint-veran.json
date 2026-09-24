@@ -1,0 +1,100 @@
+{
+ "data": [
+  {
+   "finess": "050005313",
+   "rs": "SELAS PHARMACIE D'AIGUILLES",
+   "categ_code": 620,
+   "categ_lib": "Pharmacie d'Officine",
+   "adresse_num_voie": "764",
+   "adresse_type_voie": "R",
+   "adresse_nom_voie": "du Bourg",
+   "adresse_code_postal": "05470",
+   "com_code": "05003",
+   "san_urg": false,
+   "geoloc_4326_lat": 44.781927,
+   "geoloc_4326_long": 6.868643,
+   "geoloc_precision": "1-Précision parcelle, housenumber",
+   "date_extract_finess": "2026-05-04",
+   "_dist_m": 8670
+  },
+  {
+   "finess": "050006154",
+   "rs": "SELARL PHARMACIE DU GUIL",
+   "categ_code": 620,
+   "categ_lib": "Pharmacie d'Officine",
+   "adresse_num_voie": null,
+   "adresse_type_voie": "RTE",
+   "adresse_nom_voie": "DU QUEYRAS",
+   "adresse_code_postal": "05600",
+   "com_code": "05065",
+   "san_urg": false,
+   "geoloc_4326_lat": 44.659683,
+   "geoloc_4326_long": 6.656279,
+   "geoloc_precision": "2-Précision rue",
+   "date_extract_finess": "2026-05-04",
+   "_dist_m": 16923
+  },
+  {
+   "finess": "050003755",
+   "rs": "EURL PHARMACIE PEYRON",
+   "categ_code": 620,
+   "categ_lib": "Pharmacie d'Officine",
+   "adresse_num_voie": null,
+   "adresse_type_voie": "R",
+   "adresse_nom_voie": "MAURICE PETSCHE",
+   "adresse_code_postal": "05600",
+   "com_code": "05065",
+   "san_urg": false,
+   "geoloc_4326_lat": 44.659926,
+   "geoloc_4326_long": 6.649585,
+   "geoloc_precision": "2-Précision rue",
+   "date_extract_finess": "2026-05-04",
+   "_dist_m": 17422
+  },
+  {
+   "finess": "050004332",
+   "rs": "PHARMACIE DE LA FORET BLANCHE",
+   "categ_code": 620,
+   "categ_lib": "Pharmacie d'Officine",
+   "adresse_num_voie": null,
+   "adresse_type_voie": "R",
+   "adresse_nom_voie": "PRINCIPALE",
+   "adresse_code_postal": "05600",
+   "com_code": "05119",
+   "san_urg": false,
+   "geoloc_4326_lat": 44.648348743,
+   "geoloc_4326_long": 6.636615154,
+   "geoloc_precision": "4-Précision mairie",
+   "date_extract_finess": "2026-05-04",
+   "_dist_m": 18793
+  },
+  {
+   "finess": "050003854",
+   "rs": "PHARMACIE DE VARS",
+   "categ_code": 620,
+   "categ_lib": "Pharmacie d'Officine",
+   "adresse_num_voie": "87",
+   "adresse_type_voie": "CRS",
+   "adresse_nom_voie": "Fontanarosa",
+   "adresse_code_postal": "05560",
+   "com_code": "05177",
+   "san_urg": false,
+   "geoloc_4326_lat": 44.572954,
+   "geoloc_4326_long": 6.680801,
+   "geoloc_precision": "1-Précision parcelle, housenumber",
+   "date_extract_finess": "2026-05-04",
+   "_dist_m": 20390
+  }
+ ],
+ "links": {
+  "profile": "https://tabular-api.data.gouv.fr/api/resources/796dfff7-cf54-493a-a0a7-ba3c2024c6f3/profile/",
+  "swagger": "https://tabular-api.data.gouv.fr/api/resources/796dfff7-cf54-493a-a0a7-ba3c2024c6f3/swagger/",
+  "next": null,
+  "prev": null
+ },
+ "meta": {
+  "page": 1,
+  "page_size": 50,
+  "total": 19
+ }
+}

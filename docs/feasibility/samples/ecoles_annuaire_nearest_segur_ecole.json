@@ -1,0 +1,50 @@
+{
+ "total_count": 6975,
+ "results": [
+  {
+   "identifiant_de_l_etablissement": "0755830E",
+   "nom_etablissement": "E.P.PR JEAN PAUL II 6 rue Albert de Lapparent",
+   "type_etablissement": "Ecole",
+   "statut_public_prive": "Privé",
+   "libelle_nature": "ECOLE DE NIVEAU ELEMENTAIRE",
+   "adresse_1": "6 rue Albert de Lapparent",
+   "code_postal": "75007",
+   "nom_commune": "Paris  7e  Arrondissement",
+   "etat": "OUVERT",
+   "latitude": 48.84865646652674,
+   "longitude": 2.308504491451781,
+   "precision_localisation": "Numéro de rue",
+   "dist": 227.30098105862635
+  },
+  {
+   "identifiant_de_l_etablissement": "0750872R",
+   "nom_etablissement": "E.E.PU DUQUESNE 42 avenue duquesne",
+   "type_etablissement": "Ecole",
+   "statut_public_prive": "Public",
+   "libelle_nature": "ECOLE DE NIVEAU ELEMENTAIRE",
+   "adresse_1": "42 avenue Duquesne",
+   "code_postal": "75007",
+   "nom_commune": "Paris  7e  Arrondissement",
+   "etat": "OUVERT",
+   "latitude": 48.84959265918785,
+   "longitude": 2.3130245882528366,
+   "precision_localisation": "Numéro de rue",
+   "dist": 344.41689432698604
+  },
+  {
+   "identifiant_de_l_etablissement": "0751297C",
+   "nom_etablissement": "E.P.PU EBLE 14 rue Eblé",
+   "type_etablissement": "Ecole",
+   "statut_public_prive": "Public",
+   "libelle_nature": "ECOLE DE NIVEAU ELEMENTAIRE",
+   "adresse_1": "14 rue Eblé",
+   "code_postal": "75007",
+   "nom_commune": "Paris  7e  Arrondissement",
+   "etat": "OUVERT",
+   "latitude": 48.84899489499057,
+   "longitude": 2.3129220867162408,
+   "precision_localisation": "Numéro de rue",
+   "dist": 366.9149087688212
+  }
+ ]
+}
