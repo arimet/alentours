@@ -29,6 +29,12 @@ const view = (v: BlockView) => {
           f.value),
         ...(f.detail ? [el('span', { className: 'detail' }, f.detail)] : [])));
   })));
+  if (v.figure) {
+    const fig = el('figure', { className: 'block-figure', innerHTML: v.figure }); // our own SVG, see BlockView.figure
+    fig.setAttribute('role', 'img');
+    if (v.figureLabel) fig.setAttribute('aria-label', v.figureLabel);
+    frag.append(fig);
+  }
   frag.append(el('p', { className: 'explanation' }, v.explanation));
   if (v.items?.length) {
     const li = (i: NonNullable<BlockView['items']>[number]) => el('li', {},

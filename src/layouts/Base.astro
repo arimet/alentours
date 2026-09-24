@@ -258,6 +258,18 @@ const fontCss = [
   .fact dd { margin: 0; }
   .fact-value { display: block; font: 600 1.05rem/1.4 var(--sans); }
   .fact .detail { display: block; margin-top: 0.2rem; color: var(--muted); font-size: 0.88rem; line-height: 1.45; max-width: 68ch; }
+  .block-figure { margin: 1.1rem 0 0; width: 200px; max-width: 100%; }
+  .block-figure svg { display: block; width: 100%; height: auto; }
+  .fig-ring { fill: none; stroke: var(--line); stroke-width: 1.5; }
+  .fig-text { font: 600 11px/1 var(--sans); fill: var(--muted); }
+  .fig-n, .fig-s { fill: var(--ink); }
+  .fig-south { fill: var(--ink); }
+  .fig-building { fill: rgb(31 35 36 / 0.08); stroke: var(--ink); stroke-width: 1.5; stroke-linejoin: round; }
+  .fig-summer, .fig-winter { fill: none; stroke-width: 3; stroke-linecap: round; }
+  .fig-summer { stroke: var(--orange); }
+  .fig-winter { stroke: var(--teal); }
+  .fig-summer-text { fill: var(--orange-ink); stroke: none; }
+  .fig-winter-text { fill: var(--teal); stroke: none; }
   .explanation { margin: 1.1rem 0 0; color: var(--muted); font-size: 0.95rem; max-width: 72ch; }
 
   /* Lists: same rhythm as the table, distance aligned right. */

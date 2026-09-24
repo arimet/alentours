@@ -45,6 +45,9 @@ export type BlockView = {
   source: { name: string; url: string; updated?: string };
   /** Honest limits worth saying out loud, optionally ending with a link. */
   notes?: Note[];
+  /** Small SVG built by our own code only (numbers and fixed labels, never API text), with its text alternative. */
+  figure?: string;
+  figureLabel?: string;
 };
 
 export type Note = string | { text: string; link: { label: string; url: string } };
