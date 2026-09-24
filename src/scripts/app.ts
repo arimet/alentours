@@ -219,11 +219,12 @@ const renderPlaces = (fit = true) => {
   if (fit && items.length) sheetMap.fit([here, ...items.map((i) => i.at!)], coveredMargins());
 };
 
-// The stage (map, themes, places, key figures) shows once its blocks have answered, in one go,
-// rather than filling in piece by piece. Slow blocks elsewhere (risks…) don't hold it.
-const STAGE_BLOCKS = [...MAP_THEMES, ...KEYS];
+// The stage shows as soon as the default theme's places and the key figures are in; the other map
+// themes fill their "(…)" counts afterwards, without moving anything. Slow blocks (Risques…) never hold it.
 const STAGE_TIMEOUT_MS = 15000;
 let revealTimer: ReturnType<typeof setTimeout> | undefined;
+const stageReady = () => KEYS.every((id) => views.has(id))
+  && (mapItems(PREFERRED[0]).length > 0 || MAP_THEMES.every((id) => views.has(id)));
 const reveal = () => {
   clearTimeout(revealTimer);
   if (!$('sheet-stage').classList.contains('is-loading')) return;
@@ -236,7 +237,7 @@ const reveal = () => {
 const onBlock = (b: Block, v: BlockView | null) => {
   views.set(b.id, v);
   if ($('sheet-stage').classList.contains('is-loading')) {
-    if (STAGE_BLOCKS.every((id) => views.has(id))) reveal();
+    if (stageReady()) reveal();
     return;
   }
   renderKeys();

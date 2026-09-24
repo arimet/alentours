@@ -26,30 +26,48 @@ export const parseWalk = (json: any): Walk | null =>
 /** "à 840 m à pied, 13 min". */
 export const formatWalk = (w: Walk) => `${formatDistance(w.m)} à pied, ${w.min} min`;
 
-// ponytail: one global queue at 4 requests/s for the whole page. The Géoplateforme answers 429 past
-// about 10 requests/s per IP, and the map tiles come from the same host. A 429 waits for the
-// Retry-After it sends (4 to 5 s) and tries again; a new sheet drops what is still queued.
-const GAP_MS = 250, RETRY_MS = 5000, TRIES = 3;
-let next = 0, generation = 0;
-const slot = () => {
-  const at = Math.max(Date.now(), next);
-  next = at + GAP_MS;
-  return new Promise((r) => setTimeout(r, at - Date.now()));
+// ponytail: one global queue at 8 requests/s for the whole page. The Géoplateforme answers 429 past
+// about 10 requests/s per IP (the map tiles come from the same host): a 429 pauses the whole queue
+// for the Retry-After it sends (4 to 5 s), then tries again. A new sheet drops what is still queued.
+const GAP_MS = 125, RETRY_MS = 5000, TRIES = 3;
+let generation = 0, pauseUntil = 0, pumping = false;
+
+// Waiting routes, served one every GAP_MS, lowest `priority` first (0 = the theme shown by default).
+type Job = { priority: number; order: number; go: () => void };
+const queue: Job[] = [];
+let order = 0;
+const pump = () => {
+  if (pumping) return;
+  pumping = true;
+  const tick = () => {
+    if (!queue.length) { pumping = false; return; }
+    setTimeout(() => {
+      queue.sort((x, y) => x.priority - y.priority || x.order - y.order);
+      queue.shift()?.go();
+      setTimeout(tick, GAP_MS);
+    }, Math.max(0, pauseUntil - Date.now()));
+  };
+  tick();
 };
+const slot = (priority: number) => new Promise<void>((go) => { queue.push({ priority, order: order++, go }); pump(); });
 
 /** Called when another address is opened: routes queued for the previous one are dropped. */
-export const resetWalks = () => { generation++; next = 0; };
+export const resetWalks = () => {
+  generation++;
+  for (const job of queue.splice(0)) job.go(); // they wake up, see the new generation and give up
+};
 
 export const walkTo = async (
   from: Point, to: Point,
-  { get = getJson, sleep = (ms: number) => new Promise((r) => setTimeout(r, ms)) } = {},
+  { get = getJson, sleep = (ms: number) => new Promise((r) => setTimeout(r, ms)), priority = 1 } = {},
 ): Promise<Walk | null> => {
   const gen = generation;
   for (let attempt = 1; attempt <= TRIES; attempt++) {
-    await slot();
+    await slot(priority);
     if (gen !== generation) return null;
     try { return parseWalk(await get(walkUrl(from, to), { timeout: 6000 })); } catch (e) {
       if (!/HTTP 429/.test(String(e)) || attempt === TRIES) return null;
+      pauseUntil = Math.max(pauseUntil, Date.now() + RETRY_MS); // every queued route waits too
       await sleep(RETRY_MS);
       if (gen !== generation) return null;
     }

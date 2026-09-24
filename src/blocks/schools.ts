@@ -22,7 +22,7 @@ export const schools: Block = {
     const cache = new Map<string, Promise<Walk | null>>();
     const walk = (from: typeof ctx, to: { lat: number; lon: number }) => {
       const k = `${to.lat},${to.lon}`;
-      if (!cache.has(k)) cache.set(k, walkTo(from, to));
+      if (!cache.has(k)) cache.set(k, walkTo(from, to, { priority: 0 })); // default map theme: routed first
       return cache.get(k)!;
     };
     const publics = primary.filter((s) => s.public);

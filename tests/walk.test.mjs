@@ -58,3 +58,15 @@ test('opening another address drops the routes still queued', async () => {
   assert.ok(out.filter((x) => x === null).length >= 2, JSON.stringify(out.map(Boolean)));
   assert.ok(calls <= 1);
 });
+
+test('the default theme is routed first, even when asked last', async () => {
+  const seen = [];
+  const get = (tag) => async () => { seen.push(tag); return fixture; };
+  await Promise.all([
+    walkTo(home, home, { get: get('shop-1') }),
+    walkTo(home, home, { get: get('shop-2') }),
+    walkTo(home, home, { get: get('school'), priority: 0 }),
+  ]);
+  // The first job may already be served when the others arrive; the school jumps the rest.
+  assert.ok(seen.indexOf('school') <= 1, seen.join(','));
+});
