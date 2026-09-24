@@ -27,11 +27,11 @@ export const schools: Block = {
     };
     const publics = primary.filter((s) => s.public);
     const routed = (await Promise.all([
-      byWalk(ctx, publics.filter((s) => s.preschool), { limit: 4, walk }),
-      byWalk(ctx, publics.filter((s) => s.elementary), { limit: 4, walk }),
-      byWalk(ctx, catchment.length ? catchment : middle, { limit: 3, walk }),
-      byWalk(ctx, high.filter((s) => s.gt), { limit: 3, walk }),
-      byWalk(ctx, high.filter((s) => s.pro), { limit: 2, walk }),
+      byWalk(ctx, publics.filter((s) => s.preschool), { limit: 3, walk }),
+      byWalk(ctx, publics.filter((s) => s.elementary), { limit: 3, walk }),
+      byWalk(ctx, catchment.length ? catchment : middle, { limit: 2, walk }),
+      byWalk(ctx, high.filter((s) => s.gt), { limit: 2, walk }),
+      byWalk(ctx, high.filter((s) => s.pro), { limit: 1, walk }),
     ])).flat();
     const walks = new Map(routed.flatMap((s) => (s.walk ? [[s.id, s.walk] as const] : [])));
     const add = (xs: School[]) => xs.map((s) => (walks.has(s.id) ? { ...s, walk: walks.get(s.id) } : s));

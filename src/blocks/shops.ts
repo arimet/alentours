@@ -12,7 +12,7 @@ export const shops: Block = {
     const file = await getJson(dataUrl('shops', departmentOf(ctx.commune)))
       .catch((e) => { if (e instanceof Error && e.message === 'HTTP 404') return {}; throw e; });
     // The 2 nearest of each of the 8 types, routed on foot (16 routes at most).
-    const near = await Promise.all(candidates(file, ctx).map((xs) => byWalk(ctx, xs)));
+    const near = await Promise.all(candidates(file, ctx, 1).map((xs) => byWalk(ctx, xs)));
     return shopsView(file, ctx, near);
   },
 };

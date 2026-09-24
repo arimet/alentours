@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { parseWalk, formatWalk, byWalk, walkUrl, MAX_WALK_M } from '../src/lib/walk.ts';
+import { parseWalk, formatWalk, byWalk, walkUrl, walkTo, resetWalks, MAX_WALK_M } from '../src/lib/walk.ts';
 
 const fixture = JSON.parse(readFileSync(new URL('fixtures/walk-nancy-moselly.json', import.meta.url)));
 const home = { lat: 48.703193, lon: 6.16209 };
@@ -33,4 +33,28 @@ test('re-sorts by walking distance, keeps the far and the failed by crow-fly dis
   assert.deepEqual(calls.sort(), [0, 1, 2]);
   assert.equal(out[0].walk.m, 550);
   assert.equal(out[2].walk, undefined);
+});
+
+test('a 429 waits and tries again; other errors give up at once', async () => {
+  const fixtureAnswer = fixture;
+  let calls = 0;
+  const get = async () => { calls++; if (calls === 1) throw new Error('HTTP 429'); return fixtureAnswer; };
+  const waits = [];
+  const w = await walkTo(home, { lat: 48.7, lon: 6.15 }, { get, sleep: async (ms) => { waits.push(ms); } });
+  assert.equal(w.m, 842);
+  assert.deepEqual(waits, [5000]);
+  calls = 0;
+  const failing = async () => { calls++; throw new Error('HTTP 500'); };
+  assert.equal(await walkTo(home, { lat: 48.7, lon: 6.15 }, { get: failing, sleep: async () => {} }), null);
+  assert.equal(calls, 1);
+});
+
+test('opening another address drops the routes still queued', async () => {
+  let calls = 0;
+  const get = async () => { calls++; return fixture; };
+  const pending = [walkTo(home, home, { get }), walkTo(home, home, { get }), walkTo(home, home, { get })];
+  resetWalks();
+  const out = await Promise.all(pending);
+  assert.ok(out.filter((x) => x === null).length >= 2, JSON.stringify(out.map(Boolean)));
+  assert.ok(calls <= 1);
 });

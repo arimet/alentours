@@ -26,18 +26,35 @@ export const parseWalk = (json: any): Walk | null =>
 /** "à 840 m à pied, 13 min". */
 export const formatWalk = (w: Walk) => `${formatDistance(w.m)} à pied, ${w.min} min`;
 
-// ponytail: one global queue at 8 requests/s for the whole page; enough for ~30 routes a sheet.
-const GAP_MS = 125;
-let next = 0;
+// ponytail: one global queue at 4 requests/s for the whole page. The Géoplateforme answers 429 past
+// about 10 requests/s per IP, and the map tiles come from the same host. A 429 waits for the
+// Retry-After it sends (4 to 5 s) and tries again; a new sheet drops what is still queued.
+const GAP_MS = 250, RETRY_MS = 5000, TRIES = 3;
+let next = 0, generation = 0;
 const slot = () => {
   const at = Math.max(Date.now(), next);
   next = at + GAP_MS;
   return new Promise((r) => setTimeout(r, at - Date.now()));
 };
 
-export const walkTo = async (from: Point, to: Point): Promise<Walk | null> => {
-  await slot();
-  try { return parseWalk(await getJson(walkUrl(from, to), { timeout: 6000 })); } catch { return null; }
+/** Called when another address is opened: routes queued for the previous one are dropped. */
+export const resetWalks = () => { generation++; next = 0; };
+
+export const walkTo = async (
+  from: Point, to: Point,
+  { get = getJson, sleep = (ms: number) => new Promise((r) => setTimeout(r, ms)) } = {},
+): Promise<Walk | null> => {
+  const gen = generation;
+  for (let attempt = 1; attempt <= TRIES; attempt++) {
+    await slot();
+    if (gen !== generation) return null;
+    try { return parseWalk(await get(walkUrl(from, to), { timeout: 6000 })); } catch (e) {
+      if (!/HTTP 429/.test(String(e)) || attempt === TRIES) return null;
+      await sleep(RETRY_MS);
+      if (gen !== generation) return null;
+    }
+  }
+  return null;
 };
 
 /**

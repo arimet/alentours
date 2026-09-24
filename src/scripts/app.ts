@@ -6,7 +6,7 @@ import homeRoutes from '../data/home-routes.json';
 import { BLOCKS, GROUPS } from '../blocks';
 import { mountBlocks } from './render';
 import { createMap } from './map';
-import { formatWalk } from '../lib/walk';
+import { formatWalk, resetWalks } from '../lib/walk';
 import { formatDistance } from '../lib/block';
 import type { Block, BlockView } from '../lib/block';
 
@@ -264,6 +264,7 @@ const showSheet = async (point: Point) => {
   activeTheme = 'schools';
   selected = 0;
   clearTimeout(revealTimer);
+  resetWalks();
   $('sheet-stage').classList.add('is-loading');
   try {
     const place = await placeFor(point);

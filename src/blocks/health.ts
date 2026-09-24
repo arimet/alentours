@@ -5,7 +5,7 @@ import { byWalk } from '../lib/walk';
 
 // Routes for the 3 nearest pharmacies and GPs; emergencies stay as the crow flies (one drives there).
 const onFoot = (ctx: { lat: number; lon: number }, ps?: Place[]) =>
-  ps && byWalk(ctx, ps.map((p) => ({ ...p, at: { lat: p.lat, lon: p.lon } })), { limit: 3 });
+  ps && byWalk(ctx, ps.map((p) => ({ ...p, at: { lat: p.lat, lon: p.lon } })), { limit: 2 });
 
 export const health: Block = {
   id: 'health',
