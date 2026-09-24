@@ -3,35 +3,50 @@ import Base from '../layouts/Base.astro';
 ---
 <Base>
   <main>
-    <section id="search" class="search">
-      <h1>Ce que les données publiques disent de votre adresse</h1>
-      <p class="lede">Risques, eau, air, fibre, réseau mobile, prix, écoles et santé. Chaque chiffre avec sa source.</p>
+    <section id="search" class="panel">
+      <div class="panel-map" id="home-map"></div>
+      <div class="panel-body">
+        <p class="eyebrow">Données publiques, sourcées</p>
+        <h1>Ce que les données publiques disent de votre adresse</h1>
+        <p class="lede">Risques, eau, air, fibre, réseau mobile, prix, écoles, santé et commerces. Chaque chiffre avec sa source.</p>
 
-      <form id="search-form" role="search" autocomplete="off">
-        <label for="q">Adresse en France</label>
-        <div class="combo">
-          <input id="q" type="text" inputmode="search" role="combobox" aria-autocomplete="list"
-            aria-expanded="false" aria-controls="suggestions" aria-describedby="q-help q-status"
-            placeholder="ex. 12 rue de la Gare, Rennes" spellcheck="false" />
-          <ul id="suggestions" role="listbox" aria-label="Suggestions d’adresses" hidden></ul>
-        </div>
-        <p id="q-help" class="help">L’adresse est envoyée uniquement au service de géocodage de l’IGN, jamais à nous.</p>
-        <p id="q-status" class="status" aria-live="polite"></p>
-      </form>
+        <form id="search-form" role="search" autocomplete="off">
+          <label for="q">Adresse en France</label>
+          <div class="combo">
+            <input id="q" type="text" inputmode="search" role="combobox" aria-autocomplete="list"
+              aria-expanded="false" aria-controls="suggestions" aria-describedby="q-help q-status"
+              placeholder="ex. 12 rue de la Gare, Rennes" spellcheck="false" />
+            <ul id="suggestions" role="listbox" aria-label="Suggestions d’adresses" hidden></ul>
+          </div>
+          <p id="q-help" class="help">L’adresse est envoyée uniquement au service de géocodage de l’IGN, jamais à nous.</p>
+          <p id="q-status" class="status" aria-live="polite"></p>
+        </form>
 
-      <p class="example">Essayer avec : <button type="button" id="example" class="link"></button></p>
+        <p class="example">Essayer avec : <button type="button" id="example" class="link"></button></p>
+      </div>
     </section>
 
-    <section id="sheet" class="sheet" hidden aria-labelledby="sheet-title">
-      <p><a href="#" id="back">Nouvelle recherche</a></p>
-      <h1 id="sheet-title" tabindex="-1"></h1>
-      <p id="sheet-meta" class="meta"></p>
-      <figure class="map" id="map" hidden>
-        <div class="map-tiles" id="map-tiles" role="img" aria-label="Carte de situation de l’adresse"></div>
-        <figcaption>Plan IGN, © IGN Géoplateforme</figcaption>
-      </figure>
-      <p id="sheet-status" class="status" aria-live="polite"></p>
-      <div id="blocks" class="blocks"></div>
+    <section id="sheet" class="panel" hidden aria-labelledby="sheet-title">
+      <div class="panel-map" id="sheet-map"></div>
+      <div class="panel-body">
+        <div class="sheet-head">
+          <div>
+            <p class="eyebrow">Fiche de l’adresse</p>
+            <h1 id="sheet-title" tabindex="-1"></h1>
+            <p id="sheet-meta" class="meta"></p>
+          </div>
+          <a href="#" id="back" class="pill">Nouvelle recherche</a>
+        </div>
+        <p id="sheet-status" class="status" aria-live="polite"></p>
+
+        <div id="themes" class="themes" role="group" aria-labelledby="themes-label" hidden>
+          <p id="themes-label" class="eyebrow">Thèmes affichés</p>
+          <div id="theme-pills" class="pills"></div>
+        </div>
+
+        <div id="keys" class="keys" hidden></div>
+        <div id="blocks" class="blocks"></div>
+      </div>
     </section>
   </main>
 </Base>

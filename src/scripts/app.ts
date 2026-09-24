@@ -4,7 +4,8 @@ import { getJson } from '../lib/http';
 import { EXAMPLES } from '../lib/examples';
 import { BLOCKS } from '../blocks';
 import { mountBlocks } from './render';
-import { tileOf, tileUrl } from '../lib/tiles';
+import { createMap, type Marker } from './map';
+import type { Block, BlockView } from '../lib/block';
 
 const $ = <T extends HTMLElement>(id: string) => document.getElementById(id) as T;
 const search = $('search'), sheet = $('sheet');
@@ -94,22 +95,51 @@ const exampleBtn = $<HTMLButtonElement>('example');
 exampleBtn.textContent = example.label;
 exampleBtn.addEventListener('click', () => { location.hash = toFragment(example); });
 
+// Home map: metropolitan France with every example as a clickable marker.
+const homeMap = createMap($('home-map'), { zoom: 5, minZoom: 4, maxZoom: 9, label: 'Carte de France avec des adresses d’exemple' });
+homeMap.setView({ lat: 46.6, lon: 2.4 }, 5);
+homeMap.setMarkers(EXAMPLES.map((e) => ({ ...e, label: `Voir la fiche : ${e.label}`, onClick: () => { location.hash = toFragment(e); } })));
+
 // --- Sheet ---
-// Situation map: 5×3 Plan IGN tiles (wide enough for the 60rem column) at zoom 16, shifted so the address sits in the centre.
-const ZOOM = 16;
-const showMap = (point: Point) => {
-  const { x, y, px, py } = tileOf(point, ZOOM);
-  const tiles = $('map-tiles');
-  tiles.replaceChildren();
-  for (let dy = -1; dy <= 1; dy++)
-    for (let dx = -2; dx <= 2; dx++) {
-      const img = Object.assign(document.createElement('img'), { src: tileUrl(ZOOM, x + dx, y + dy), alt: '', width: 256, height: 256, loading: 'lazy' });
-      img.style.left = `calc(50% + ${(dx * 256 - px).toFixed(1)}px)`;
-      img.style.top = `calc(50% + ${(dy * 256 - py).toFixed(1)}px)`;
-      tiles.append(img);
-    }
-  tiles.append(Object.assign(document.createElement('span'), { className: 'marker' }));
-  $('map').hidden = false;
+const sheetMap = createMap($('sheet-map'), { zoom: 16, minZoom: 12, maxZoom: 18, label: 'Carte de situation de l’adresse' });
+
+// Key figures: the first fact of a few blocks, repeated in large type.
+const KEYS: { block: string; tone: string }[] = [
+  { block: 'air', tone: 'grey' }, { block: 'internet', tone: 'yellow' }, { block: 'immobilier', tone: 'coral' },
+];
+const keyTile = (tone: string, label: string, value: string, id: string) => {
+  const a = Object.assign(document.createElement('a'), { className: `key key-${tone}`, href: `#bloc-${id}` });
+  a.addEventListener('click', (e) => { e.preventDefault(); document.getElementById(`bloc-${id}`)?.scrollIntoView({ behavior: 'smooth' }); });
+  a.append(Object.assign(document.createElement('span'), { className: 'key-label', textContent: label }),
+    Object.assign(document.createElement('strong'), { className: 'key-value', textContent: value }));
+  return a;
+};
+
+// Theme pills: each one shows or hides its block.
+const themePills = () => {
+  $('theme-pills').replaceChildren(...BLOCKS.map((b) => {
+    const pill = Object.assign(document.createElement('button'), { type: 'button', className: 'pill', textContent: b.title });
+    pill.setAttribute('aria-pressed', 'true');
+    pill.addEventListener('click', () => {
+      const on = pill.getAttribute('aria-pressed') !== 'true';
+      pill.setAttribute('aria-pressed', String(on));
+      const section = document.getElementById(`bloc-${b.id}`);
+      if (section) section.hidden = !on;
+    });
+    return pill;
+  }));
+  $('themes').hidden = false;
+};
+
+const onBlock = (b: Block, v: BlockView | null) => {
+  const key = KEYS.find((k) => k.block === b.id);
+  const tile = document.getElementById(`key-${b.id}`);
+  if (key && tile) {
+    const f = v?.facts[0];
+    tile.replaceWith(Object.assign(keyTile(key.tone, f ? `${b.title} : ${f.label}` : b.title, f?.value ?? 'Indisponible', b.id), { id: `key-${b.id}` }));
+  }
+  const pins: Marker[] = (v?.items ?? []).filter((i) => i.at).map((i) => ({ ...i.at!, label: `${b.title} : ${i.name}` }));
+  if (pins.length) sheetMap.addMarkers(pins);
 };
 
 const placeFor = async (point: Point): Promise<Place | undefined> => {
@@ -127,7 +157,7 @@ const showSheet = async (point: Point) => {
   title.textContent = 'Recherche de l’adresse…';
   meta.textContent = sheetStatus.textContent = '';
   $('blocks').replaceChildren();
-  $('map').hidden = true;
+  $('keys').hidden = $('themes').hidden = true;
   try {
     const place = await placeFor(point);
     if (!place) {
@@ -136,14 +166,18 @@ const showSheet = async (point: Point) => {
       return;
     }
     title.textContent = place.label;
-    showMap(place);
+    sheetMap.setView(place, 16);
+    sheetMap.setMarkers([{ ...place, label: place.label, kind: 'main' }]);
+    $('keys').replaceChildren(...KEYS.map((k) => Object.assign(keyTile(k.tone, BLOCKS.find((b) => b.id === k.block)!.title, '…', k.block), { id: `key-${k.block}` })));
+    $('keys').hidden = false;
+    themePills();
     document.title = `${place.label} · Mon adresse en données`;
     meta.textContent = `Commune : ${place.city} (INSEE ${place.citycode}). Précision de la localisation : ${precisionOf(place.type)}.`;
     mountBlocks($('blocks'), BLOCKS, {
       lat: place.lat, lon: place.lon, label: place.label,
       citycode: place.citycode, commune: communeCode(place.citycode), city: place.city,
       housenumber: place.housenumber, street: place.street,
-    });
+    }, onBlock);
   } catch {
     title.textContent = 'Adresse indisponible';
     sheetStatus.textContent = 'Le service d’adresses ne répond pas. Rechargez la page dans un instant.';

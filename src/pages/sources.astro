@@ -21,8 +21,10 @@ const SOURCES: Source[] = [
   { theme: 'Réseau mobile', name: 'Mon réseau mobile, cartes de couverture', producer: 'Arcep, à partir des déclarations des opérateurs', licence: 'Licence Ouverte 1.0', freshness: 'trimestrielle (4G), semestrielle (5G)', precision: 'carreau de 200 m', limits: 'Ce sont des simulations des opérateurs, pas des mesures. À l’intérieur des bâtiments, la couverture peut être moins bonne.', url: 'https://www.data.gouv.fr/datasets/mon-reseau-mobile' },
   { theme: 'Immobilier', name: 'Demandes de valeurs foncières (DVF) et Statistiques DVF', producer: 'DGFiP, Etalab', licence: 'Licence Ouverte 2.0', freshness: 'semestrielle, 5 dernières années', precision: 'commune (arrondissement à Paris, Lyon et Marseille)', limits: 'Pas de données en Alsace, en Moselle et à Mayotte. Une médiane cache de grandes différences entre rues. Aucune vente individuelle n’est affichée.', url: 'https://explore.data.gouv.fr/fr/immobilier' },
   { theme: 'Écoles', name: 'Annuaire de l’éducation', producer: 'ministère de l’Éducation nationale', licence: 'voir la source', freshness: 'quotidienne', precision: 'établissement géolocalisé', limits: 'L’école la plus proche n’est pas forcément celle de votre secteur.', url: 'https://data.education.gouv.fr/explore/dataset/fr-en-annuaire-education/' },
+  { theme: 'Écoles', name: 'Carte scolaire des collèges publics', producer: 'ministère de l’Éducation nationale (DGESCO), d’après les conseils départementaux', licence: 'Licence Ouverte 2.0', freshness: 'mise à jour du 2 février 2026', precision: 'adresse (plages de numéros par rue)', limits: 'Certaines adresses figurent dans deux secteurs : la fiche affiche alors les deux collèges. Aucune donnée nationale ne donne le secteur des écoles primaires, fixé par chaque mairie.', url: 'https://data.education.gouv.fr/explore/dataset/fr-en-carte-scolaire-colleges-publics/' },
   { theme: 'Santé', name: 'FINESS (pharmacies, services d’urgences)', producer: 'ministère de la Santé', licence: 'Licence Ouverte 1.0', freshness: 'extraction du 4 mai 2026', precision: 'établissement géolocalisé', limits: 'FINESS ne distingue pas les urgences adultes, pédiatriques et les antennes SMUR : le tri se fait sur le nom et peut se tromper.', url: 'https://www.data.gouv.fr/datasets/finess-extraction-du-fichier-des-etablissements' },
   { theme: 'Santé', name: 'Annuaire santé de l’Assurance Maladie (copie Opendatasoft)', producer: 'CNAM, copie publiée par Opendatasoft', licence: 'voir la source', freshness: 'copie du 25 juin 2026', precision: 'cabinet géolocalisé', limits: 'Copie faite par un tiers. Ne dit pas si un médecin accepte de nouveaux patients.', url: 'https://annuairesante.ameli.fr/' },
+  { theme: 'Commerces et services', name: 'Base permanente des équipements (BPE) 2025', producer: 'INSEE', licence: 'Licence Ouverte', freshness: 'annuelle (situation au 1er janvier 2025)', precision: 'équipement géolocalisé (seuls les points bien placés sont gardés)', limits: 'Une ouverture ou une fermeture récente peut manquer. Les noms des commerces ne sont pas repris. Pas de données exploitables à Mayotte.', url: 'https://www.insee.fr/fr/statistiques/8217525?sommaire=8217537' },
 ];
 ---
 <Base title="Sources et méthodologie" description="D’où viennent les données de Mon adresse en données, leur précision, leurs limites, et ce que le site fait de votre adresse.">
@@ -62,7 +64,7 @@ const SOURCES: Source[] = [
     ))}
 
     <h2>Données calculées à l’avance</h2>
-    <p>Quelques jeux sont trop lourds pour être interrogés depuis votre navigateur : historique des ventes immobilières, fibre par commune, couverture mobile, risques par commune. Des scripts publics les résument par département, et une tâche automatique propose leur mise à jour chaque mois ou chaque trimestre. Le code est ouvert : <a href={REPO}>{REPO.replace('https://', '')}</a>.</p>
+    <p>Quelques jeux sont trop lourds pour être interrogés depuis votre navigateur : historique des ventes immobilières, fibre par commune, couverture mobile, risques par commune, commerces et services. Des scripts publics les résument par département, et une tâche automatique propose leur mise à jour chaque mois ou chaque trimestre. Le code est ouvert : <a href={REPO}>{REPO.replace('https://', '')}</a>.</p>
 
     <h2>Contact</h2>
     <p>Une erreur, une source à ajouter ? <a href={`${REPO}/issues`}>Ouvrez un ticket sur GitHub</a>.</p>
@@ -70,12 +72,12 @@ const SOURCES: Source[] = [
 </Base>
 
 <style>
-  .prose { max-width: 46rem; }
+  .prose { max-width: 50rem; }
   .prose h2 { font-size: 1.35rem; margin: 2.5rem 0 0.75rem; }
   .prose li { margin-bottom: 0.5rem; }
   .source { border-top: 1px solid var(--line); padding: 1rem 0; }
   .source h3 { font-size: 1.05rem; margin: 0 0 0.5rem; }
-  .theme { display: block; font-size: 0.85rem; font-weight: 600; color: var(--accent); }
+  .theme { display: block; font-size: 0.85rem; font-weight: 600; color: var(--coral-deep); }
   .source dl { display: grid; grid-template-columns: max-content 1fr; gap: 0.25rem 1rem; margin: 0; font-size: 0.95rem; }
   .source dt { color: var(--muted); }
   .source dd { margin: 0; }

@@ -28,7 +28,7 @@ export const RADIUS_KM = 60;
 
 const point = ({ lat, lon }: { lat: number; lon: number }) => `geom'POINT(${lon} ${lat})'`;
 const select = (p: { lat: number; lon: number }) =>
-  `identifiant_de_l_etablissement,nom_etablissement,statut_public_prive,type_contrat_prive,nom_commune,ecole_maternelle,ecole_elementaire,voie_generale,voie_technologique,voie_professionnelle,date_maj_ligne,distance(position, ${point(p)}) as dist`;
+  `identifiant_de_l_etablissement,nom_etablissement,statut_public_prive,type_contrat_prive,nom_commune,ecole_maternelle,ecole_elementaire,voie_generale,voie_technologique,voie_professionnelle,date_maj_ligne,position,distance(position, ${point(p)}) as dist`;
 
 export const nearestUrl = (level: Level, p: { lat: number; lon: number }, limit: number) =>
   `${RECORDS}?${new URLSearchParams({
@@ -47,7 +47,7 @@ export const byIdsUrl = (ids: string[], p: { lat: number; lon: number }) =>
   })}`;
 
 export type School = {
-  id: string; name: string; sector: string; public: boolean; town: string; distance: number;
+  id: string; name: string; sector: string; public: boolean; town: string; distance: number; at?: { lat: number; lon: number };
   maternelle?: boolean; elementaire?: boolean; pro?: boolean; gt?: boolean; voies?: string; updated?: string;
 };
 
@@ -76,6 +76,7 @@ export const parseSchools = (level: Level, json: any): School[] =>
     public: r.statut_public_prive === 'Public',
     town: r.nom_commune,
     distance: r.dist,
+    ...(r.position ? { at: { lat: r.position.lat, lon: r.position.lon } } : {}),
     // A "primaire" has both flags set: it counts as a maternelle and as an élémentaire.
     ...(level === 'ecole' ? { maternelle: r.ecole_maternelle === 1, elementaire: r.ecole_elementaire === 1 } : {}),
     ...(level === 'lycee' ? { gt: r.voie_generale === '1' || r.voie_technologique === '1', pro: r.voie_professionnelle === '1' } : {}),
@@ -142,7 +143,7 @@ const NEAR_M = 1000;
 const MIN_PUBLIC = 5, MAX_PUBLIC = 10, MAX_PRIVATE = 4;
 
 const where = (s: School) => `${s.name} (${s.town})`;
-const item = (s: School, what?: string): Item => ({ name: s.name, detail: [what, s.sector, s.voies, s.town].filter(Boolean).join(', '), distance: s.distance });
+const item = (s: School, what?: string): Item => ({ name: s.name, detail: [what, s.sector, s.voies, s.town].filter(Boolean).join(', '), distance: s.distance, ...(s.at ? { at: s.at } : {}) });
 
 export type Lists = {
   /** Nearest écoles, public and private, nearest first. */

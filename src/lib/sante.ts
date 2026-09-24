@@ -103,7 +103,7 @@ export const nearbyFiness = async (kind: FinessKind, p: Point, get: (url: string
 
 export const finessDate = (json: any): string | undefined => json?.data?.find((r: any) => r.date_extract_finess)?.date_extract_finess;
 
-export const toItem = (p: Place, kind: string): Item => ({ name: p.name, detail: [kind, p.address].filter(Boolean).join(', '), distance: p.distance });
+export const toItem = (p: Place, kind: string): Item => ({ name: p.name, detail: [kind, p.address].filter(Boolean).join(', '), distance: p.distance, at: { lat: p.lat, lon: p.lon } });
 
 /** "2026-05-04" or an ISO timestamp → "04/05/2026". */
 export const frDate = (iso?: string) => iso && /^\d{4}-\d{2}-\d{2}/.test(iso) ? iso.slice(0, 10).split('-').reverse().join('/') : undefined;

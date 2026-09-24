@@ -26,7 +26,8 @@ export type Fact = {
   detail?: string;
 };
 
-export type Item = { name: string; detail?: string; distance?: number /* metres */; url?: string };
+/** `at` lets the sheet's map draw the item as a marker. */
+export type Item = { name: string; detail?: string; distance?: number /* metres */; url?: string; at?: { lat: number; lon: number } };
 
 export type BlockView = {
   /** 1 to 3 key facts. */

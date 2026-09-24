@@ -2,7 +2,7 @@
 
 [Français](README.fr.md)
 
-Type a French address and get a clear, sourced sheet about the place: natural and industrial risks, tap water, air, noise, fibre and mobile coverage, property prices, schools and health services. The data is open but scattered across a dozen sites; this project gathers it, explains it and cites the source of every figure.
+Type a French address and get a clear, sourced sheet about the place: natural and industrial risks, tap water, air, noise, fibre and mobile coverage, property prices, schools, health services and everyday shops. The data is open but scattered across a dozen sites; this project gathers it, explains it and cites the source of every figure.
 
 ## Principles
 

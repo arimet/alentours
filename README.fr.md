@@ -2,7 +2,7 @@
 
 [English](README.md)
 
-Tapez une adresse en France et obtenez une fiche claire et sourcée sur cet endroit : risques naturels et industriels, eau du robinet, air, bruit, fibre et réseau mobile, prix de l'immobilier, écoles et santé. Les données sont ouvertes mais éparpillées sur une dizaine de sites ; ce projet les rassemble, les explique et cite la source de chaque chiffre.
+Tapez une adresse en France et obtenez une fiche claire et sourcée sur cet endroit : risques naturels et industriels, eau du robinet, air, bruit, fibre et réseau mobile, prix de l'immobilier, écoles, santé et commerces. Les données sont ouvertes mais éparpillées sur une dizaine de sites ; ce projet les rassemble, les explique et cite la source de chaque chiffre.
 
 ## Principes
 

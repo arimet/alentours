@@ -38,7 +38,8 @@ const view = (v: BlockView) => {
   return frag;
 };
 
-export const mountBlocks = (container: HTMLElement, blocks: Block[], ctx: Context) => {
+/** `onDone` gets each block's view once loaded (null on error), for the key figures and the map. */
+export const mountBlocks = (container: HTMLElement, blocks: Block[], ctx: Context, onDone?: (b: Block, v: BlockView | null) => void) => {
   container.replaceChildren();
   for (const b of blocks) {
     const body = el('div', { className: 'block-body' }, skeleton());
@@ -47,8 +48,8 @@ export const mountBlocks = (container: HTMLElement, blocks: Block[], ctx: Contex
     container.append(section);
     // Each block loads on its own: a slow or failing source never blocks the others.
     b.load(ctx)
-      .then((v) => body.replaceChildren(view(v)))
-      .catch((e) => body.replaceChildren(el('p', { className: 'error' }, `Donnée indisponible pour l’instant : ${e instanceof Error ? e.message : 'erreur inconnue'}.`)))
+      .then((v) => { body.replaceChildren(view(v)); onDone?.(b, v); })
+      .catch((e) => { body.replaceChildren(el('p', { className: 'error' }, `Donnée indisponible pour l’instant : ${e instanceof Error ? e.message : 'erreur inconnue'}.`)); onDone?.(b, null); })
       .finally(() => section.removeAttribute('aria-busy'));
   }
 };
