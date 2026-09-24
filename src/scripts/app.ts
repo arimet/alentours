@@ -135,7 +135,7 @@ const renderKeys = () => {
 };
 
 // Themes drawn on the map come first; the others only scroll to their block below the map.
-const MAP_THEMES = ['schools', 'health', 'shops'];
+const MAP_THEMES = ['schools', 'health', 'shops', 'chargers'];
 const renderThemes = () => {
   $('themes-map-list').replaceChildren(...MAP_THEMES.map((id) => {
     const b = BLOCKS.find((x) => x.id === id)!, count = mapItems(id).length, active = id === activeTheme;
