@@ -1,10 +1,10 @@
-# Le Relevé
+# Alentours
 
 [English](README.md)
 
 **Ce que les données publiques disent de n'importe quelle adresse en France, avec la source de chaque chiffre.**
 
-Tapez une adresse et obtenez une fiche claire sur l'endroit : risques naturels et industriels, qualité de l'eau du robinet, qualité de l'air, bruit des aéroports, fibre et réseau mobile, prix de l'immobilier, écoles, santé et commerces du quotidien. Ces données sont ouvertes mais éparpillées sur une dizaine de sites officiels ; Le Relevé les rassemble, les explique simplement et relie chaque chiffre à sa source.
+Tapez une adresse et obtenez une fiche claire sur l'endroit : risques naturels et industriels, qualité de l'eau du robinet, qualité de l'air, bruit des aéroports, fibre et réseau mobile, prix de l'immobilier, écoles, santé et commerces du quotidien. Ces données sont ouvertes mais éparpillées sur une dizaine de sites officiels ; Alentours les rassemble, les explique simplement et relie chaque chiffre à sa source.
 
 Pour celles et ceux qui déménagent, achètent, louent, ou sont simplement curieux de leur quartier.
 

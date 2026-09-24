@@ -1,10 +1,10 @@
-# Le Relevé
+# Alentours
 
 [Français](README.fr.md)
 
 **What public data says about any address in France, with the source of every figure.**
 
-Type an address and get a clear sheet about the place: natural and industrial risks, tap water quality, air quality, airport noise, fibre and mobile coverage, property prices, nearby schools, health services and everyday shops. The data is open but scattered across a dozen official sites; Le Relevé gathers it, explains it in plain French and links every number to its source.
+Type an address and get a clear sheet about the place: natural and industrial risks, tap water quality, air quality, airport noise, fibre and mobile coverage, property prices, nearby schools, health services and everyday shops. The data is open but scattered across a dozen official sites; Alentours gathers it, explains it in plain French and links every number to its source.
 
 The site is in French, for people moving house, buying, renting, or simply curious about their neighbourhood.
 

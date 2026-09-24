@@ -1,12 +1,12 @@
 {
-  "name": "le-releve",
+  "name": "alentours",
   "description": "Type a French address, get a clear and sourced sheet about the place: risks, tap water, air, noise, fibre and mobile coverage, property prices, schools and health services.",
   "license": "MIT",
   "author": "Anthony Rimet (https://github.com/arimet)",
-  "homepage": "https://arimet.github.io/le-releve/",
+  "homepage": "https://arimet.github.io/alentours/",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/arimet/le-releve.git"
+    "url": "git+https://github.com/arimet/alentours.git"
   },
   "type": "module",
   "private": true,
