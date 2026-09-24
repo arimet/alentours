@@ -1,0 +1,36 @@
+name: Data DVF
+# Rebuilds public/data/dvf/ from the latest geo-dvf release and proposes it as a pull request.
+# DVF is published twice a year; a monthly run catches a release within a month, and opens no PR when nothing changed
+# (only _meta.generated would differ, so the script output is compared without it first).
+on:
+  schedule:
+    - cron: '0 4 3 * *'
+  workflow_dispatch:
+permissions:
+  contents: write
+  pull-requests: write
+concurrency:
+  group: data-dvf
+  cancel-in-progress: false
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+      - run: node scripts/dvf.mjs
+      - name: Ignore a change of the generation date alone
+        run: |
+          for f in $(git diff --name-only -- public/data/dvf); do
+            if diff <(git show "HEAD:$f" | sed 's/"generated":"[^"]*"//') <(sed 's/"generated":"[^"]*"//' "$f") > /dev/null; then git checkout -- "$f"; fi
+          done
+      - uses: peter-evans/create-pull-request@v8
+        with:
+          branch: data/dvf
+          commit-message: 'Données DVF : mise à jour des médianes annuelles'
+          title: 'Données DVF : mise à jour des médianes annuelles'
+          body: 'Généré par `scripts/dvf.mjs` à partir de https://files.data.gouv.fr/geo-dvf/latest/csv/ (workflow Data DVF).'
+          add-paths: public/data/dvf
+          delete-branch: true
