@@ -1,0 +1,84 @@
+---
+import Base from '../layouts/Base.astro';
+
+const REPO = 'https://github.com/arimet/mon-adresse-en-donnees';
+
+type Source = { theme: string; name: string; producer: string; licence: string; freshness: string; precision: string; limits: string; url: string };
+
+// Keep in sync with docs/sources.md and each block's `source` and `notes`.
+// Licences checked on 24/09/2026 through the data.gouv.fr API (fr-lo = Licence Ouverte 1.0, lov2 = 2.0).
+const SOURCES: Source[] = [
+  { theme: 'Adresse', name: 'Service de géocodage de la Géoplateforme (Base Adresse Nationale)', producer: 'IGN', licence: 'Licence Ouverte 2.0', freshness: 'quotidienne', precision: 'adresse, sinon rue ou commune (indiqué sur la fiche)', limits: 'Certains numéros manquent, surtout en zone rurale.', url: 'https://geoservices.ign.fr/documentation/services/services-geoplateforme/geocodage' },
+  { theme: 'Carte', name: 'Plan IGN', producer: 'IGN', licence: 'voir la source', freshness: 'continue', precision: 'carte au 1:10 000 environ', limits: '', url: 'https://geoservices.ign.fr/services-web-experts-cartes' },
+  { theme: 'Risques', name: 'API Géorisques', producer: 'BRGM, ministère de la Transition écologique', licence: 'Licence Ouverte 2.0', freshness: 'variable selon le risque', precision: 'au point pour les argiles, les inondations, les sites pollués et les installations classées ; à la commune pour la sismicité et le radon', limits: 'Le service est parfois indisponible : la fiche affiche alors les données à la commune ci-dessous.', url: 'https://www.georisques.gouv.fr/' },
+  { theme: 'Risques', name: 'Base GASPAR (risques et plans de prévention par commune)', producer: 'ministère de la Transition écologique', licence: 'Licence Ouverte 1.0', freshness: 'mensuelle', precision: 'commune', limits: 'Liste les risques connus de la commune, pas leur présence à votre adresse.', url: 'https://www.data.gouv.fr/datasets/base-nationale-de-gestion-assistee-des-procedures-administratives-relatives-aux-risques-gaspar' },
+  { theme: 'Risques', name: 'Potentiel radon des communes', producer: 'ASN (ex-IRSN)', licence: 'Licence Ouverte 1.0', freshness: '2019', precision: 'commune (arrondissement à Paris, Lyon et Marseille)', limits: 'Les communes fusionnées depuis 2019 peuvent manquer.', url: 'https://www.data.gouv.fr/datasets/connaitre-le-potentiel-radon-de-ma-commune' },
+  { theme: 'Eau du robinet', name: 'Hub’Eau, qualité de l’eau potable (contrôle sanitaire)', producer: 'ministère de la Santé, agences régionales de santé', licence: 'Licence Ouverte 2.0', freshness: 'mensuelle, avec 2 à 5 mois de retard sur les prélèvements', precision: 'réseau d’eau de la commune, jamais l’adresse', limits: 'Aucune donnée ne relie une adresse à un réseau : quand la commune en a plusieurs, la fiche montre le moins bon résultat.', url: 'https://www.data.gouv.fr/datasets/resultats-du-controle-sanitaire-de-leau-distribuee-commune-par-commune/' },
+  { theme: 'Air', name: 'Indice ATMO', producer: 'associations agréées de surveillance de la qualité de l’air, réseau Atmo France', licence: 'ODbL', freshness: 'quotidienne (le lendemain publié vers 14 h)', precision: 'commune', limits: 'Un indice du jour, pas l’exposition moyenne sur l’année.', url: 'https://www.atmo-france.org/' },
+  { theme: 'Bruit', name: 'Plans d’exposition au bruit et plans de gêne sonore des aéroports', producer: 'DGAC, via la Géoplateforme', licence: 'non précisée par le producteur', freshness: 'date de chaque arrêté', precision: 'zone', limits: 'Le bruit des routes et des voies ferrées n’est pas encore affiché.', url: 'https://www.geoportail.gouv.fr/donnees/plan-dexposition-au-bruit-peb' },
+  { theme: 'Internet fixe', name: 'Cartefibre et Ma connexion internet', producer: 'Arcep', licence: 'Licence Ouverte 1.0 (Cartefibre), 2.0 (Ma connexion internet)', freshness: 'trimestrielle', precision: 'commune (arrondissement pour la fibre à Paris, Lyon et Marseille)', limits: 'Ne dit pas si votre logement est raccordable : la fiche renvoie vers la carte de l’Arcep à l’adresse.', url: 'https://www.data.gouv.fr/datasets/ma-connexion-internet' },
+  { theme: 'Internet fixe', name: 'Calendrier de fermeture du réseau cuivre', producer: 'ministère de l’Économie, d’après Orange', licence: 'Licence Ouverte 2.0', freshness: 'ponctuelle', precision: 'commune', limits: '', url: 'https://www.data.gouv.fr/datasets/fermeture-du-reseau-cuivre' },
+  { theme: 'Réseau mobile', name: 'Mon réseau mobile, cartes de couverture', producer: 'Arcep, à partir des déclarations des opérateurs', licence: 'Licence Ouverte 1.0', freshness: 'trimestrielle (4G), semestrielle (5G)', precision: 'carreau de 200 m', limits: 'Ce sont des simulations des opérateurs, pas des mesures. À l’intérieur des bâtiments, la couverture peut être moins bonne.', url: 'https://www.data.gouv.fr/datasets/mon-reseau-mobile' },
+  { theme: 'Immobilier', name: 'Demandes de valeurs foncières (DVF) et Statistiques DVF', producer: 'DGFiP, Etalab', licence: 'Licence Ouverte 2.0', freshness: 'semestrielle, 5 dernières années', precision: 'commune (arrondissement à Paris, Lyon et Marseille)', limits: 'Pas de données en Alsace, en Moselle et à Mayotte. Une médiane cache de grandes différences entre rues. Aucune vente individuelle n’est affichée.', url: 'https://explore.data.gouv.fr/fr/immobilier' },
+  { theme: 'Écoles', name: 'Annuaire de l’éducation', producer: 'ministère de l’Éducation nationale', licence: 'voir la source', freshness: 'quotidienne', precision: 'établissement géolocalisé', limits: 'L’école la plus proche n’est pas forcément celle de votre secteur.', url: 'https://data.education.gouv.fr/explore/dataset/fr-en-annuaire-education/' },
+  { theme: 'Santé', name: 'FINESS (pharmacies, services d’urgences)', producer: 'ministère de la Santé', licence: 'Licence Ouverte 1.0', freshness: 'extraction du 4 mai 2026', precision: 'établissement géolocalisé', limits: 'FINESS ne distingue pas les urgences adultes, pédiatriques et les antennes SMUR : le tri se fait sur le nom et peut se tromper.', url: 'https://www.data.gouv.fr/datasets/finess-extraction-du-fichier-des-etablissements' },
+  { theme: 'Santé', name: 'Annuaire santé de l’Assurance Maladie (copie Opendatasoft)', producer: 'CNAM, copie publiée par Opendatasoft', licence: 'voir la source', freshness: 'copie du 25 juin 2026', precision: 'cabinet géolocalisé', limits: 'Copie faite par un tiers. Ne dit pas si un médecin accepte de nouveaux patients.', url: 'https://annuairesante.ameli.fr/' },
+];
+---
+<Base title="Sources et méthodologie" description="D’où viennent les données de Mon adresse en données, leur précision, leurs limites, et ce que le site fait de votre adresse.">
+  <main class="prose">
+    <h1>Sources et méthodologie</h1>
+    <p class="lede">Chaque chiffre de la fiche vient d’une source publique, citée sur la fiche avec sa date et sa précision. Cette page les rassemble.</p>
+
+    <h2>Principes</h2>
+    <ul>
+      <li><strong>Pas de note globale.</strong> Un score « quartier 7 sur 10 » mélangerait des choses qui ne se comparent pas. La fiche montre des indicateurs expliqués.</li>
+      <li><strong>La précision est toujours indiquée</strong> : à l’adresse, au carreau de 200 m, au réseau d’eau, à la commune. Une donnée communale ne dit rien de votre rue.</li>
+      <li><strong>Les seuils viennent des textes</strong> : limites de qualité de l’eau (arrêté du 11 janvier 2007), indice ATMO (arrêté du 10 juillet 2020), zones sismiques et radon (code de l’environnement), zones de bruit (code de l’urbanisme).</li>
+      <li><strong>Les distances sont à vol d’oiseau</strong>, pas par la route.</li>
+    </ul>
+
+    <h2>Vie privée</h2>
+    <ul>
+      <li>L’adresse que vous tapez part seulement au service de géocodage de l’IGN. Les coordonnées obtenues partent ensuite aux services publics listés ci-dessous. Rien n’arrive sur un serveur à nous : ce site n’en a pas.</li>
+      <li>Le lieu est gardé dans la partie de l’adresse web après le <code>#</code>. Votre navigateur ne l’envoie à aucun serveur, ni à l’outil de mesure d’audience.</li>
+      <li>La mesure d’audience (GoatCounter) ne dépose aucun cookie et compte seulement les pages vues, sans le lieu consulté.</li>
+      <li>Pour limiter les appels, les réponses sont gardées dans votre navigateur le temps de l’onglet, puis effacées.</li>
+    </ul>
+
+    <h2>Les sources</h2>
+    {SOURCES.map((s) => (
+      <section class="source">
+        <h3><span class="theme">{s.theme}</span> {s.name}</h3>
+        <dl>
+          <dt>Producteur</dt><dd>{s.producer}</dd>
+          <dt>Licence</dt><dd>{s.licence}</dd>
+          <dt>Mise à jour</dt><dd>{s.freshness}</dd>
+          <dt>Précision</dt><dd>{s.precision}</dd>
+          {s.limits && <><dt>Limites</dt><dd>{s.limits}</dd></>}
+        </dl>
+        <p><a href={s.url} rel="noopener">Voir la source officielle</a></p>
+      </section>
+    ))}
+
+    <h2>Données calculées à l’avance</h2>
+    <p>Quelques jeux sont trop lourds pour être interrogés depuis votre navigateur : historique des ventes immobilières, fibre par commune, couverture mobile, risques par commune. Des scripts publics les résument par département, et une tâche automatique propose leur mise à jour chaque mois ou chaque trimestre. Le code est ouvert : <a href={REPO}>{REPO.replace('https://', '')}</a>.</p>
+
+    <h2>Contact</h2>
+    <p>Une erreur, une source à ajouter ? <a href={`${REPO}/issues`}>Ouvrez un ticket sur GitHub</a>.</p>
+  </main>
+</Base>
+
+<style>
+  .prose { max-width: 46rem; }
+  .prose h2 { font-size: 1.35rem; margin: 2.5rem 0 0.75rem; }
+  .prose li { margin-bottom: 0.5rem; }
+  .source { border-top: 1px solid var(--line); padding: 1rem 0; }
+  .source h3 { font-size: 1.05rem; margin: 0 0 0.5rem; }
+  .theme { display: block; font-size: 0.85rem; font-weight: 600; color: var(--accent); }
+  .source dl { display: grid; grid-template-columns: max-content 1fr; gap: 0.25rem 1rem; margin: 0; font-size: 0.95rem; }
+  .source dt { color: var(--muted); }
+  .source dd { margin: 0; }
+  .source p { margin: 0.5rem 0 0; }
+  @media (max-width: 30rem) { .source dl { grid-template-columns: 1fr; } .source dd { margin-bottom: 0.4rem; } }
+</style>

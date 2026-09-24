@@ -5,7 +5,7 @@ export type Urgence = 'generale' | 'pediatrique' | 'smur';
 export type Place = Point & { name: string; address: string; distance: number; detail?: string; urgence?: Urgence };
 
 export const FINESS_URL = 'https://www.data.gouv.fr/fr/datasets/referentiel-finess-t-finess/';
-export const AMELI_URL = 'https://www.data.gouv.fr/fr/datasets/annuaire-sante-de-la-cnam/';
+export const AMELI_URL = 'https://annuairesante.ameli.fr/';
 const FINESS_API = 'https://tabular-api.data.gouv.fr/api/resources/796dfff7-cf54-493a-a0a7-ba3c2024c6f3/data/';
 const ODS = 'https://public.opendatasoft.com/api/explore/v2.1/catalog/datasets/annuaire-des-professionnels-de-sante';
 export const AMELI_META_URL = ODS;
